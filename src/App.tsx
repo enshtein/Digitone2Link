@@ -20,6 +20,7 @@ import {
 import type { DeviceCatalog, MidiPort, Pack, ScanResult, Settings } from "./types";
 
 const BANKS = [..."ABCDEFGH"];
+const PRESETS_PER_BANK = 256;
 const views = [
   { id: "presets", label: "Presets", icon: Library },
   { id: "packs", label: "Sound Packs", icon: Archive },
@@ -194,6 +195,9 @@ export default function App() {
     const matchesTags = tagFilters.length === 0 || Boolean(local?.tags.some((tag) => tagFilters.includes(tag)));
     return matchesName && matchesPack && matchesTags;
   });
+  const presetCapacity = visibleBanks.length * PRESETS_PER_BANK;
+  const freePresetSlots = Math.max(0, presetCapacity - bankPresetRows.length);
+  const filtersActive = Boolean(presetFilter || soundPackFilters.length || tagFilters.length);
 
   function selectBank(next: string) {
     setBank(next);
@@ -227,7 +231,7 @@ export default function App() {
       <main className="mx-auto w-full max-w-[1500px] px-6 py-7">
         {view === "presets" && (
           <section>
-            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => selectBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => selectBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
+            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => selectBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => selectBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><div className="flex items-center gap-4 whitespace-nowrap text-xs text-slate-500">{filtersActive && <span>Shown: <strong className="ml-1 font-semibold text-emerald-300">{presetRows.length}</strong></span>}<span>Presets: <strong className="ml-1 font-semibold text-slate-300">{bankPresetRows.length}</strong></span><span>Free: <strong className="ml-1 font-semibold text-slate-300">{freePresetSlots}</strong></span></div></div>
             <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} values={soundPackFilters} onFilter={setSoundPackFilters}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} values={soundPackFilters} onFilter={setSoundPackFilters}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
