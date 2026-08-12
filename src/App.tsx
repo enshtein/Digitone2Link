@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
@@ -10,6 +10,7 @@ import {
   Library,
   LoaderCircle,
   RefreshCw,
+  Search,
   Settings as SettingsIcon,
   Tags,
   Usb,
@@ -46,6 +47,7 @@ export default function App() {
   const [message, setMessage] = useState("Ready");
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
   const [emptyOnly, setEmptyOnly] = useState(false);
+  const [presetFilter, setPresetFilter] = useState("");
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
   const selectedDevice = midiInputs.find((port) => port.index === selectedInput);
@@ -168,7 +170,7 @@ export default function App() {
       ? catalog.banks.find((item) => item.bank === bankName)?.presets ?? []
       : data?.banks[bankName] ?? [];
     return presets.map((preset) => ({ bank: bankName, preset }));
-  });
+  }).filter(({ preset }) => preset.name.toLocaleLowerCase().includes(presetFilter.toLocaleLowerCase()));
 
   return (
     <div className="min-h-screen bg-canvas pb-10 text-slate-100">
@@ -197,7 +199,7 @@ export default function App() {
         {view === "presets" && (
           <section>
             <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => setBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
-            <Table headers={bank === "ALL" ? ["Bank", "Slot", "Preset", "Sync", "Sound pack(s)", "Tags"] : ["Slot", "Preset", "Sync", "Sound pack(s)", "Tags"]}>
+            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", "Sound pack(s)", "Tags"] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", "Sound pack(s)", "Tags"]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
@@ -238,7 +240,30 @@ export default function App() {
   );
 }
 
-function Table({ headers, children }: { headers: string[]; children: React.ReactNode }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className="w-full border-collapse"><thead><tr>{headers.map((header) => <th key={header}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
+function Table({ headers, children }: { headers: React.ReactNode[]; children: React.ReactNode }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className="w-full border-collapse"><thead><tr>{headers.map((header, index) => <th key={index}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
+function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (value: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState(value);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  function update(next: string) {
+    setText(next);
+    const query = next.trim();
+    if (query.length >= 3 || query.length === 0) onFilter(query);
+  }
+
+  function close() {
+    setOpen(false);
+    setText("");
+    onFilter("");
+  }
+
+  return <div className="relative inline-flex items-center gap-1.5">Preset<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Search presets" onClick={() => setOpen((current) => !current)}><Search size={13}/></button>{open && <div className="header-search-popover"><Search size={15} className="shrink-0 text-slate-500"/><input ref={inputRef} value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") onFilter(text.trim()); if (event.key === "Escape") close(); }} placeholder="Preset name…"/><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={close}><X size={14}/></button></div>}</div>;
+}
 function SettingSelect({ label, ports, value, onChange }: { label: string; ports: MidiPort[]; value: number | null; onChange: (value: number) => void }) { return <label className="mt-5 block text-sm text-slate-400">{label}<select className="field mt-2" value={value ?? ""} onChange={(event) => onChange(Number(event.target.value))}>{ports.length ? ports.map((port) => <option key={port.index} value={port.index}>{port.name}</option>) : <option value="">No MIDI ports found</option>}</select></label>; }
 function FolderSetting({ label, value, onClick }: { label: string; value: string | null; onClick: () => void }) { return <div className="mt-5"><span className="text-sm text-slate-400">{label}</span><button className="field mt-2 flex items-center justify-between gap-4 text-left" onClick={onClick}><span className="truncate">{value ?? "Choose folder…"}</span><FolderOpen size={16} className="shrink-0 text-slate-500"/></button></div>; }
 function Onboarding({ discovering, inputs, outputs, selectedInput, selectedOutput, onInput, onOutput, foldersReady, syncing, onRefresh, onClose, onSync, onSettings }: { discovering: boolean; inputs: MidiPort[]; outputs: MidiPort[]; selectedInput: number | null; selectedOutput: number | null; onInput: (value: number) => void; onOutput: (value: number) => void; foldersReady: boolean; syncing: boolean; onRefresh: () => void; onClose: () => void; onSync: () => void; onSettings: () => void }) {
