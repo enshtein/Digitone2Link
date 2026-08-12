@@ -33,10 +33,14 @@
   .tag-filter-option input { @apply sr-only; }
   .preset-tags { @apply flex flex-wrap gap-1; }
   .preset-tag { @apply inline-flex rounded-full border border-white/[.08] bg-white/[.03] px-2 py-1 text-[11px] leading-none text-slate-400; }
-  .tag-cloud { @apply relative mx-auto flex min-h-[650px] max-w-5xl flex-col items-center justify-around gap-2 border border-emerald-400/10 px-16 py-14 shadow-2xl shadow-black/20; border-radius: 50%; background: radial-gradient(circle at 45% 42%, rgba(52, 211, 153, .08), rgba(16, 20, 26, .94) 52%, rgba(10, 13, 17, .98) 76%); }
+  .tag-cloud { @apply relative mx-auto flex min-h-[650px] max-w-5xl flex-col items-center justify-center gap-1 border border-emerald-400/10 px-16 py-14 shadow-2xl shadow-black/20; border-radius: 50%; background: radial-gradient(circle at 45% 42%, rgba(52, 211, 153, .08), rgba(16, 20, 26, .94) 52%, rgba(10, 13, 17, .98) 76%); }
   .tag-cloud::before { content: ""; @apply pointer-events-none absolute inset-[8%] rounded-full border border-white/[.035]; }
-  .tag-cloud-row { @apply relative z-10 flex flex-wrap items-center justify-center gap-2; }
+  .tag-cloud-row { @apply relative z-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1; }
+  .tag-cloud-row:nth-child(odd) { left: -1.5%; }
+  .tag-cloud-row:nth-child(even) { left: 1.5%; }
   .tag-cloud-item { @apply relative z-10 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border font-semibold leading-none text-emerald-100 transition duration-200 hover:z-20 hover:scale-110 hover:border-emerald-300/50 hover:text-white; }
+  .tag-cloud-item:nth-child(3n) { top: -3px; }
+  .tag-cloud-item:nth-child(3n + 1) { top: 3px; }
   .tag-cloud-item small { @apply font-medium text-emerald-400/60; font-size: .65em; }
   .sync-ok { @apply inline-flex items-center gap-1 rounded-full bg-emerald-400/10 px-2 py-1 text-xs font-medium text-emerald-300; }
   .section-label { @apply mt-7 text-xs font-semibold uppercase tracking-wider text-slate-500; }
