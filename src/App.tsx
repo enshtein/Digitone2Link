@@ -169,6 +169,7 @@ export default function App() {
   }, [data]);
   const largestTagCount = tagCounts[0]?.[1] ?? 0;
   const smallestTagCount = tagCounts[tagCounts.length - 1]?.[1] ?? 0;
+  const tagCloudRows = useMemo(() => buildTagCloudRows(tagCounts), [tagCounts]);
 
   const visibleBanks = bank === "ALL" ? BANKS : [bank];
   const bankPresetRows = visibleBanks.flatMap((bankName) => {
@@ -254,7 +255,7 @@ export default function App() {
           </section>
         )}
 
-        {view === "tags" && <section>{tagCounts.length ? <div className="tag-cloud">{tagCounts.map(([tag, count]) => { const range = largestTagCount - smallestTagCount; const weight = range ? Math.sqrt((count - smallestTagCount) / range) : 0.5; return <span key={tag} className="tag-cloud-item" style={{ fontSize: `${11 + weight * 13}px`, padding: `${5 + weight * 4}px ${9 + weight * 6}px`, opacity: 0.65 + weight * 0.35, borderColor: `rgba(52, 211, 153, ${0.12 + weight * 0.28})`, backgroundColor: `rgba(52, 211, 153, ${0.025 + weight * 0.09})` }}><span>{tag}</span><small>{count}</small></span>; })}</div> : <div className="surface p-10 text-center text-sm text-slate-500">No tags found. Synchronize and scan your preset library first.</div>}</section>}
+        {view === "tags" && <section>{tagCounts.length ? <div className="tag-cloud">{tagCloudRows.map((row, rowIndex) => <div key={rowIndex} className="tag-cloud-row" style={{ width: `${row.width}%` }}>{row.tags.map(([tag, count]) => { const range = largestTagCount - smallestTagCount; const weight = range ? Math.sqrt((count - smallestTagCount) / range) : 0.5; return <span key={tag} className="tag-cloud-item" style={{ fontSize: `${11 + weight * 13}px`, padding: `${5 + weight * 4}px ${9 + weight * 6}px`, opacity: 0.65 + weight * 0.35, borderColor: `rgba(52, 211, 153, ${0.12 + weight * 0.28})`, backgroundColor: `rgba(52, 211, 153, ${0.025 + weight * 0.09})` }}><span>{tag}</span><small>{count}</small></span>; })}</div>)}</div> : <div className="surface p-10 text-center text-sm text-slate-500">No tags found. Synchronize and scan your preset library first.</div>}</section>}
 
         {view === "settings" && (
           <section>
@@ -276,6 +277,28 @@ export default function App() {
 }
 
 function Table({ headers, children }: { headers: React.ReactNode[]; children: React.ReactNode }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className="w-full border-collapse"><thead><tr>{headers.map((header, index) => <th key={index}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
+function buildTagCloudRows(tags: [string, number][]) {
+  const rowCount = tags.length > 48 ? 9 : 7;
+  const middle = (rowCount - 1) / 2;
+  const widths = Array.from({ length: rowCount }, (_, index) => {
+    const position = (index - middle) / (middle + 0.7);
+    return Math.round(Math.sqrt(1 - position * position) * 94);
+  });
+  const totalWidth = widths.reduce((sum, width) => sum + width, 0);
+  const counts = widths.map((width) => Math.floor(tags.length * width / totalWidth));
+  for (let remaining = tags.length - counts.reduce((sum, count) => sum + count, 0); remaining > 0; remaining -= 1) {
+    const index = Array.from({ length: rowCount }, (_, row) => row).sort((a, b) => Math.abs(a - middle) - Math.abs(b - middle))[remaining % rowCount];
+    counts[index] += 1;
+  }
+  const rows = counts.map(() => [] as [string, number][]);
+  const fillOrder = Array.from({ length: rowCount }, (_, index) => index).sort((a, b) => Math.abs(a - middle) - Math.abs(b - middle));
+  let cursor = 0;
+  fillOrder.forEach((row) => {
+    rows[row] = tags.slice(cursor, cursor + counts[row]);
+    cursor += counts[row];
+  });
+  return rows.map((row, index) => ({ tags: row, width: widths[index] }));
+}
 function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (value: string) => void }) {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState(value);
