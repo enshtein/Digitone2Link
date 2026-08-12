@@ -1,3 +1,37 @@
-@tailwind base; @tailwind components; @tailwind utilities;
-@layer base { body { @apply m-0 bg-ink text-slate-100 antialiased; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } button { @apply cursor-pointer; } }
-@layer components { .card { @apply rounded-2xl border border-line/70 bg-panel/80 shadow-xl shadow-black/20; } .nav { @apply flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white; } .nav-active { @apply bg-accent text-ink hover:bg-accent hover:text-ink; } .btn { @apply rounded-xl bg-accent px-4 py-2 font-semibold text-ink transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40; } .muted { @apply text-sm text-slate-400; } th { @apply sticky top-0 bg-[#10251b] px-4 py-3 text-left text-xs uppercase tracking-wider text-mint; } td { @apply border-t border-white/5 px-4 py-3 text-sm; } }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply m-0 bg-[#0a0d11] text-slate-100 antialiased; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+  button { @apply cursor-pointer; }
+  button:disabled { @apply cursor-not-allowed opacity-40; }
+  th { @apply sticky top-0 z-10 border-b border-white/[.07] bg-[#12161c] px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-[.12em] text-slate-500; }
+  td { @apply border-t border-white/[.05] px-5 py-3.5 text-sm text-slate-400; }
+}
+
+@layer components {
+  .bg-canvas { background: radial-gradient(circle at 50% -20%, #15231f 0, #0a0d11 38%); }
+  .topbar { @apply sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-white/[.07] bg-[#0b0e12]/90 px-6 backdrop-blur-xl; }
+  .topnav { @apply flex items-center gap-1; }
+  .topnav-item { @apply flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium text-slate-500 transition hover:bg-white/[.04] hover:text-slate-200; }
+  .topnav-active { @apply bg-white/[.07] text-white shadow-sm; }
+  .status-dot { @apply h-2 w-2 shrink-0 rounded-full; }
+  .icon-button { @apply rounded-lg border border-white/[.07] bg-white/[.03] p-2 text-slate-500 transition hover:bg-white/[.07] hover:text-white; }
+  .surface { @apply rounded-xl border border-white/[.07] bg-[#10141a]/90 shadow-2xl shadow-black/10; }
+  .primary-button { @apply inline-flex items-center gap-2 rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-[#07110d] transition hover:bg-emerald-300; }
+  .secondary-button { @apply inline-flex items-center gap-2 rounded-lg border border-white/[.08] bg-white/[.03] px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/[.07] hover:text-white; }
+  .bank-tab { @apply h-9 min-w-10 rounded-lg border border-transparent px-3 text-sm font-semibold text-slate-600 transition hover:bg-white/[.04] hover:text-slate-300; }
+  .bank-tab-active { @apply border-emerald-400/30 bg-emerald-400/10 text-emerald-300; }
+  .sync-ok { @apply inline-flex items-center gap-1 rounded-full bg-emerald-400/10 px-2 py-1 text-xs font-medium text-emerald-300; }
+  .section-label { @apply mt-7 text-xs font-semibold uppercase tracking-wider text-slate-500; }
+  .settings-title { @apply flex items-center gap-2 text-base font-semibold text-white; }
+  .field { @apply w-full rounded-lg border border-white/[.08] bg-[#0b0e12] px-3.5 py-3 text-sm text-slate-300 outline-none transition hover:border-white/[.14] focus:border-emerald-400/50; }
+  .modal-backdrop { @apply fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-md; }
+  .modal-panel { @apply relative w-full max-w-md rounded-2xl border border-white/[.1] bg-[#11161b] p-8 text-center shadow-2xl shadow-black/60; }
+  .modal-icon { @apply mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300; }
+  .modal-title { @apply mt-2 text-2xl font-semibold tracking-tight text-white; }
+  .modal-copy { @apply mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-500; }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[.16em] text-emerald-400; }
+  .onboarding-step { @apply flex items-center gap-3 rounded-lg border border-white/[.06] bg-white/[.025] px-4 py-3 text-left text-sm text-slate-400; }
+}

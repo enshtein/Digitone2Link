@@ -11,7 +11,13 @@ fn hex(message: &[u8]) -> String {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     use midir::os::unix::{VirtualInput, VirtualOutput};
     use midir::{Ignore, MidiInput, MidiOutput};
-    use std::sync::{Arc, Mutex};
+    use std::{
+        fs::File,
+        io::Write,
+        sync::{Arc, Mutex},
+    };
+
+    let log = Arc::new(Mutex::new(File::create("/tmp/digitone-midi-rpc.log")?));
 
     let physical_output = MidiOutput::new("DP RPC Proxy physical output")?;
     let output_ports = physical_output.ports();
@@ -30,10 +36,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut virtual_destination = MidiInput::new("DP RPC Proxy virtual destination")?;
     virtual_destination.ignore(Ignore::None);
     let destination_output = Arc::clone(&to_device);
+    let request_log = Arc::clone(&log);
     let _from_transfer = virtual_destination.create_virtual(
         "DP RPC Proxy IN",
         move |_stamp, message, _| {
             println!("REQUEST  {}", hex(message));
+            if let Ok(mut log) = request_log.lock() {
+                let _ = writeln!(log, "REQUEST {}", hex(message));
+            }
             if let Ok(mut output) = destination_output.lock() {
                 let _ = output.send(message);
             }
@@ -58,11 +68,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         })
         .ok_or("No physical Digitone MIDI input was found")?;
     let source_output = Arc::clone(&to_transfer);
+    let response_log = Arc::clone(&log);
     let _from_device = physical_input.connect(
         input_port,
         "dp-rpc-proxy-from-device",
         move |_stamp, message, _| {
             println!("RESPONSE {}", hex(message));
+            if let Ok(mut log) = response_log.lock() {
+                let _ = writeln!(log, "RESPONSE {}", hex(message));
+            }
             if let Ok(mut output) = source_output.lock() {
                 let _ = output.send(message);
             }
@@ -71,6 +85,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
 
     println!("Proxy ready: Transfer IN = DP RPC Proxy OUT; OUT = DP RPC Proxy IN");
+    println!("Full traffic log: /tmp/digitone-midi-rpc.log");
     loop {
         std::thread::park();
     }
