@@ -7,6 +7,7 @@ import {
   Check,
   ChevronRight,
   FolderOpen,
+  ListFilter,
   Library,
   LoaderCircle,
   RefreshCw,
@@ -48,6 +49,7 @@ export default function App() {
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
   const [emptyOnly, setEmptyOnly] = useState(false);
   const [presetFilter, setPresetFilter] = useState("");
+  const [soundPackFilter, setSoundPackFilter] = useState("");
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
   const selectedDevice = midiInputs.find((port) => port.index === selectedInput);
@@ -165,12 +167,27 @@ export default function App() {
   }, [data]);
 
   const visibleBanks = bank === "ALL" ? BANKS : [bank];
-  const presetRows = visibleBanks.flatMap((bankName) => {
+  const bankPresetRows = visibleBanks.flatMap((bankName) => {
     const presets = catalog
       ? catalog.banks.find((item) => item.bank === bankName)?.presets ?? []
       : data?.banks[bankName] ?? [];
     return presets.map((preset) => ({ bank: bankName, preset }));
-  }).filter(({ preset }) => preset.name.toLocaleLowerCase().includes(presetFilter.toLocaleLowerCase()));
+  });
+  const availableSoundPacks = Array.from(new Set(bankPresetRows.flatMap(({ bank: rowBank, preset }) => {
+    const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
+    return local ? [...local.exactPacks, ...local.nameOnlyPacks] : [];
+  }))).sort((a, b) => a.localeCompare(b));
+  const presetRows = bankPresetRows.filter(({ bank: rowBank, preset }) => {
+    const matchesName = preset.name.toLocaleLowerCase().includes(presetFilter.toLocaleLowerCase());
+    if (!matchesName || !soundPackFilter) return matchesName;
+    const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
+    return Boolean(local && [...local.exactPacks, ...local.nameOnlyPacks].includes(soundPackFilter));
+  });
+
+  function selectBank(next: string) {
+    setBank(next);
+    setSoundPackFilter("");
+  }
 
   return (
     <div className="min-h-screen bg-canvas pb-10 text-slate-100">
@@ -198,8 +215,8 @@ export default function App() {
       <main className="mx-auto w-full max-w-[1500px] px-6 py-7">
         {view === "presets" && (
           <section>
-            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => setBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
-            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", "Sound pack(s)", "Tags"] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", "Sound pack(s)", "Tags"]}>
+            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => selectBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => selectBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
+            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, "Tags"] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, "Tags"]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
@@ -263,6 +280,10 @@ function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (val
   }
 
   return <div><div className="inline-flex items-center gap-1.5">Preset<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Search presets" onClick={() => setOpen((current) => !current)}><Search size={13}/></button></div>{open && <div className="header-search-popover"><Search size={15} className="shrink-0 text-slate-500"/><input ref={inputRef} value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") onFilter(text.trim()); if (event.key === "Escape") close(); }} placeholder="Preset name…"/><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={close}><X size={14}/></button></div>}</div>;
+}
+function SoundPackFilterHeader({ options, value, onFilter }: { options: string[]; value: string; onFilter: (value: string) => void }) {
+  const [open, setOpen] = useState(false);
+  return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Filter by sound pack" onClick={() => setOpen((current) => !current)}><ListFilter size={13}/></button></div>{open && <div className="header-filter-panel"><select value={value} onChange={(event) => onFilter(event.target.value)}><option value="">All sound packs</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
 }
 function SettingSelect({ label, ports, value, onChange }: { label: string; ports: MidiPort[]; value: number | null; onChange: (value: number) => void }) { return <label className="mt-5 block text-sm text-slate-400">{label}<select className="field mt-2" value={value ?? ""} onChange={(event) => onChange(Number(event.target.value))}>{ports.length ? ports.map((port) => <option key={port.index} value={port.index}>{port.name}</option>) : <option value="">No MIDI ports found</option>}</select></label>; }
 function FolderSetting({ label, value, onClick }: { label: string; value: string | null; onClick: () => void }) { return <div className="mt-5"><span className="text-sm text-slate-400">{label}</span><button className="field mt-2 flex items-center justify-between gap-4 text-left" onClick={onClick}><span className="truncate">{value ?? "Choose folder…"}</span><FolderOpen size={16} className="shrink-0 text-slate-500"/></button></div>; }
