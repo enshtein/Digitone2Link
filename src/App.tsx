@@ -6,8 +6,8 @@ import {
   Archive,
   Check,
   ChevronRight,
+  Filter,
   FolderOpen,
-  ListFilter,
   Library,
   LoaderCircle,
   RefreshCw,
@@ -283,7 +283,7 @@ function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (val
 }
 function SoundPackFilterHeader({ options, value, onFilter }: { options: string[]; value: string; onFilter: (value: string) => void }) {
   const [open, setOpen] = useState(false);
-  return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Filter by sound pack" onClick={() => setOpen((current) => !current)}><ListFilter size={13}/></button></div>{open && <div className="header-filter-panel"><select value={value} onChange={(event) => onFilter(event.target.value)}><option value="">All sound packs</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
+  return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Filter by sound pack" onClick={() => setOpen((current) => !current)}><Filter size={13}/></button></div>{open && <div className="header-filter-panel"><select value={value} onChange={(event) => onFilter(event.target.value)}><option value="">All sound packs</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
 }
 function SettingSelect({ label, ports, value, onChange }: { label: string; ports: MidiPort[]; value: number | null; onChange: (value: number) => void }) { return <label className="mt-5 block text-sm text-slate-400">{label}<select className="field mt-2" value={value ?? ""} onChange={(event) => onChange(Number(event.target.value))}>{ports.length ? ports.map((port) => <option key={port.index} value={port.index}>{port.name}</option>) : <option value="">No MIDI ports found</option>}</select></label>; }
 function FolderSetting({ label, value, onClick }: { label: string; value: string | null; onClick: () => void }) { return <div className="mt-5"><span className="text-sm text-slate-400">{label}</span><button className="field mt-2 flex items-center justify-between gap-4 text-left" onClick={onClick}><span className="truncate">{value ?? "Choose folder…"}</span><FolderOpen size={16} className="shrink-0 text-slate-500"/></button></div>; }
