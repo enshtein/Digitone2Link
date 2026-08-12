@@ -39,6 +39,10 @@ SysEx messages as `.syx` files in the application's data directory. This first
 integration is deliberately read-only: it does not send MIDI or modify the
 instrument.
 
+The same screen can also query the Digitone II data catalog directly. **Read
+banks from device** uses the read-only Elektron `DataList` RPC to display preset
+banks A–H without requiring any action in the instrument's SysEx Dump menu.
+
 1. Connect the Digitone II over USB and select `USB MIDI` or `USB AUDIO/MIDI`.
 2. Open **Device**, refresh the ports, select the Digitone input, and click
    **Listen for SysEx**.

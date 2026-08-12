@@ -1,4 +1,4 @@
-use midir::{Ignore, MidiInput, MidiInputConnection};
+use midir::{Ignore, MidiInput, MidiInputConnection, MidiOutput};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
@@ -6,7 +6,8 @@ use std::{
     fs,
     io::Read,
     path::{Path, PathBuf},
-    sync::Mutex,
+    sync::{mpsc, Mutex},
+    time::Duration,
     time::{SystemTime, UNIX_EPOCH},
 };
 use tauri::{Emitter, Manager, State};
@@ -25,6 +26,26 @@ struct MidiPort {
     index: usize,
     name: String,
     likely_digitone: bool,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DevicePreset {
+    slot: usize,
+    name: String,
+}
+
+#[derive(Serialize)]
+struct DeviceBank {
+    bank: String,
+    presets: Vec<DevicePreset>,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DeviceCatalog {
+    device_name: String,
+    banks: Vec<DeviceBank>,
 }
 
 #[derive(Clone, Serialize)]
@@ -139,6 +160,173 @@ fn list_midi_inputs() -> Result<Vec<MidiPort>, String> {
             })
         })
         .collect()
+}
+
+#[tauri::command]
+fn list_midi_outputs() -> Result<Vec<MidiPort>, String> {
+    let output = MidiOutput::new("Digitone Presets discovery").map_err(|e| e.to_string())?;
+    output
+        .ports()
+        .iter()
+        .enumerate()
+        .map(|(index, port)| {
+            let name = output.port_name(port).map_err(|e| e.to_string())?;
+            let lower = name.to_lowercase();
+            Ok(MidiPort {
+                index,
+                likely_digitone: lower.contains("digitone") || lower.contains("elektron"),
+                name,
+            })
+        })
+        .collect()
+}
+
+fn pack_rpc_request(transaction: u8, path: &str) -> Vec<u8> {
+    let mut raw = vec![0x03, transaction & 0x7f, 0x00, 0x00, 0x53];
+    raw.extend(path.as_bytes());
+    raw.push(0);
+    // DataList has two trailing 32-bit range arguments (offset and limit).
+    raw.extend([0; 8]);
+    let mut message = vec![0xf0, 0x00, 0x20, 0x3c, 0x10, 0x00, 0x00];
+    for chunk in raw.chunks(7) {
+        let mut high_bits = 0u8;
+        for (index, byte) in chunk.iter().enumerate() {
+            message.push(byte & 0x7f);
+            high_bits |= ((byte >> 7) & 1) << index;
+        }
+        message.push(high_bits);
+    }
+    message.push(0xf7);
+    message
+}
+
+fn unpack_rpc_response(message: &[u8]) -> Option<Vec<u8>> {
+    if message.len() < 10
+        || message[..7] != [0xf0, 0x00, 0x20, 0x3c, 0x10, 0x00, 0x24]
+        || *message.last()? != 0xf7
+    {
+        return None;
+    }
+    let encoded = &message[7..message.len() - 1];
+    let mut raw = Vec::new();
+    for chunk in encoded.chunks(8) {
+        let (&high_bits, data) = chunk.split_last()?;
+        for (index, byte) in data.iter().enumerate() {
+            raw.push(byte | (((high_bits >> index) & 1) << 7));
+        }
+    }
+    Some(raw)
+}
+
+fn preset_names(raw: &[u8]) -> Vec<String> {
+    let mut names = Vec::new();
+    let mut start = None;
+    for (index, byte) in raw.iter().copied().chain(std::iter::once(0)).enumerate() {
+        if (0x20..=0x7e).contains(&byte) {
+            start.get_or_insert(index);
+        } else if let Some(begin) = start.take() {
+            if index - begin >= 2 {
+                let value = String::from_utf8_lossy(&raw[begin..index])
+                    .trim()
+                    .to_string();
+                if !value.is_empty() {
+                    names.push(value);
+                }
+            }
+        }
+    }
+    names
+}
+
+fn read_device_catalog_blocking(
+    input_index: usize,
+    output_index: usize,
+) -> Result<DeviceCatalog, String> {
+    let mut input = MidiInput::new("Digitone Presets catalog reader").map_err(|e| e.to_string())?;
+    input.ignore(Ignore::None);
+    let input_ports = input.ports();
+    let input_port = input_ports
+        .get(input_index)
+        .ok_or_else(|| "The selected MIDI input is no longer available".to_string())?;
+    let device_name = input.port_name(input_port).map_err(|e| e.to_string())?;
+    let (sender, receiver) = mpsc::channel::<Vec<u8>>();
+    let _connection = input
+        .connect(
+            input_port,
+            "digitone-presets-catalog-input",
+            move |_timestamp, message, _| {
+                if message.starts_with(&[0xf0, 0x00, 0x20, 0x3c]) {
+                    let _ = sender.send(message.to_vec());
+                }
+            },
+            (),
+        )
+        .map_err(|e| e.to_string())?;
+
+    let output = MidiOutput::new("Digitone Presets catalog reader").map_err(|e| e.to_string())?;
+    let output_ports = output.ports();
+    let output_port = output_ports
+        .get(output_index)
+        .ok_or_else(|| "The selected MIDI output is no longer available".to_string())?;
+    let mut connection = output
+        .connect(output_port, "digitone-presets-catalog-output")
+        .map_err(|e| e.to_string())?;
+
+    let mut banks = Vec::new();
+    for (index, bank) in BANKS.iter().enumerate() {
+        let transaction = 0x20 + index as u8;
+        let path = format!("/soundbanks/{bank}");
+        connection
+            .send(&pack_rpc_request(transaction, &path))
+            .map_err(|e| e.to_string())?;
+        let deadline = std::time::Instant::now() + Duration::from_secs(8);
+        let raw = loop {
+            let remaining = deadline.saturating_duration_since(std::time::Instant::now());
+            let message = receiver
+                .recv_timeout(remaining)
+                .map_err(|_| format!("Timed out while reading bank {bank}"))?;
+            if let Some(raw) = unpack_rpc_response(&message) {
+                if raw.get(3) == Some(&transaction) && raw.get(4) == Some(&0x53) {
+                    break raw;
+                }
+            }
+        };
+        let presets = preset_names(raw.get(6..).unwrap_or_default())
+            .into_iter()
+            .take(256)
+            .enumerate()
+            .map(|(slot, name)| DevicePreset {
+                slot: slot + 1,
+                name,
+            })
+            .collect();
+        banks.push(DeviceBank {
+            bank: bank.to_string(),
+            presets,
+        });
+    }
+    Ok(DeviceCatalog { device_name, banks })
+}
+
+#[tauri::command]
+async fn read_device_catalog(
+    state: State<'_, MidiState>,
+    input_index: usize,
+    output_index: usize,
+) -> Result<DeviceCatalog, String> {
+    if state
+        .connection
+        .lock()
+        .map_err(|e| e.to_string())?
+        .is_some()
+    {
+        return Err("Stop SysEx capture before reading the device catalog".into());
+    }
+    tauri::async_runtime::spawn_blocking(move || {
+        read_device_catalog_blocking(input_index, output_index)
+    })
+    .await
+    .map_err(|e| e.to_string())?
 }
 
 #[tauri::command]
@@ -514,6 +702,26 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
     })
 }
 
+#[cfg(test)]
+mod rpc_tests {
+    use super::*;
+
+    #[test]
+    fn data_list_request_matches_transfer_capture() {
+        let expected = "F0 00 20 3C 10 00 00 03 01 00 00 53 2F 73 00 6F 75 6E 64 62 61 6E 00 6B 73 2F 41 00 00 00 00 00 00 00 00 00 00 00 F7"
+            .split_whitespace()
+            .map(|value| u8::from_str_radix(value, 16).unwrap())
+            .collect::<Vec<_>>();
+        assert_eq!(pack_rpc_request(1, "/soundbanks/A"), expected);
+    }
+
+    #[test]
+    fn printable_runs_are_extracted_as_names() {
+        let data = [0, 1, b'B', b'A', b'S', b'S', 0, 2, b'P', b'A', b'D', 0];
+        assert_eq!(preset_names(&data), ["BASS", "PAD"]);
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -523,8 +731,10 @@ pub fn run() {
             load_settings,
             save_settings,
             list_midi_inputs,
+            list_midi_outputs,
             start_sysex_capture,
             stop_sysex_capture,
+            read_device_catalog,
             scan_library
         ])
         .run(tauri::generate_context!())

@@ -4,3 +4,6 @@ export type ScanResult = { banks:Record<string,Preset[]>; packs:Pack[]; errors:s
 export type Settings = { banksPath:string|null; packsPath:string|null };
 export type MidiPort = { index:number; name:string; likelyDigitone:boolean };
 export type SysExReceipt = { byteCount:number; savedPath:string; receivedAtMs:number };
+export type DevicePreset = { slot:number; name:string };
+export type DeviceBank = { bank:string; presets:DevicePreset[] };
+export type DeviceCatalog = { deviceName:string; banks:DeviceBank[] };
