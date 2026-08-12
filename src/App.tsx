@@ -236,7 +236,7 @@ export default function App() {
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
-                return <tr key={`${rowBank}-${preset.slot}`}>{bank === "ALL" && <td className="font-semibold text-emerald-300">{rowBank}</td>}<td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok h-7 w-7 justify-center p-0" title="Synchronized"><Check size={14}/></span> : <span className="text-slate-700" title="Not synchronized">—</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.join(", ") || "—"}</td></tr>;
+                return <tr key={`${rowBank}-${preset.slot}`}>{bank === "ALL" && <td className="font-semibold text-emerald-300">{rowBank}</td>}<td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok h-7 w-7 justify-center p-0" title="Synchronized"><Check size={14}/></span> : <span className="text-slate-700" title="Not synchronized">—</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.length ? <div className="preset-tags">{Array.from(new Set(local.tags)).map((tag) => <span key={tag} className="preset-tag">{tag}</span>)}</div> : "—"}</td></tr>;
               })}
             </Table>
           </section>
