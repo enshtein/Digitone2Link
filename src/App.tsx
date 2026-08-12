@@ -172,7 +172,7 @@ export default function App() {
       <header className="topbar">
         <div className="flex min-w-0 items-center gap-10">
           <div className="shrink-0">
-            <h1 className="text-lg font-bold tracking-tight">Digitone Presets</h1>
+            <h1 className="text-lg font-bold tracking-tight">Digitone2Link</h1>
             <p className="text-xs text-slate-500">Your hardware library, organized.</p>
           </div>
           <nav className="topnav">

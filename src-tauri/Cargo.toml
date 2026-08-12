@@ -1,12 +1,12 @@
 [package]
-name = "digitone-presets"
+name = "digitone2link"
 version = "0.1.0"
-description = "Digitone II preset library"
-authors = ["Digitone Presets contributors"]
+description = "Digitone2Link desktop preset library"
+authors = ["Digitone2Link contributors"]
 edition = "2021"
 
 [lib]
-name = "digitone_presets_lib"
+name = "digitone2link_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

@@ -1,8 +1,7 @@
-# Digitone Presets
+# Digitone2Link
 
-Desktop library for browsing and analysing Elektron Digitone II presets. This is
-the Tauri rewrite of Digitone II Preset Library, with a React/TypeScript UI and a
-Rust filesystem engine.
+Digitone2Link is a desktop library for browsing and analysing Elektron Digitone II
+presets, built with a React/TypeScript UI and a Rust filesystem engine.
 
 ## Stack
 

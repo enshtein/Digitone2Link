@@ -4,7 +4,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     use midir::{Ignore, MidiInput, MidiOutput};
     use std::{sync::mpsc, time::Duration};
 
-    let mut input = MidiInput::new("Digitone Presets handshake probe")?;
+    let mut input = MidiInput::new("Digitone2Link handshake probe")?;
     input.ignore(Ignore::None);
     let input_ports = input.ports();
     let input_port = input_ports
@@ -19,14 +19,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let (sender, receiver) = mpsc::channel::<Vec<u8>>();
     let _input_connection = input.connect(
         input_port,
-        "digitone-presets-handshake-probe-input",
+        "digitone2link-handshake-probe-input",
         move |_timestamp, message, _| {
             let _ = sender.send(message.to_vec());
         },
         (),
     )?;
 
-    let output = MidiOutput::new("Digitone Presets handshake probe")?;
+    let output = MidiOutput::new("Digitone2Link handshake probe")?;
     let output_ports = output.ports();
     let output_port = output_ports
         .iter()
@@ -37,7 +37,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         })
         .ok_or("Physical Digitone MIDI output not found")?;
     println!("OUTPUT {}", output.port_name(output_port)?);
-    let mut connection = output.connect(output_port, "digitone-presets-handshake-probe-output")?;
+    let mut connection = output.connect(output_port, "digitone2link-handshake-probe-output")?;
     let request = [
         0xf0, 0x00, 0x20, 0x3c, 0x10, 0x00, 0x20, 0x00, 0x07, 0x00, 0x00, 0x01, 0xf7,
     ];

@@ -1,3 +1,3 @@
 fn main() {
-    digitone_presets_lib::run()
+    digitone2link_lib::run()
 }

@@ -1,9 +1,9 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Digitone Presets",
+  "productName": "Digitone2Link",
   "version": "0.1.0",
-  "identifier": "com.digitone.presets",
+  "identifier": "com.digitone2link.app",
   "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://localhost:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
-  "app": { "windows": [{ "title": "Digitone Presets", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 620 }], "security": { "csp": null } },
+  "app": { "windows": [{ "title": "Digitone2Link", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 620 }], "security": { "csp": null } },
   "bundle": { "active": true, "targets": "all", "icon": [] }
 }

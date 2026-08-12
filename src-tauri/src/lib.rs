@@ -174,7 +174,7 @@ fn save_settings(app: tauri::AppHandle, settings: Settings) -> Result<(), String
 
 #[tauri::command]
 fn list_midi_inputs() -> Result<Vec<MidiPort>, String> {
-    let input = MidiInput::new("Digitone Presets discovery").map_err(|e| e.to_string())?;
+    let input = MidiInput::new("Digitone2Link discovery").map_err(|e| e.to_string())?;
     input
         .ports()
         .iter()
@@ -193,7 +193,7 @@ fn list_midi_inputs() -> Result<Vec<MidiPort>, String> {
 
 #[tauri::command]
 fn list_midi_outputs() -> Result<Vec<MidiPort>, String> {
-    let output = MidiOutput::new("Digitone Presets discovery").map_err(|e| e.to_string())?;
+    let output = MidiOutput::new("Digitone2Link discovery").map_err(|e| e.to_string())?;
     output
         .ports()
         .iter()
@@ -498,7 +498,7 @@ fn read_device_catalog_with_progress<F>(
 where
     F: FnMut(usize, char),
 {
-    let mut input = MidiInput::new("Digitone Presets catalog reader").map_err(|e| e.to_string())?;
+    let mut input = MidiInput::new("Digitone2Link catalog reader").map_err(|e| e.to_string())?;
     input.ignore(Ignore::None);
     let input_ports = input.ports();
     let input_port = input_ports
@@ -509,7 +509,7 @@ where
     let _connection = input
         .connect(
             input_port,
-            "digitone-presets-catalog-input",
+            "digitone2link-catalog-input",
             move |_timestamp, message, _| {
                 if message.starts_with(&[0xf0, 0x00, 0x20, 0x3c]) {
                     let _ = sender.send(message.to_vec());
@@ -519,13 +519,13 @@ where
         )
         .map_err(|e| e.to_string())?;
 
-    let output = MidiOutput::new("Digitone Presets catalog reader").map_err(|e| e.to_string())?;
+    let output = MidiOutput::new("Digitone2Link catalog reader").map_err(|e| e.to_string())?;
     let output_ports = output.ports();
     let output_port = output_ports
         .get(output_index)
         .ok_or_else(|| "The selected MIDI output is no longer available".to_string())?;
     let mut connection = output
-        .connect(output_port, "digitone-presets-catalog-output")
+        .connect(output_port, "digitone2link-catalog-output")
         .map_err(|e| e.to_string())?;
 
     // Transfer initializes the v2 RPC session before requesting DataList.
@@ -609,7 +609,7 @@ fn download_device_preset_blocking(
     if !BANKS.contains(&bank) || !(1..=256).contains(&slot) {
         return Err("Invalid bank or preset slot".into());
     }
-    let mut input = MidiInput::new("Digitone Presets file reader").map_err(|e| e.to_string())?;
+    let mut input = MidiInput::new("Digitone2Link file reader").map_err(|e| e.to_string())?;
     input.ignore(Ignore::None);
     let input_ports = input.ports();
     let input_port = input_ports
@@ -619,7 +619,7 @@ fn download_device_preset_blocking(
     let _input_connection = input
         .connect(
             input_port,
-            "digitone-presets-file-input",
+            "digitone2link-file-input",
             move |_timestamp, message, _| {
                 if message.starts_with(&[0xf0, 0x00, 0x20, 0x3c]) {
                     let _ = sender.send(message.to_vec());
@@ -628,13 +628,13 @@ fn download_device_preset_blocking(
             (),
         )
         .map_err(|e| e.to_string())?;
-    let output = MidiOutput::new("Digitone Presets file reader").map_err(|e| e.to_string())?;
+    let output = MidiOutput::new("Digitone2Link file reader").map_err(|e| e.to_string())?;
     let output_ports = output.ports();
     let output_port = output_ports
         .get(output_index)
         .ok_or_else(|| "The selected MIDI output is no longer available".to_string())?;
     let mut output_connection = output
-        .connect(output_port, "digitone-presets-file-output")
+        .connect(output_port, "digitone2link-file-output")
         .map_err(|e| e.to_string())?;
     let mut transaction = 0x60;
     let base = format!("/soundbanks/{bank}/{slot}");
@@ -719,7 +719,7 @@ fn sync_device_presets_blocking(
         .map(|bank| bank.presets.len())
         .sum::<usize>();
     let root = PathBuf::from(&library_path);
-    let staging = root.join(".digitone-presets-sync");
+    let staging = root.join(".digitone2link-sync");
     if staging.exists() {
         fs::remove_dir_all(&staging).map_err(|e| e.to_string())?;
     }
@@ -727,7 +727,7 @@ fn sync_device_presets_blocking(
 
     let result = (|| -> Result<usize, String> {
         let mut input =
-            MidiInput::new("Digitone Presets synchronizer").map_err(|e| e.to_string())?;
+            MidiInput::new("Digitone2Link synchronizer").map_err(|e| e.to_string())?;
         input.ignore(Ignore::None);
         let input_ports = input.ports();
         let input_port = input_ports
@@ -737,7 +737,7 @@ fn sync_device_presets_blocking(
         let _input_connection = input
             .connect(
                 input_port,
-                "digitone-presets-sync-input",
+                "digitone2link-sync-input",
                 move |_timestamp, message, _| {
                     if message.starts_with(&[0xf0, 0x00, 0x20, 0x3c]) {
                         let _ = sender.send(message.to_vec());
@@ -746,13 +746,13 @@ fn sync_device_presets_blocking(
                 (),
             )
             .map_err(|e| e.to_string())?;
-        let output = MidiOutput::new("Digitone Presets synchronizer").map_err(|e| e.to_string())?;
+        let output = MidiOutput::new("Digitone2Link synchronizer").map_err(|e| e.to_string())?;
         let output_ports = output.ports();
         let output_port = output_ports
             .get(output_index)
             .ok_or_else(|| "The selected MIDI output is no longer available".to_string())?;
         let mut output_connection = output
-            .connect(output_port, "digitone-presets-sync-output")
+            .connect(output_port, "digitone2link-sync-output")
             .map_err(|e| e.to_string())?;
         for (transaction, command) in [(0x30, 0x01), (0x31, 0x02), (0x32, 0x01), (0x33, 0x03)] {
             rpc_exchange(&mut output_connection, &receiver, transaction, command, &[])
@@ -895,7 +895,7 @@ fn start_sysex_capture(
         return Err("A MIDI input is already connected".into());
     }
 
-    let mut input = MidiInput::new("Digitone Presets SysEx receiver").map_err(|e| e.to_string())?;
+    let mut input = MidiInput::new("Digitone2Link SysEx receiver").map_err(|e| e.to_string())?;
     input.ignore(Ignore::None);
     let ports = input.ports();
     let port = ports
@@ -915,7 +915,7 @@ fn start_sysex_capture(
     let connection = input
         .connect(
             port,
-            "digitone-presets-sysex-input",
+            "digitone2link-sysex-input",
             move |_timestamp, bytes, _| {
                 for &byte in bytes {
                     if byte == 0xF0 {
@@ -1335,5 +1335,5 @@ pub fn run() {
             scan_library
         ])
         .run(tauri::generate_context!())
-        .expect("error while running Digitone Presets")
+        .expect("error while running Digitone2Link")
 }

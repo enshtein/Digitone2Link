@@ -3,7 +3,7 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     use midir::{Ignore, MidiInput};
 
-    let mut input = MidiInput::new("Digitone Presets passive protocol monitor")?;
+    let mut input = MidiInput::new("Digitone2Link passive protocol monitor")?;
     input.ignore(Ignore::None);
     let ports = input.ports();
     let (port, name) = ports
@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Passively monitoring: {name}");
     let _connection = input.connect(
         port,
-        "digitone-presets-passive-monitor",
+        "digitone2link-passive-monitor",
         |_stamp, message, _| {
             let hex = message
                 .iter()

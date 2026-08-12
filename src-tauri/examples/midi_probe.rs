@@ -6,7 +6,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     use midir::os::unix::{VirtualInput, VirtualOutput};
     use midir::{Ignore, MidiInput, MidiOutput};
 
-    let mut input = MidiInput::new("Digitone Presets protocol probe input")
+    let mut input = MidiInput::new("Digitone2Link protocol probe input")
         .map_err(|error| format!("create MIDI input client: {error}"))?;
     input.ignore(Ignore::None);
     let _incoming = input
@@ -24,7 +24,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .map_err(|error| format!("create virtual destination: {error}"))?;
 
-    let output = MidiOutput::new("Digitone Presets protocol probe output")
+    let output = MidiOutput::new("Digitone2Link protocol probe output")
         .map_err(|error| format!("create MIDI output client: {error}"))?;
     let _outgoing = output
         .create_virtual("DP Protocol Probe OUT")

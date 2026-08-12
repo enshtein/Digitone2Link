@@ -643,7 +643,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "digitone-presets"
+name = "digitone2link"
 version = "0.1.0"
 dependencies = [
  "midir",
