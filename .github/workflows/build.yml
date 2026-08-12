@@ -1,9 +1,12 @@
-name: Build
+name: Release Digitone2Link
 
 on:
   push:
     tags: ["v*"]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -29,14 +32,34 @@ jobs:
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
-        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libasound2-dev
       - run: npm ci
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: Digitone Presets ${{ github.ref_name }}
+          tagName: v__VERSION__
+          releaseName: Digitone2Link v__VERSION__
+          releaseBody: |
+            Digitone2Link helps you explore and organize the preset library on your Elektron Digitone II.
+
+            Download the installer for your operating system from the files below.
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+
+  publish:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Publish completed release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="v$(node -p "require('./package.json').version")"
+          gh release edit "$TAG_NAME" --draft=false --latest
