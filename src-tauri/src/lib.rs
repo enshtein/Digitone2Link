@@ -1,3 +1,4 @@
+use midir::{Ignore, MidiInput, MidiInputConnection};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
@@ -5,11 +6,34 @@ use std::{
     fs,
     io::Read,
     path::{Path, PathBuf},
+    sync::Mutex,
+    time::{SystemTime, UNIX_EPOCH},
 };
-use tauri::Manager;
+use tauri::{Emitter, Manager, State};
 use walkdir::WalkDir;
 
 const BANKS: &[char] = &['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+#[derive(Default)]
+struct MidiState {
+    connection: Mutex<Option<MidiInputConnection<()>>>,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct MidiPort {
+    index: usize,
+    name: String,
+    likely_digitone: bool,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SysExReceipt {
+    byte_count: usize,
+    saved_path: String,
+    received_at_ms: u128,
+}
 
 #[derive(Clone, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -96,6 +120,99 @@ fn save_settings(app: tauri::AppHandle, settings: Settings) -> Result<(), String
         serde_json::to_vec_pretty(&settings).map_err(|e| e.to_string())?,
     )
     .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn list_midi_inputs() -> Result<Vec<MidiPort>, String> {
+    let input = MidiInput::new("Digitone Presets discovery").map_err(|e| e.to_string())?;
+    input
+        .ports()
+        .iter()
+        .enumerate()
+        .map(|(index, port)| {
+            let name = input.port_name(port).map_err(|e| e.to_string())?;
+            let lower = name.to_lowercase();
+            Ok(MidiPort {
+                index,
+                likely_digitone: lower.contains("digitone") || lower.contains("elektron"),
+                name,
+            })
+        })
+        .collect()
+}
+
+#[tauri::command]
+fn start_sysex_capture(
+    app: tauri::AppHandle,
+    state: State<'_, MidiState>,
+    port_index: usize,
+) -> Result<(), String> {
+    let mut guard = state.connection.lock().map_err(|e| e.to_string())?;
+    if guard.is_some() {
+        return Err("A MIDI input is already connected".into());
+    }
+
+    let mut input = MidiInput::new("Digitone Presets SysEx receiver").map_err(|e| e.to_string())?;
+    input.ignore(Ignore::None);
+    let ports = input.ports();
+    let port = ports
+        .get(port_index)
+        .ok_or_else(|| "The selected MIDI port is no longer available".to_string())?;
+    let port_name = input.port_name(port).map_err(|e| e.to_string())?;
+    let dump_dir = app
+        .path()
+        .app_data_dir()
+        .map_err(|e| e.to_string())?
+        .join("sysex-dumps");
+    fs::create_dir_all(&dump_dir).map_err(|e| e.to_string())?;
+    let event_app = app.clone();
+    let mut message_buffer = Vec::<u8>::new();
+    let mut receiving = false;
+
+    let connection = input
+        .connect(
+            port,
+            "digitone-presets-sysex-input",
+            move |_timestamp, bytes, _| {
+                for &byte in bytes {
+                    if byte == 0xF0 {
+                        message_buffer.clear();
+                        receiving = true;
+                    }
+                    if receiving {
+                        message_buffer.push(byte);
+                    }
+                    if receiving && byte == 0xF7 {
+                        receiving = false;
+                        let received_at_ms = SystemTime::now()
+                            .duration_since(UNIX_EPOCH)
+                            .map(|value| value.as_millis())
+                            .unwrap_or_default();
+                        let path = dump_dir.join(format!("digitone-{received_at_ms}.syx"));
+                        let result = fs::write(&path, &message_buffer)
+                            .map(|_| SysExReceipt {
+                                byte_count: message_buffer.len(),
+                                saved_path: path.to_string_lossy().into_owned(),
+                                received_at_ms,
+                            })
+                            .map_err(|error| error.to_string());
+                        let _ = event_app.emit("sysex-received", result);
+                        message_buffer.clear();
+                    }
+                }
+            },
+            (),
+        )
+        .map_err(|e| format!("Could not connect to {port_name}: {e}"))?;
+    *guard = Some(connection);
+    Ok(())
+}
+
+#[tauri::command]
+fn stop_sysex_capture(state: State<'_, MidiState>) -> Result<(), String> {
+    let mut guard = state.connection.lock().map_err(|e| e.to_string())?;
+    guard.take();
+    Ok(())
 }
 
 fn normalized_stem(path: &Path) -> String {
@@ -400,10 +517,14 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .manage(MidiState::default())
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
             load_settings,
             save_settings,
+            list_midi_inputs,
+            start_sysex_capture,
+            stop_sysex_capture,
             scan_library
         ])
         .run(tauri::generate_context!())
