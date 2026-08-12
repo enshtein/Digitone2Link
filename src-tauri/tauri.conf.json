@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Digitone Presets",
+  "version": "0.1.0",
+  "identifier": "com.digitone.presets",
+  "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://localhost:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
+  "app": { "windows": [{ "title": "Digitone Presets", "width": 1280, "height": 820, "minWidth": 900, "minHeight": 620 }], "security": { "csp": null } },
+  "bundle": { "active": true, "targets": "all", "icon": [] }
+}
