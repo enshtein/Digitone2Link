@@ -49,7 +49,7 @@ export default function App() {
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
   const [emptyOnly, setEmptyOnly] = useState(false);
   const [presetFilter, setPresetFilter] = useState("");
-  const [soundPackFilter, setSoundPackFilter] = useState("");
+  const [soundPackFilters, setSoundPackFilters] = useState<string[]>([]);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
@@ -185,14 +185,15 @@ export default function App() {
   const presetRows = bankPresetRows.filter(({ bank: rowBank, preset }) => {
     const matchesName = preset.name.toLocaleLowerCase().includes(presetFilter.toLocaleLowerCase());
     const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
-    const matchesPack = !soundPackFilter || Boolean(local && [...local.exactPacks, ...local.nameOnlyPacks].includes(soundPackFilter));
+    const presetPacks = local ? [...local.exactPacks, ...local.nameOnlyPacks] : [];
+    const matchesPack = soundPackFilters.length === 0 || soundPackFilters.some((pack) => presetPacks.includes(pack));
     const matchesTags = tagFilters.length === 0 || Boolean(local?.tags.some((tag) => tagFilters.includes(tag)));
     return matchesName && matchesPack && matchesTags;
   });
 
   function selectBank(next: string) {
     setBank(next);
-    setSoundPackFilter("");
+    setSoundPackFilters([]);
     setTagFilters([]);
   }
 
@@ -223,7 +224,7 @@ export default function App() {
         {view === "presets" && (
           <section>
             <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => selectBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => selectBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
-            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>]}>
+            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} values={soundPackFilters} onFilter={setSoundPackFilters}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} values={soundPackFilters} onFilter={setSoundPackFilters}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
@@ -288,9 +289,12 @@ function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (val
 
   return <div><div className="inline-flex items-center gap-1.5">Preset<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Search presets" onClick={() => setOpen((current) => !current)}><Search size={13}/></button></div>{open && <div className="header-search-popover"><Search size={15} className="shrink-0 text-slate-500"/><input ref={inputRef} value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") onFilter(text.trim()); if (event.key === "Escape") close(); }} placeholder="Preset name…"/><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={close}><X size={14}/></button></div>}</div>;
 }
-function SoundPackFilterHeader({ options, value, onFilter }: { options: string[]; value: string; onFilter: (value: string) => void }) {
+function SoundPackFilterHeader({ options, values, onFilter }: { options: string[]; values: string[]; onFilter: (values: string[]) => void }) {
   const [open, setOpen] = useState(false);
-  return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Filter by sound pack" onClick={() => setOpen((current) => !current)}><Filter size={13}/></button></div>{open && <div className="header-filter-panel"><select value={value} onChange={(event) => onFilter(event.target.value)}><option value="">All sound packs</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
+  function toggle(pack: string) {
+    onFilter(values.includes(pack) ? values.filter((value) => value !== pack) : [...values, pack]);
+  }
+  return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${values.length ? "text-emerald-300" : ""}`} title="Filter by sound packs" onClick={() => setOpen((current) => !current)}><Filter size={13}/></button></div>{open && <div className="header-tags-panel"><div className="flex items-center justify-between border-b border-white/[.07] px-3 py-2"><span className="text-xs font-medium normal-case tracking-normal text-slate-400">Match any pack{values.length ? ` · ${values.length} selected` : ""}</span><div className="flex items-center gap-2">{values.length > 0 && <button className="text-xs font-medium normal-case tracking-normal text-emerald-400 hover:text-emerald-300" onClick={() => onFilter([])}>Clear</button>}<button className="text-slate-600 transition hover:text-white" title="Close" onClick={() => setOpen(false)}><X size={14}/></button></div></div><div className="tag-filter-cloud">{options.length ? options.map((pack) => <label key={pack} className={`tag-filter-option ${values.includes(pack) ? "tag-filter-option-active" : ""}`}><input type="checkbox" checked={values.includes(pack)} onChange={() => toggle(pack)}/><span>{pack}</span></label>) : <p className="px-2 py-3 text-xs font-normal normal-case tracking-normal text-slate-600">No sound packs available</p>}</div></div>}</div>;
 }
 function TagsFilterHeader({ options, values, onFilter }: { options: string[]; values: string[]; onFilter: (values: string[]) => void }) {
   const [open, setOpen] = useState(false);
