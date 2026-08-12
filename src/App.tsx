@@ -162,9 +162,6 @@ export default function App() {
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, [data]);
 
-  const allPresetCount = catalog
-    ? catalog.banks.reduce((sum, item) => sum + item.presets.length, 0)
-    : Object.values(data?.banks ?? {}).reduce((sum, presets) => sum + presets.length, 0);
   const visibleBanks = bank === "ALL" ? BANKS : [bank];
   const presetRows = visibleBanks.flatMap((bankName) => {
     const presets = catalog
@@ -199,7 +196,7 @@ export default function App() {
       <main className="mx-auto w-full max-w-[1500px] px-6 py-7">
         {view === "presets" && (
           <section>
-            <div className="mb-5 flex gap-2"><button onClick={() => setBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL ({allPresetCount})</button>{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div>
+            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => setBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
             <Table headers={bank === "ALL" ? ["Bank", "Slot", "Preset", "Sync", "Sound pack(s)", "Tags"] : ["Slot", "Preset", "Sync", "Sound pack(s)", "Tags"]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
