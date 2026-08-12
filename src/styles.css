@@ -24,7 +24,7 @@
   .bank-tab { @apply h-9 min-w-10 rounded-lg border border-transparent px-3 text-sm font-semibold text-slate-600 transition hover:bg-white/[.04] hover:text-slate-300; }
   .bank-tab-active { @apply border-emerald-400/30 bg-emerald-400/10 text-emerald-300; }
   .header-search-button { @apply inline-flex rounded p-0.5 text-slate-600 transition hover:bg-white/[.06] hover:text-slate-300; }
-  .header-search-popover { @apply absolute left-0 top-[calc(100%+12px)] z-30 flex w-72 items-center gap-2 rounded-lg border border-white/[.1] bg-[#171c23] px-3 py-2.5 normal-case tracking-normal shadow-2xl shadow-black/60; }
+  .header-search-popover { @apply mt-2 flex w-72 items-center gap-2 rounded-lg border border-white/[.1] bg-[#171c23] px-3 py-2.5 normal-case tracking-normal shadow-lg shadow-black/30; }
   .header-search-popover input { @apply min-w-0 flex-1 bg-transparent text-sm font-normal text-slate-200 outline-none placeholder:text-slate-600; }
   .sync-ok { @apply inline-flex items-center gap-1 rounded-full bg-emerald-400/10 px-2 py-1 text-xs font-medium text-emerald-300; }
   .section-label { @apply mt-7 text-xs font-semibold uppercase tracking-wider text-slate-500; }
