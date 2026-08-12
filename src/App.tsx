@@ -167,6 +167,8 @@ export default function App() {
     );
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, [data]);
+  const largestTagCount = tagCounts[0]?.[1] ?? 0;
+  const smallestTagCount = tagCounts[tagCounts.length - 1]?.[1] ?? 0;
 
   const visibleBanks = bank === "ALL" ? BANKS : [bank];
   const bankPresetRows = visibleBanks.flatMap((bankName) => {
@@ -252,7 +254,7 @@ export default function App() {
           </section>
         )}
 
-        {view === "tags" && <section><Table headers={["Tag", "Presets"]}>{tagCounts.map(([tag,count]) => <tr key={tag}><td className="font-medium text-white">{tag}</td><td>{count}</td></tr>)}</Table></section>}
+        {view === "tags" && <section>{tagCounts.length ? <div className="tag-cloud">{tagCounts.map(([tag, count]) => { const range = largestTagCount - smallestTagCount; const weight = range ? Math.sqrt((count - smallestTagCount) / range) : 0.5; return <span key={tag} className="tag-cloud-item" style={{ fontSize: `${11 + weight * 13}px`, padding: `${5 + weight * 4}px ${9 + weight * 6}px`, opacity: 0.65 + weight * 0.35, borderColor: `rgba(52, 211, 153, ${0.12 + weight * 0.28})`, backgroundColor: `rgba(52, 211, 153, ${0.025 + weight * 0.09})` }}><span>{tag}</span><small>{count}</small></span>; })}</div> : <div className="surface p-10 text-center text-sm text-slate-500">No tags found. Synchronize and scan your preset library first.</div>}</section>}
 
         {view === "settings" && (
           <section>
