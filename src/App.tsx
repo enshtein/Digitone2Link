@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
 import {
   Archive,
@@ -18,13 +19,14 @@ import type { DeviceCatalog, MidiPort, Pack, ScanResult, Settings } from "./type
 
 const BANKS = [..."ABCDEFGH"];
 const views = [
-  { id: "presets", label: "Device Presets", icon: Library },
+  { id: "presets", label: "Presets", icon: Library },
   { id: "packs", label: "Sound Packs", icon: Archive },
   { id: "tags", label: "Tags", icon: Tags },
   { id: "settings", label: "Settings", icon: SettingsIcon },
 ] as const;
 
 type View = (typeof views)[number]["id"];
+type SyncProgress = { completed: number; total: number; percent: number; bank: string; slot: number; stage: string };
 
 export default function App() {
   const [view, setView] = useState<View>("presets");
@@ -38,6 +40,8 @@ export default function App() {
   const [selectedOutput, setSelectedOutput] = useState<number | null>(null);
   const [discovering, setDiscovering] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [syncProgress, setSyncProgress] = useState<SyncProgress | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
   const [onboarding, setOnboarding] = useState(false);
   const [message, setMessage] = useState("Ready");
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
@@ -45,10 +49,13 @@ export default function App() {
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
   const selectedDevice = midiInputs.find((port) => port.index === selectedInput);
-  const deviceTotal = catalog?.banks.reduce((sum, item) => sum + item.presets.length, 0) ?? 0;
+  const deviceTotal = catalog?.banks.reduce((sum, item) => sum + item.presets.length, 0) ?? null;
+  const libraryTotal = Object.values(data?.banks ?? {}).reduce((sum, presets) => sum + presets.length, 0);
 
   useEffect(() => {
     void initialize();
+    const unlisten = listen<SyncProgress>("sync-progress", (event) => setSyncProgress(event.payload));
+    return () => { void unlisten.then((dispose) => dispose()); };
   }, []);
 
   useEffect(() => {
@@ -110,20 +117,29 @@ export default function App() {
       return;
     }
     setSyncing(true);
+    setSyncError(null);
+    setOnboarding(false);
+    setView("presets");
     setMessage("Synchronizing preset catalog…");
     try {
-      const result = await invoke<DeviceCatalog>("read_device_catalog", {
+      setSyncProgress({ completed: 0, total: 0, percent: 0, bank: "", slot: 0, stage: "Reading device catalog" });
+      const result = await invoke<{ catalog: DeviceCatalog; saved: number }>("sync_device_presets", {
         inputIndex: selectedInput,
         outputIndex: selectedOutput,
+        libraryPath: settings.banksPath,
       });
-      setCatalog(result);
+      setCatalog(result.catalog);
       setOnboarding(false);
       setView("presets");
-      setMessage(`Synchronized catalog · ${result.banks.reduce((sum, item) => sum + item.presets.length, 0)} presets`);
+      setMessage(`Synchronization complete · ${result.saved} presets copied`);
+      if (settings.packsPath) await scanLibrary();
     } catch (error) {
-      setMessage(`Synchronization failed: ${error}`);
+      const detail = String(error);
+      setSyncError(detail);
+      setMessage(`Synchronization failed: ${detail}`);
     } finally {
       setSyncing(false);
+      setSyncProgress(null);
     }
   }
 
@@ -177,17 +193,12 @@ export default function App() {
       <main className="mx-auto w-full max-w-[1500px] px-6 py-7">
         {view === "presets" && (
           <section>
-            <PageHeading title="Device Presets" subtitle={catalog ? `${deviceTotal} presets synchronized from ${catalog.deviceName}` : "Connect and synchronize your Digitone II to browse its presets."}>
-              <button className="primary-button" disabled={!selectedDevice || syncing} onClick={() => void syncDevice()}>
-                <RefreshCw size={16} className={syncing ? "animate-spin" : ""} />{catalog ? "Sync again" : "Sync device"}
-              </button>
-            </PageHeading>
-            <div className="mb-5 flex gap-2">{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div>
-            <Table headers={["Slot", "Preset", "Local library", "Sound pack(s)", "Tags"]}>
-              {(catalog ? deviceRows : localRows).map((preset, index) => {
-                const local = localRows[index];
+            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2">{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><div className="flex items-center gap-5 whitespace-nowrap text-xs text-slate-500"><span>Device <strong className="ml-1 font-semibold text-slate-300">{deviceTotal ?? "—"}</strong></span><span>Library <strong className="ml-1 font-semibold text-slate-300">{libraryTotal}</strong></span></div></div>
+            <Table headers={["Slot", "Preset", "Sync", "Sound pack(s)", "Tags"]}>
+              {(catalog ? deviceRows : localRows).map((preset) => {
+                const local = localRows.find((item) => item.slot === preset.slot);
                 const name = preset.name;
-                return <tr key={preset.slot}><td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok"><Check size={13}/>Local</span> : <span className="text-slate-600">Not copied</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.join(", ") || "—"}</td></tr>;
+                return <tr key={preset.slot}><td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok h-7 w-7 justify-center p-0" title="Synchronized"><Check size={14}/></span> : <span className="text-slate-700" title="Not synchronized">—</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.join(", ") || "—"}</td></tr>;
               })}
             </Table>
           </section>
@@ -195,7 +206,6 @@ export default function App() {
 
         {view === "packs" && (
           <section>
-            <PageHeading title="Sound Packs" subtitle="Match your device presets with the sound packs in your collection." />
             <label className="mb-5 flex items-center gap-3 text-sm text-slate-400"><input type="checkbox" checked={emptyOnly} onChange={(event) => setEmptyOnly(event.target.checked)} />Show only packs with no matches</label>
             <div className="grid gap-5 xl:grid-cols-[1.1fr_.9fr]">
               <Table headers={["Sound pack", "Found", "Total"]}>{(data?.packs ?? []).filter((pack) => !emptyOnly || pack.found === 0).map((pack) => <tr key={pack.name} onClick={() => setSelectedPack(pack)} className="cursor-pointer hover:bg-white/[.025]"><td className="font-medium text-white">{pack.name}</td><td>{pack.found}</td><td>{pack.total}</td></tr>)}</Table>
@@ -204,11 +214,10 @@ export default function App() {
           </section>
         )}
 
-        {view === "tags" && <section><PageHeading title="Tags" subtitle="Tags found across your synchronized local preset library." /><Table headers={["Tag", "Presets"]}>{tagCounts.map(([tag,count]) => <tr key={tag}><td className="font-medium text-white">{tag}</td><td>{count}</td></tr>)}</Table></section>}
+        {view === "tags" && <section><Table headers={["Tag", "Presets"]}>{tagCounts.map(([tag,count]) => <tr key={tag}><td className="font-medium text-white">{tag}</td><td>{count}</td></tr>)}</Table></section>}
 
         {view === "settings" && (
           <section>
-            <PageHeading title="Settings" subtitle="Configure your device connection and local library." />
             <div className="grid gap-5 xl:grid-cols-2">
               <div className="surface p-6"><h2 className="settings-title"><Usb size={18}/>MIDI device</h2><SettingSelect label="MIDI input" ports={midiInputs} value={selectedInput} onChange={setSelectedInput}/><SettingSelect label="MIDI output" ports={midiOutputs} value={selectedOutput} onChange={setSelectedOutput}/><div className="mt-5 flex gap-3"><button className="secondary-button" onClick={() => void refreshMidi()}><RefreshCw size={16}/>Refresh</button><button className="primary-button" disabled={selectedInput === null || selectedOutput === null || syncing} onClick={() => void syncDevice()}><RefreshCw size={16} className={syncing ? "animate-spin" : ""}/>Synchronize presets</button></div></div>
               <div className="surface p-6"><h2 className="settings-title"><FolderOpen size={18}/>Local library</h2><FolderSetting label="Preset Library" value={settings.banksPath} onClick={() => void chooseFolder("banks")}/><FolderSetting label="Sound Packs" value={settings.packsPath} onClick={() => void chooseFolder("packs")}/><button className="secondary-button mt-5" disabled={!foldersReady} onClick={() => void scanLibrary()}><RefreshCw size={16}/>Rescan library</button></div>
@@ -217,14 +226,24 @@ export default function App() {
         )}
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-white/[.06] bg-[#0b0e12]/95 px-6 py-2 text-xs text-slate-500 backdrop-blur">{message}</footer>
-      {(discovering || onboarding) && <Onboarding discovering={discovering} device={selectedDevice} foldersReady={Boolean(settings.banksPath)} syncing={syncing} onClose={() => setOnboarding(false)} onSync={() => void syncDevice()} onSettings={() => { setOnboarding(false); setView("settings"); }} />}
+      <footer className="fixed bottom-0 left-0 right-0 z-30 border-t border-white/[.06] bg-[#0b0e12]/95 backdrop-blur">
+        {syncing && syncProgress ? <BackgroundSyncStatus progress={syncProgress} /> : <div className="px-6 py-2 text-xs text-slate-500">{message}</div>}
+      </footer>
+      {(discovering || onboarding) && <Onboarding discovering={discovering} inputs={midiInputs} outputs={midiOutputs} selectedInput={selectedInput} selectedOutput={selectedOutput} onInput={setSelectedInput} onOutput={setSelectedOutput} foldersReady={Boolean(settings.banksPath)} syncing={syncing} onRefresh={() => void refreshMidi()} onClose={() => setOnboarding(false)} onSync={() => void syncDevice()} onSettings={() => { setOnboarding(false); setView("settings"); }} />}
+      {!syncing && syncError && <SyncError detail={syncError} onClose={() => setSyncError(null)} onRetry={() => { setSyncError(null); void syncDevice(); }} />}
     </div>
   );
 }
 
-function PageHeading({ title, subtitle, children }: { title: string; subtitle: string; children?: React.ReactNode }) { return <div className="mb-6 flex items-end justify-between gap-5"><div><h2 className="text-2xl font-semibold tracking-tight">{title}</h2><p className="mt-1 text-sm text-slate-500">{subtitle}</p></div>{children}</div>; }
 function Table({ headers, children }: { headers: string[]; children: React.ReactNode }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className="w-full border-collapse"><thead><tr>{headers.map((header) => <th key={header}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
 function SettingSelect({ label, ports, value, onChange }: { label: string; ports: MidiPort[]; value: number | null; onChange: (value: number) => void }) { return <label className="mt-5 block text-sm text-slate-400">{label}<select className="field mt-2" value={value ?? ""} onChange={(event) => onChange(Number(event.target.value))}>{ports.length ? ports.map((port) => <option key={port.index} value={port.index}>{port.name}</option>) : <option value="">No MIDI ports found</option>}</select></label>; }
 function FolderSetting({ label, value, onClick }: { label: string; value: string | null; onClick: () => void }) { return <div className="mt-5"><span className="text-sm text-slate-400">{label}</span><button className="field mt-2 flex items-center justify-between gap-4 text-left" onClick={onClick}><span className="truncate">{value ?? "Choose folder…"}</span><FolderOpen size={16} className="shrink-0 text-slate-500"/></button></div>; }
-function Onboarding({ discovering, device, foldersReady, syncing, onClose, onSync, onSettings }: { discovering: boolean; device?: MidiPort; foldersReady: boolean; syncing: boolean; onClose: () => void; onSync: () => void; onSettings: () => void }) { return <div className="modal-backdrop"><div className="modal-panel">{!discovering && <button className="absolute right-5 top-5 text-slate-600 hover:text-white" onClick={onClose}><X size={18}/></button>}<div className="modal-icon">{discovering ? <LoaderCircle className="animate-spin"/> : <Usb/>}</div>{discovering ? <><h2 className="modal-title">Looking for MIDI devices</h2><p className="modal-copy">Checking the available MIDI input and output ports…</p></> : <><p className="eyebrow">Device detected</p><h2 className="modal-title">{device?.name}</h2><p className="modal-copy">Connect to the device and synchronize its preset banks with your local library.</p><div className="mt-7 space-y-3"><div className="onboarding-step"><Check size={16}/>MIDI input and output are available</div><div className={`onboarding-step ${foldersReady ? "" : "text-amber-300"}`}>{foldersReady ? <Check size={16}/> : <FolderOpen size={16}/>} {foldersReady ? "Local preset library is ready" : "Choose a local preset library first"}</div></div><button className="primary-button mt-7 w-full justify-center py-3" disabled={syncing} onClick={foldersReady ? onSync : onSettings}>{syncing ? <LoaderCircle size={17} className="animate-spin"/> : foldersReady ? <RefreshCw size={17}/> : <FolderOpen size={17}/>} {syncing ? "Synchronizing…" : foldersReady ? "Connect & synchronize" : "Choose library folder"}<ChevronRight size={17}/></button><button className="mt-4 w-full text-center text-sm text-slate-600 hover:text-slate-300" onClick={onClose}>Not now</button></>}</div></div>; }
+function Onboarding({ discovering, inputs, outputs, selectedInput, selectedOutput, onInput, onOutput, foldersReady, syncing, onRefresh, onClose, onSync, onSettings }: { discovering: boolean; inputs: MidiPort[]; outputs: MidiPort[]; selectedInput: number | null; selectedOutput: number | null; onInput: (value: number) => void; onOutput: (value: number) => void; foldersReady: boolean; syncing: boolean; onRefresh: () => void; onClose: () => void; onSync: () => void; onSettings: () => void }) {
+  const connectionReady = selectedInput !== null && selectedOutput !== null;
+  return <div className="modal-backdrop"><div className="modal-panel">{!discovering && <button className="absolute right-5 top-5 text-slate-600 hover:text-white" onClick={onClose}><X size={18}/></button>}<div className="modal-icon">{discovering ? <LoaderCircle className="animate-spin"/> : <Usb/>}</div>{discovering ? <><h2 className="modal-title">Looking for MIDI devices</h2><p className="modal-copy">Checking the available MIDI input and output ports…</p></> : <><p className="eyebrow">MIDI connection</p><h2 className="modal-title">Select your Digitone</h2><p className="modal-copy">Check both MIDI ports before synchronizing the preset library.</p><div className="mt-6 space-y-4 text-left"><SettingSelect label="MIDI input" ports={inputs} value={selectedInput} onChange={onInput}/><SettingSelect label="MIDI output" ports={outputs} value={selectedOutput} onChange={onOutput}/><button className="flex items-center gap-2 text-xs text-slate-500 hover:text-slate-300" onClick={onRefresh}><RefreshCw size={13}/>Refresh MIDI devices</button></div><div className="mt-6 space-y-3"><div className={`onboarding-step ${connectionReady ? "" : "text-amber-300"}`}>{connectionReady ? <Check size={16}/> : <Usb size={16}/>} {connectionReady ? "MIDI input and output are selected" : "Select both MIDI ports"}</div><div className={`onboarding-step ${foldersReady ? "" : "text-amber-300"}`}>{foldersReady ? <Check size={16}/> : <FolderOpen size={16}/>} {foldersReady ? "Local preset library is ready" : "Choose a local preset library first"}</div></div><button className="primary-button mt-7 w-full justify-center py-3" disabled={syncing || !connectionReady} onClick={foldersReady ? onSync : onSettings}>{syncing ? <LoaderCircle size={17} className="animate-spin"/> : foldersReady ? <RefreshCw size={17}/> : <FolderOpen size={17}/>} {syncing ? "Synchronizing…" : foldersReady ? "Connect & synchronize" : "Choose library folder"}<ChevronRight size={17}/></button><button className="mt-4 w-full text-center text-sm text-slate-600 hover:text-slate-300" onClick={onClose}>Not now</button></>}</div></div>;
+}
+function BackgroundSyncStatus({ progress }: { progress: SyncProgress }) {
+  const location = progress.bank ? progress.slot ? `Bank ${progress.bank} · slot ${String(progress.slot).padStart(3, "0")}` : `Bank ${progress.bank}` : progress.stage;
+  return <div className="grid items-center gap-3 px-6 py-2.5 md:grid-cols-[minmax(220px,1fr)_minmax(240px,2fr)_auto]"><div className="flex min-w-0 items-center gap-2 text-xs"><RefreshCw size={14} className="shrink-0 animate-spin text-emerald-400"/><span className="font-medium text-slate-300">Synchronizing device</span><span className="truncate text-slate-600">{location}</span></div><div className="flex items-center gap-3"><div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[.08]"><div className="h-full rounded-full bg-emerald-400 transition-[width] duration-300" style={{ width: `${progress.percent}%` }}/></div><span className="w-9 text-right text-xs font-semibold text-emerald-300">{progress.percent}%</span></div><div className="whitespace-nowrap text-right text-xs text-slate-500">{progress.total ? `${progress.completed} / ${progress.total} ${progress.slot ? "presets" : "banks"}` : "Reading catalog…"}</div></div>;
+}
+function SyncError({ detail, onClose, onRetry }: { detail: string; onClose: () => void; onRetry: () => void }) { return <div className="modal-backdrop"><div className="modal-panel"><button className="absolute right-5 top-5 text-slate-600 hover:text-white" onClick={onClose}><X size={18}/></button><div className="modal-icon border-red-400/20 bg-red-400/10 text-red-300"><X/></div><p className="eyebrow text-red-300">Synchronization failed</p><h2 className="modal-title">The device could not be read</h2><p className="modal-copy">No local preset files were changed.</p><pre className="mt-6 max-h-40 overflow-auto whitespace-pre-wrap rounded-lg border border-white/[.08] bg-black/30 p-4 text-left text-xs text-red-200">{detail}</pre><div className="mt-6 flex gap-3"><button className="secondary-button flex-1 justify-center" onClick={onClose}>Close</button><button className="primary-button flex-1 justify-center" onClick={onRetry}><RefreshCw size={16}/>Retry</button></div></div></div>; }
