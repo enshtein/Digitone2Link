@@ -30,7 +30,7 @@ type SyncProgress = { completed: number; total: number; percent: number; bank: s
 
 export default function App() {
   const [view, setView] = useState<View>("presets");
-  const [bank, setBank] = useState("A");
+  const [bank, setBank] = useState("ALL");
   const [settings, setSettings] = useState<Settings>({ banksPath: null, packsPath: null });
   const [data, setData] = useState<ScanResult | null>(null);
   const [catalog, setCatalog] = useState<DeviceCatalog | null>(null);
@@ -49,8 +49,6 @@ export default function App() {
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
   const selectedDevice = midiInputs.find((port) => port.index === selectedInput);
-  const deviceTotal = catalog?.banks.reduce((sum, item) => sum + item.presets.length, 0) ?? null;
-  const libraryTotal = Object.values(data?.banks ?? {}).reduce((sum, presets) => sum + presets.length, 0);
 
   useEffect(() => {
     void initialize();
@@ -164,8 +162,16 @@ export default function App() {
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, [data]);
 
-  const deviceRows = catalog?.banks.find((item) => item.bank === bank)?.presets ?? [];
-  const localRows = data?.banks[bank] ?? [];
+  const allPresetCount = catalog
+    ? catalog.banks.reduce((sum, item) => sum + item.presets.length, 0)
+    : Object.values(data?.banks ?? {}).reduce((sum, presets) => sum + presets.length, 0);
+  const visibleBanks = bank === "ALL" ? BANKS : [bank];
+  const presetRows = visibleBanks.flatMap((bankName) => {
+    const presets = catalog
+      ? catalog.banks.find((item) => item.bank === bankName)?.presets ?? []
+      : data?.banks[bankName] ?? [];
+    return presets.map((preset) => ({ bank: bankName, preset }));
+  });
 
   return (
     <div className="min-h-screen bg-canvas pb-10 text-slate-100">
@@ -193,12 +199,12 @@ export default function App() {
       <main className="mx-auto w-full max-w-[1500px] px-6 py-7">
         {view === "presets" && (
           <section>
-            <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2">{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><div className="flex items-center gap-5 whitespace-nowrap text-xs text-slate-500"><span>Device <strong className="ml-1 font-semibold text-slate-300">{deviceTotal ?? "—"}</strong></span><span>Library <strong className="ml-1 font-semibold text-slate-300">{libraryTotal}</strong></span></div></div>
-            <Table headers={["Slot", "Preset", "Sync", "Sound pack(s)", "Tags"]}>
-              {(catalog ? deviceRows : localRows).map((preset) => {
-                const local = localRows.find((item) => item.slot === preset.slot);
+            <div className="mb-5 flex gap-2"><button onClick={() => setBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL ({allPresetCount})</button>{BANKS.map((item) => <button key={item} onClick={() => setBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div>
+            <Table headers={bank === "ALL" ? ["Bank", "Slot", "Preset", "Sync", "Sound pack(s)", "Tags"] : ["Slot", "Preset", "Sync", "Sound pack(s)", "Tags"]}>
+              {presetRows.map(({ bank: rowBank, preset }) => {
+                const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
-                return <tr key={preset.slot}><td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok h-7 w-7 justify-center p-0" title="Synchronized"><Check size={14}/></span> : <span className="text-slate-700" title="Not synchronized">—</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.join(", ") || "—"}</td></tr>;
+                return <tr key={`${rowBank}-${preset.slot}`}>{bank === "ALL" && <td className="font-semibold text-emerald-300">{rowBank}</td>}<td>{String(preset.slot).padStart(3, "0")}</td><td className="font-medium text-white">{name}</td><td>{local ? <span className="sync-ok h-7 w-7 justify-center p-0" title="Synchronized"><Check size={14}/></span> : <span className="text-slate-700" title="Not synchronized">—</span>}</td><td>{local ? [...local.exactPacks, ...local.nameOnlyPacks].join(", ") || "—" : "—"}</td><td>{local?.tags.join(", ") || "—"}</td></tr>;
               })}
             </Table>
           </section>
