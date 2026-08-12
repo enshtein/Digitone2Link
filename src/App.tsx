@@ -50,6 +50,7 @@ export default function App() {
   const [emptyOnly, setEmptyOnly] = useState(false);
   const [presetFilter, setPresetFilter] = useState("");
   const [soundPackFilter, setSoundPackFilter] = useState("");
+  const [tagFilters, setTagFilters] = useState<string[]>([]);
 
   const foldersReady = Boolean(settings.banksPath && settings.packsPath);
   const selectedDevice = midiInputs.find((port) => port.index === selectedInput);
@@ -177,16 +178,22 @@ export default function App() {
     const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
     return local ? [...local.exactPacks, ...local.nameOnlyPacks] : [];
   }))).sort((a, b) => a.localeCompare(b));
+  const availableTags = Array.from(new Set(bankPresetRows.flatMap(({ bank: rowBank, preset }) => {
+    const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
+    return local?.tags ?? [];
+  }))).sort((a, b) => a.localeCompare(b));
   const presetRows = bankPresetRows.filter(({ bank: rowBank, preset }) => {
     const matchesName = preset.name.toLocaleLowerCase().includes(presetFilter.toLocaleLowerCase());
-    if (!matchesName || !soundPackFilter) return matchesName;
     const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
-    return Boolean(local && [...local.exactPacks, ...local.nameOnlyPacks].includes(soundPackFilter));
+    const matchesPack = !soundPackFilter || Boolean(local && [...local.exactPacks, ...local.nameOnlyPacks].includes(soundPackFilter));
+    const matchesTags = tagFilters.length === 0 || Boolean(local?.tags.some((tag) => tagFilters.includes(tag)));
+    return matchesName && matchesPack && matchesTags;
   });
 
   function selectBank(next: string) {
     setBank(next);
     setSoundPackFilter("");
+    setTagFilters([]);
   }
 
   return (
@@ -216,7 +223,7 @@ export default function App() {
         {view === "presets" && (
           <section>
             <div className="mb-5 flex items-center justify-between gap-6"><div className="flex gap-2"><button onClick={() => selectBank("ALL")} className={`bank-tab ${bank === "ALL" ? "bank-tab-active" : ""}`}>ALL</button>{BANKS.map((item) => <button key={item} onClick={() => selectBank(item)} className={`bank-tab ${bank === item ? "bank-tab-active" : ""}`}>{item}</button>)}</div><span className="whitespace-nowrap text-xs text-slate-500">Presets: <strong className="ml-1 font-semibold text-slate-300">{presetRows.length}</strong></span></div>
-            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, "Tags"] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, "Tags"]}>
+            <Table headers={bank === "ALL" ? ["Bank", "Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>] : ["Slot", <PresetSearchHeader value={presetFilter} onFilter={setPresetFilter}/>, "Sync", <SoundPackFilterHeader options={availableSoundPacks} value={soundPackFilter} onFilter={setSoundPackFilter}/>, <TagsFilterHeader options={availableTags} values={tagFilters} onFilter={setTagFilters}/>]}>
               {presetRows.map(({ bank: rowBank, preset }) => {
                 const local = data?.banks[rowBank]?.find((item) => item.slot === preset.slot);
                 const name = preset.name;
@@ -284,6 +291,13 @@ function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (val
 function SoundPackFilterHeader({ options, value, onFilter }: { options: string[]; value: string; onFilter: (value: string) => void }) {
   const [open, setOpen] = useState(false);
   return <div><div className="inline-flex items-center gap-1.5">Sound pack(s)<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Filter by sound pack" onClick={() => setOpen((current) => !current)}><Filter size={13}/></button></div>{open && <div className="header-filter-panel"><select value={value} onChange={(event) => onFilter(event.target.value)}><option value="">All sound packs</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
+}
+function TagsFilterHeader({ options, values, onFilter }: { options: string[]; values: string[]; onFilter: (values: string[]) => void }) {
+  const [open, setOpen] = useState(false);
+  function toggle(tag: string) {
+    onFilter(values.includes(tag) ? values.filter((value) => value !== tag) : [...values, tag]);
+  }
+  return <div><div className="inline-flex items-center gap-1.5">Tags<button className={`header-search-button ${values.length ? "text-emerald-300" : ""}`} title="Filter by tags" onClick={() => setOpen((current) => !current)}><Filter size={13}/></button></div>{open && <div className="header-tags-panel"><div className="flex items-center justify-between border-b border-white/[.07] px-3 py-2"><span className="text-xs font-medium normal-case tracking-normal text-slate-400">Match any tag{values.length ? ` · ${values.length} selected` : ""}</span><div className="flex items-center gap-2">{values.length > 0 && <button className="text-xs font-medium normal-case tracking-normal text-emerald-400 hover:text-emerald-300" onClick={() => onFilter([])}>Clear</button>}<button className="text-slate-600 transition hover:text-white" title="Close" onClick={() => setOpen(false)}><X size={14}/></button></div></div><div className="max-h-56 overflow-auto p-2">{options.length ? options.map((tag) => <label key={tag} className="tag-filter-option"><input type="checkbox" checked={values.includes(tag)} onChange={() => toggle(tag)}/><span>{tag}</span></label>) : <p className="px-2 py-3 text-xs font-normal normal-case tracking-normal text-slate-600">No tags available</p>}</div></div>}</div>;
 }
 function SettingSelect({ label, ports, value, onChange }: { label: string; ports: MidiPort[]; value: number | null; onChange: (value: number) => void }) { return <label className="mt-5 block text-sm text-slate-400">{label}<select className="field mt-2" value={value ?? ""} onChange={(event) => onChange(Number(event.target.value))}>{ports.length ? ports.map((port) => <option key={port.index} value={port.index}>{port.name}</option>) : <option value="">No MIDI ports found</option>}</select></label>; }
 function FolderSetting({ label, value, onClick }: { label: string; value: string | null; onClick: () => void }) { return <div className="mt-5"><span className="text-sm text-slate-400">{label}</span><button className="field mt-2 flex items-center justify-between gap-4 text-left" onClick={onClick}><span className="truncate">{value ?? "Choose folder…"}</span><FolderOpen size={16} className="shrink-0 text-slate-500"/></button></div>; }
