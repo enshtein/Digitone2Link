@@ -1,6 +1,6 @@
 [package]
 name = "digitone2link"
-version = "0.1.1"
+version = "0.1.2"
 description = "Digitone2Link desktop preset library"
 authors = ["Digitone2Link contributors"]
 edition = "2021"
