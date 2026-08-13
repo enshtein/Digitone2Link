@@ -19,7 +19,10 @@ jobs:
           - platform: ubuntu-22.04
             args: ""
           - platform: windows-latest
-            args: ""
+            # The MSI is the Windows installer we publish. Building the default
+            # bundle set also downloads NSIS at build time, which can fail after
+            # the MSI has already been produced if GitHub drops the connection.
+            args: --bundles msi
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v6
