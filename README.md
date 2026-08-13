@@ -93,41 +93,6 @@ The Tags view turns metadata from every synchronized preset into a visual map of
   </tr>
 </table>
 
-## Local library
-
-Only preset files are stored inside the bank folders. Digitone2Link keeps its own indexes and synchronization data in a separate hidden system folder next to them.
-
-```text
-Your Library/
-├── A/ … H/              Presets from banks A through H
-└── .digitone2link/      Application data and synchronization staging
-```
-
-Your library stays on your computer. Digitone2Link does not upload preset files or collection data to a cloud service.
-
-## How preset matching works
-
-When possible, Digitone2Link identifies a preset by its file content. Files returned by the instrument may use a different binary representation than their sound-pack originals, so the app also uses a conservative fallback: a name match is accepted only when that normalized name occurs exactly once in the scanned sound packs and exactly once in the local library.
-
-Repeated names are intentionally left unmatched rather than being assigned to the wrong sound pack.
-
-## Build from source
-
-You will need [Node.js](https://nodejs.org/), [Rust](https://www.rust-lang.org/tools/install), and the platform prerequisites for [Tauri 2](https://v2.tauri.app/start/prerequisites/).
-
-```bash
-git clone https://github.com/enshtein/Digitone2Link.git
-cd Digitone2Link
-npm install
-npm run tauri dev
-```
-
-Create a production bundle with:
-
-```bash
-npm run tauri build
-```
-
 ## Disclaimer
 
 Digitone2Link is an independent community project and is not affiliated with or endorsed by Elektron. Digitone, Digitone II, and Elektron Transfer are trademarks of their respective owner.
