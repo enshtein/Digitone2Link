@@ -4,11 +4,13 @@ import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
 import {
   Archive,
+  ArrowUpDown,
   Check,
   ChevronRight,
   Filter,
   FolderOpen,
   Library,
+  Lock,
   LoaderCircle,
   RefreshCw,
   Search,
@@ -48,7 +50,9 @@ export default function App() {
   const [onboarding, setOnboarding] = useState(false);
   const [message, setMessage] = useState("Ready");
   const [selectedPack, setSelectedPack] = useState<Pack | null>(null);
-  const [emptyOnly, setEmptyOnly] = useState(false);
+  const [packSearch, setPackSearch] = useState("");
+  const [packTagFilters, setPackTagFilters] = useState<string[]>([]);
+  const [packSort, setPackSort] = useState<"name" | "used" | "total">("name");
   const [presetFilter, setPresetFilter] = useState("");
   const [soundPackFilters, setSoundPackFilters] = useState<string[]>([]);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
@@ -201,6 +205,31 @@ export default function App() {
   const presetCapacity = visibleBanks.length * PRESETS_PER_BANK;
   const freePresetSlots = Math.max(0, presetCapacity - bankPresetRows.length);
   const filtersActive = Boolean(presetFilter || soundPackFilters.length || tagFilters.length);
+  const packTagOptions = useMemo(() => {
+    const counts: Record<string, number> = {};
+    (data?.packs ?? []).forEach((pack) => Object.keys(pack.tags).forEach((tag) => { counts[tag] = (counts[tag] ?? 0) + 1; }));
+    return Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
+  }, [data]);
+  const filteredPacks = useMemo(() => {
+    const query = packSearch.toLocaleLowerCase();
+    return (data?.packs ?? [])
+      .filter((pack) => pack.name.toLocaleLowerCase().includes(query)
+        && (packTagFilters.length === 0 || packTagFilters.some((tag) => tag in pack.tags)))
+      .sort((a, b) => {
+        if (packSort === "used") return b.found - a.found || (b.found / Math.max(b.total, 1)) - (a.found / Math.max(a.total, 1)) || a.name.localeCompare(b.name);
+        if (packSort === "total") return b.total - a.total || a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name);
+      });
+  }, [data, packSearch, packTagFilters, packSort]);
+  const largestUsedPresetCount = Math.max(0, ...filteredPacks.map((pack) => pack.found));
+  const activePack = selectedPack ? data?.packs.find((pack) => pack.name === selectedPack.name) ?? selectedPack : null;
+  const packSummary = useMemo(() => {
+    const packs = data?.packs ?? [];
+    const libraryPresets = Object.values(data?.banks ?? {}).flat();
+    const matchedLibraryPresets = libraryPresets.filter((preset) => preset.exactPacks.length > 0 || preset.nameOnlyPacks.length > 0).length;
+    const usedPacks = packs.filter((pack) => pack.found > 0).length;
+    return { total: packs.length, used: usedPacks, unused: packs.length - usedPacks, coverage: libraryPresets.length ? Math.round(matchedLibraryPresets * 100 / libraryPresets.length) : 0 };
+  }, [data]);
 
   function selectBank(next: string) {
     setBank(next);
@@ -247,10 +276,13 @@ export default function App() {
 
         {view === "packs" && (
           <section>
-            <label className="mb-5 flex items-center gap-3 text-sm text-slate-400"><input type="checkbox" checked={emptyOnly} onChange={(event) => setEmptyOnly(event.target.checked)} />Show only packs with no matches</label>
-            <div className="grid gap-5 xl:grid-cols-[1.1fr_.9fr]">
-              <Table headers={["Sound pack", "Found", "Total"]}>{(data?.packs ?? []).filter((pack) => !emptyOnly || pack.found === 0).map((pack) => <tr key={pack.name} onClick={() => setSelectedPack(pack)} className="cursor-pointer hover:bg-white/[.025]"><td className="font-medium text-white">{pack.name}</td><td>{pack.found}</td><td>{pack.total}</td></tr>)}</Table>
-              <div className="surface p-6">{selectedPack ? <><h2 className="text-xl font-semibold">{selectedPack.name}</h2><p className="mt-2 text-sm text-slate-500">{selectedPack.found} of {selectedPack.total} found</p><h3 className="section-label">Tags</h3><p className="mt-2 text-sm text-slate-400">{Object.entries(selectedPack.tags).sort((a,b) => b[1]-a[1]).map(([tag,count]) => `${tag} (${count})`).join(", ") || "—"}</p><h3 className="section-label">Device positions</h3>{selectedPack.matches.map((match) => <p key={`${match.location}-${match.name}`} className="mt-2 text-sm text-slate-300">{match.location} · {match.name}</p>)}</> : <p className="text-sm text-slate-500">Select a sound pack to see details.</p>}</div>
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <div className="pack-summary"><span>Sound packs <strong>{packSummary.total}</strong></span><i/><span>Used <strong>{packSummary.used}</strong></span><span>Unused <strong>{packSummary.unused}</strong></span><i/><span>Library coverage <strong className="text-emerald-300">{packSummary.coverage}%</strong></span></div>
+              <div className="flex items-center gap-3"><TagsFilterHeader options={packTagOptions} values={packTagFilters} onFilter={setPackTagFilters}/><label className="flex items-center gap-2 text-xs text-slate-500"><ArrowUpDown size={14}/><span>Sort</span><select className="pack-sort" value={packSort} onChange={(event) => setPackSort(event.target.value as typeof packSort)}><option value="name">Name A–Z</option><option value="used">Used presets</option><option value="total">Preset count</option></select></label></div>
+            </div>
+            <div className="grid items-start gap-5 xl:grid-cols-[minmax(520px,.92fr)_minmax(580px,1.08fr)]">
+              <Table className="pack-list-table" headers={[<PackSearchHeader value={packSearch} onFilter={setPackSearch}/>, "Presets", "Used"]}>{filteredPacks.map((pack) => { const percent = pack.total ? Math.round(pack.found * 100 / pack.total) : 0; const relativeUsage = largestUsedPresetCount ? pack.found * 100 / largestUsedPresetCount : 0; return <tr key={pack.name} onClick={() => setSelectedPack(pack)} className={`pack-row cursor-pointer ${activePack?.name === pack.name ? "pack-row-active" : ""}`}><td className="relative overflow-hidden font-medium text-white"><span className="pack-usage-fill" style={{ width: `${relativeUsage}%` }}/><span className="relative z-[1] flex min-w-0 items-center gap-1.5"><span className="truncate" title={pack.name}>{pack.name}</span>{pack.name === "Factory" && <Lock size={12} className="shrink-0 text-slate-500" aria-label="Built-in factory pack"/>}</span></td><td>{pack.total}</td><td><span className="font-semibold text-emerald-300">{pack.found}</span><span className="ml-1 text-slate-600">{percent}%</span></td></tr>; })}</Table>
+              <PackDetails pack={activePack}/>
             </div>
           </section>
         )}
@@ -276,7 +308,7 @@ export default function App() {
   );
 }
 
-function Table({ headers, children }: { headers: React.ReactNode[]; children: React.ReactNode }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className="w-full border-collapse"><thead><tr>{headers.map((header, index) => <th key={index}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
+function Table({ headers, children, className = "" }: { headers: React.ReactNode[]; children: React.ReactNode; className?: string }) { return <div className="surface max-h-[calc(100vh-245px)] overflow-auto"><table className={`w-full border-collapse ${className}`}><thead><tr>{headers.map((header, index) => <th key={index}>{header}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
 function buildTagCloudRows(tags: [string, number][]) {
   const rowCount = tags.length > 48 ? 9 : 7;
   const middle = (rowCount - 1) / 2;
@@ -321,6 +353,31 @@ function PresetSearchHeader({ value, onFilter }: { value: string; onFilter: (val
   }
 
   return <div><div className="inline-flex items-center gap-1.5">Preset<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Search presets" onClick={() => setOpen((current) => !current)}><Search size={13}/></button></div>{open && <div className="header-search-popover"><Search size={15} className="shrink-0 text-slate-500"/><input ref={inputRef} value={text} onChange={(event) => update(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") onFilter(text.trim()); if (event.key === "Escape") close(); }} placeholder="Preset name…"/><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={close}><X size={14}/></button></div>}</div>;
+}
+function PackSearchHeader({ value, onFilter }: { value: string; onFilter: (value: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
+  return <div><div className="inline-flex items-center gap-1.5">Sound pack<button className={`header-search-button ${value ? "text-emerald-300" : ""}`} title="Search sound packs" onClick={() => setOpen((current) => !current)}><Search size={13}/></button></div>{open && <div className="header-search-popover"><Search size={15} className="shrink-0 text-slate-500"/><input ref={inputRef} value={value} onChange={(event) => onFilter(event.target.value)} onKeyDown={(event) => { if (event.key === "Escape") { onFilter(""); setOpen(false); } }} placeholder="Sound pack name…"/><button className="text-slate-600 transition hover:text-white" title="Clear and close" onClick={() => { onFilter(""); setOpen(false); }}><X size={14}/></button></div>}</div>;
+}
+function PackDetails({ pack }: { pack: Pack | null }) {
+  const [usedOnly, setUsedOnly] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  useEffect(() => { setSelectedTags([]); setUsedOnly(false); }, [pack?.name]);
+  if (!pack) return <div className="surface flex min-h-[360px] items-center justify-center p-10 text-sm text-slate-500">Select a sound pack to see its presets.</div>;
+  const percent = pack.total ? Math.round(pack.found * 100 / pack.total) : 0;
+  const presets = pack.presets.filter((preset) => (!usedOnly || preset.used) && (selectedTags.length === 0 || selectedTags.some((tag) => preset.tags.includes(tag))));
+  function toggleTag(tag: string) { setSelectedTags((current) => current.includes(tag) ? current.filter((value) => value !== tag) : [...current, tag]); }
+  return <div className="surface flex max-h-[calc(100vh-245px)] min-h-[560px] flex-col overflow-hidden">
+    <div className="border-b border-white/[.07] p-6">
+      <div className="flex items-start justify-between gap-5"><div className="min-w-0 flex-1"><h2 className="pack-title flex min-w-0 items-start gap-2 text-xl font-semibold text-white"><span className="min-w-0">{pack.name}</span>{pack.name === "Factory" && <Lock size={15} className="mt-1 shrink-0 text-slate-500" aria-label="Built-in factory pack"/>}</h2><div className="pack-progress mt-4"><div className="pack-progress-fill" style={{ width: `${percent}%` }}/><div className="pack-progress-label"><span><strong>{pack.found}</strong> of {pack.total} presets used</span><strong>{percent}%</strong></div></div></div>{pack.coverDataUrl && <img className="pack-cover" src={pack.coverDataUrl} alt={`${pack.name} cover`}/>}</div>
+      <div className="mt-5 flex items-center gap-3"><h3 className="section-label m-0">Tags</h3>{selectedTags.length > 0 && <button className="pack-tag-clear" onClick={() => setSelectedTags([])}><X size={11}/>Clear {selectedTags.length}</button>}</div><div className="preset-tags mt-2">{Object.entries(pack.tags).sort((a,b) => b[1]-a[1]).map(([tag,count]) => <button key={tag} className={`preset-tag pack-tag-button ${selectedTags.includes(tag) ? "pack-tag-active" : ""}`} onClick={() => toggleTag(tag)}>{tag} <small>{count}</small></button>)}</div>
+    </div>
+    <div className="flex items-center justify-between border-b border-white/[.07] px-6 py-3"><div><h3 className="text-sm font-semibold text-white">Pack presets <span className="ml-1 font-normal text-slate-600">{presets.length}</span></h3><p className="mt-0.5 text-xs text-slate-600">{selectedTags.length ? `Filtered by ${selectedTags.length} tag${selectedTags.length === 1 ? "" : "s"}` : "Used presets are highlighted"}</p></div><label className="flex items-center gap-2 text-xs text-slate-400"><input type="checkbox" checked={usedOnly} onChange={(event) => setUsedOnly(event.target.checked)}/>Used only</label></div>
+    <div className="overflow-auto">
+      <table className="pack-presets-table w-full table-fixed border-collapse"><thead><tr><th>Preset</th><th>Type</th><th>Bank/Slot</th><th>Tags</th></tr></thead><tbody>{presets.map((preset, index) => <tr key={`${preset.name}-${index}`} className={preset.used ? "pack-preset-used" : ""}><td className="font-medium text-white"><span className="block truncate uppercase" title={preset.name}>{preset.name}</span></td><td><span className="preset-type">.{preset.fileType.toLocaleLowerCase()}</span></td><td className={`whitespace-nowrap ${preset.used ? "font-semibold text-emerald-300" : "text-slate-700"}`}>{preset.locations.join(", ") || "—"}</td><td><div className="preset-tags">{preset.tags.map((tag) => <span className="preset-tag" key={tag}>{tag}</span>)}</div></td></tr>)}</tbody></table>
+    </div>
+  </div>;
 }
 function SoundPackFilterHeader({ options, values, onFilter }: { options: [string, number][]; values: string[]; onFilter: (values: string[]) => void }) {
   const [open, setOpen] = useState(false);

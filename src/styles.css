@@ -33,6 +33,38 @@
   .tag-filter-option input { @apply sr-only; }
   .preset-tags { @apply flex flex-wrap gap-1; }
   .preset-tag { @apply inline-flex rounded-full border border-white/[.08] bg-white/[.03] px-2 py-1 text-[11px] leading-none text-slate-400; }
+  .preset-tag small { @apply ml-1 text-[10px] text-slate-600; }
+  .pack-sort { @apply rounded-lg border border-white/[.08] bg-[#10141a] px-3 py-2 text-sm text-slate-300 outline-none hover:border-white/[.14]; }
+  .pack-summary { @apply flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500; }
+  .pack-summary strong { @apply ml-1 font-semibold text-slate-300; }
+  .pack-summary i { @apply h-3 w-px bg-white/[.1]; }
+  .pack-row { @apply transition hover:bg-white/[.025]; }
+  .pack-row-active { @apply bg-emerald-400/[.055]; }
+  .pack-usage-fill { @apply pointer-events-none absolute inset-y-0 left-0 bg-emerald-400/[.07]; }
+  .pack-preset-used { @apply bg-emerald-400/[.045]; }
+  .pack-cover { @apply h-28 w-28 shrink-0 rounded-lg border border-white/[.08] bg-black/20 object-cover shadow-lg shadow-black/30; }
+  .pack-title span { overflow-wrap: anywhere; }
+  .pack-progress { @apply relative h-8 overflow-hidden rounded-lg border border-white/[.05] bg-white/[.06]; }
+  .pack-progress-fill { @apply absolute inset-y-0 left-0 bg-emerald-400/25 transition-[width]; }
+  .pack-progress-label { @apply absolute inset-0 flex items-center justify-between px-3 text-xs font-medium text-slate-300; }
+  .pack-progress-label strong { @apply font-semibold text-emerald-300; }
+  .pack-tag-button { @apply cursor-pointer transition hover:border-emerald-400/30 hover:text-emerald-200; }
+  .pack-tag-active { @apply border-emerald-400/40 bg-emerald-400/15 text-emerald-200; }
+  .pack-tag-active small { @apply text-emerald-400/70; }
+  .pack-tag-clear { @apply inline-flex items-center gap-1 rounded px-1.5 py-1 text-[11px] font-medium text-emerald-400 transition hover:bg-emerald-400/10 hover:text-emerald-300; }
+  .pack-list-table { @apply table-fixed; }
+  .pack-list-table th:nth-child(1) { width: 68%; }
+  .pack-list-table th:nth-child(2) { width: 14%; }
+  .pack-list-table th:nth-child(3) { width: 18%; }
+  .pack-list-table td { @apply py-3; }
+  .pack-presets-table th:nth-child(1) { width: 32%; }
+  .pack-presets-table th:nth-child(2) { width: 14%; }
+  .pack-presets-table th:nth-child(3) { width: 18%; }
+  .pack-presets-table th:nth-child(4) { width: 36%; }
+  .pack-presets-table td { @apply py-2.5; }
+  .pack-presets-table .preset-tags { @apply gap-0.5; }
+  .pack-presets-table .preset-tag { @apply px-1.5 py-0.5 text-[9px] tracking-[.02em]; }
+  .preset-type { @apply text-xs text-slate-600; }
   .tag-cloud { @apply relative mx-auto flex min-h-[650px] max-w-5xl flex-col items-center justify-center gap-1 border border-emerald-400/10 px-16 py-14 shadow-2xl shadow-black/20; border-radius: 50%; background: radial-gradient(circle at 45% 42%, rgba(52, 211, 153, .08), rgba(16, 20, 26, .94) 52%, rgba(10, 13, 17, .98) 76%); }
   .tag-cloud::before { content: ""; @apply pointer-events-none absolute inset-[8%] rounded-full border border-white/[.035]; }
   .tag-cloud-row { @apply relative z-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1; }

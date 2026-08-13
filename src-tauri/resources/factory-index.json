@@ -1,0 +1,5146 @@
+[
+  {
+    "bank": "A",
+    "slot": 1,
+    "name": "HIDDEN TEARS",
+    "normalized": "hidden tears",
+    "tags": [
+      "DEEP",
+      "LEAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "467a47a9275e69458b0ca3e99d4b35b0c3f8bafebe55ec48d51e655499dc856f"
+  },
+  {
+    "bank": "A",
+    "slot": 2,
+    "name": "MONOLOW",
+    "normalized": "monolow",
+    "tags": [
+      "BASS",
+      "GLITCH",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "c885a91d516f8b2fc8934039b1baebca39838a5f4154ea2ec6834c566d429c35"
+  },
+  {
+    "bank": "A",
+    "slot": 3,
+    "name": "SYNTHVÅG",
+    "normalized": "synthvåg",
+    "tags": [
+      "LEAD",
+      "CHORD",
+      "BRIGHT",
+      "VINTAGE"
+    ],
+    "fingerprint": "dda52caf7afa681190b1c9b7ddaa0c3087e73e408c25896bfa4b81490723e5c3"
+  },
+  {
+    "bank": "A",
+    "slot": 4,
+    "name": "WET SAND",
+    "normalized": "wet sand",
+    "tags": [
+      "LEAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "048acc4b0474e31806fcb1424d6f355395a3770604e4248ed39af5837999f15d"
+  },
+  {
+    "bank": "A",
+    "slot": 5,
+    "name": "FAMILY CREST",
+    "normalized": "family crest",
+    "tags": [
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "bc70a8acce5cbb9b8cd1233735fb974de87551dafb6d47cb2e7adb41331142e7"
+  },
+  {
+    "bank": "A",
+    "slot": 6,
+    "name": "7THPAD",
+    "normalized": "7thpad",
+    "tags": [
+      "STRINGS",
+      "PAD",
+      "CHORD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "DARK"
+    ],
+    "fingerprint": "1b629d4e7f00f5c125388a9e5807bad30a8a3f6e2e48431164d6edcc595ccdc7"
+  },
+  {
+    "bank": "A",
+    "slot": 7,
+    "name": "BASS SPACE",
+    "normalized": "bass space",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "BASS"
+    ],
+    "fingerprint": "a37f165f1ffd464e72524e02f00d9b9fe48d1e46133174145660d809bf66ef8c"
+  },
+  {
+    "bank": "A",
+    "slot": 8,
+    "name": "LONELY NIGHTS",
+    "normalized": "lonely nights",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "e70eaaba67aa04a0a1d8359fd5fe2ad56d29892cfa875e5d75c99befe1de949c"
+  },
+  {
+    "bank": "A",
+    "slot": 9,
+    "name": "AMBIENTOUS",
+    "normalized": "ambientous",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC",
+      "DARK"
+    ],
+    "fingerprint": "7562e53a9dfa0f748d7548f94d848bfbd11aca48747de8cce4b6ac19596d5284"
+  },
+  {
+    "bank": "A",
+    "slot": 10,
+    "name": "JÄVELSKAPET",
+    "normalized": "jävelskapet",
+    "tags": [
+      "STRINGS",
+      "NOISY"
+    ],
+    "fingerprint": "ff3b7c0eaae306fc0fb311f0d9a82bcf44266cde9b723c493314cf7df144713c"
+  },
+  {
+    "bank": "A",
+    "slot": 11,
+    "name": "PUNCHBASS",
+    "normalized": "punchbass",
+    "tags": [
+      "DEEP",
+      "BASS",
+      "DARK"
+    ],
+    "fingerprint": "c0e8716f2fe1f8d252c86b246a079e2d1bef819d8b643806d2de39f4bf9996ab"
+  },
+  {
+    "bank": "A",
+    "slot": 12,
+    "name": "LO-FI EPIANO",
+    "normalized": "lo-fi epiano",
+    "tags": [],
+    "fingerprint": "55d5ce7685e096266b116b9bec828c42653e1b27a9087b9112855ffa7c2f4491"
+  },
+  {
+    "bank": "A",
+    "slot": 13,
+    "name": "THE GRAND PIANO",
+    "normalized": "the grand piano",
+    "tags": [
+      "ACOUSTIC",
+      "SOFT"
+    ],
+    "fingerprint": "738a1656d589fc6035f34ef5732d1884295b3894e0bd04feef63a10826ee9fe9"
+  },
+  {
+    "bank": "A",
+    "slot": 14,
+    "name": "RANDOM ROADS",
+    "normalized": "random roads",
+    "tags": [
+      "PAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "3cec48989f97b7524f5b324693a62d3a5036d6e1dec23828d16070fa12772bce"
+  },
+  {
+    "bank": "A",
+    "slot": 15,
+    "name": "FLTRD DREAMS",
+    "normalized": "fltrd dreams",
+    "tags": [
+      "PAD",
+      "SOFT"
+    ],
+    "fingerprint": "e6c32b99ff139e32d2e827f3c82be2544ca7c4da59cc16f8b78ba32a2050d667"
+  },
+  {
+    "bank": "A",
+    "slot": 16,
+    "name": "GEIGERBAS",
+    "normalized": "geigerbas",
+    "tags": [
+      "BASS",
+      "DARK"
+    ],
+    "fingerprint": "53fdc733a0326f16ca221edad1bf0470a60564aa40f4bde4ec561eb98878ed83"
+  },
+  {
+    "bank": "A",
+    "slot": 17,
+    "name": "THE CLASSICS",
+    "normalized": "the classics",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "b6d09fa14c2154b9937efd93391cf4325072db96356ba5221b699646dc91220f"
+  },
+  {
+    "bank": "A",
+    "slot": 18,
+    "name": "ANOTHER PIECE",
+    "normalized": "another piece",
+    "tags": [
+      "LEAD",
+      "TEXTURE",
+      "NOISY"
+    ],
+    "fingerprint": "dea600cf5167d13ab444898c5514a850ca7490ed0da551b54fcb00c3cefeff6c"
+  },
+  {
+    "bank": "A",
+    "slot": 19,
+    "name": "EVOLVED",
+    "normalized": "evolved",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "CHORD"
+    ],
+    "fingerprint": "a51fc106719558b70ddc6509044a6296469be6c76a886da5478d28a2f22d5385"
+  },
+  {
+    "bank": "A",
+    "slot": 20,
+    "name": "BLADERNR",
+    "normalized": "bladernr",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "DARK",
+      "BRIGHT"
+    ],
+    "fingerprint": "7b3e07d017f9283ca7a87fe1a5165920bc4d22a76477738c11d7c7c2d35625db"
+  },
+  {
+    "bank": "A",
+    "slot": 21,
+    "name": "ECHO MELO",
+    "normalized": "echo melo",
+    "tags": [
+      "LEAD",
+      "CHORD"
+    ],
+    "fingerprint": "a3d4b902a458fea6bc91d2b741f8193b78f1c504dcc67eecd46193264742c275"
+  },
+  {
+    "bank": "A",
+    "slot": 22,
+    "name": "MORS BAS",
+    "normalized": "mors bas",
+    "tags": [
+      "BASS",
+      "TEXTURE"
+    ],
+    "fingerprint": "2c74e982286e328dc179095dd1af96b3b60b3e9666dfb410a4e40bc099962c0f"
+  },
+  {
+    "bank": "A",
+    "slot": 23,
+    "name": "ODDITYK",
+    "normalized": "oddityk",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "0192c5d3701365540e81e0d4926c61e445cfe18106a679482666ede57e49cb70"
+  },
+  {
+    "bank": "A",
+    "slot": 24,
+    "name": "SPLIT PERSONA",
+    "normalized": "split persona",
+    "tags": [
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "5f668baab3ee65ac3076fc1e8187417c3224e4663199402c796e28b8b3125970"
+  },
+  {
+    "bank": "A",
+    "slot": 25,
+    "name": "REWINDER",
+    "normalized": "rewinder",
+    "tags": [
+      "CHORD"
+    ],
+    "fingerprint": "9a9fd389d22846078bf779cb79183fcdc20912b1b9b5b233694b17a81a8b710d"
+  },
+  {
+    "bank": "A",
+    "slot": 26,
+    "name": "BLIND POWER",
+    "normalized": "blind power",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "GLITCH",
+      "BRIGHT"
+    ],
+    "fingerprint": "9293e7e53e89b3ce3587435eced15c720a0b749d9cb5a1fcb7d671d58264d797"
+  },
+  {
+    "bank": "A",
+    "slot": 27,
+    "name": "WOOD ORGAN",
+    "normalized": "wood organ",
+    "tags": [
+      "PERCUSSION",
+      "BASS",
+      "DARK"
+    ],
+    "fingerprint": "1c04ca6e5aa3048681ca7b750b0fcfb7afa44d83114f2f1cf28bba243ade4d72"
+  },
+  {
+    "bank": "A",
+    "slot": 28,
+    "name": "EASY DOES IT",
+    "normalized": "easy does it",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "SOFT",
+      "BRIGHT"
+    ],
+    "fingerprint": "3dcd058d063b6825293fbd215fd1fb49f53547ccccdca1fe5b246d114d4666f1"
+  },
+  {
+    "bank": "A",
+    "slot": 29,
+    "name": "SÖLO",
+    "normalized": "sölo",
+    "tags": [
+      "LEAD",
+      "SOFT"
+    ],
+    "fingerprint": "ae78be996b4e893252710f1afc8dff1602b95d8a077320efed3c73f623bd7a60"
+  },
+  {
+    "bank": "A",
+    "slot": 30,
+    "name": "ANNIHILATION",
+    "normalized": "annihilation",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "1ed6f447dba6ce0b2bdc1eb55b865254e0444c916eb10404b491aa93239c8395"
+  },
+  {
+    "bank": "A",
+    "slot": 31,
+    "name": "TUBEN",
+    "normalized": "tuben",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "TEXTURE"
+    ],
+    "fingerprint": "bc311c5f2292822d47aa7e14e5fd3ca37610f503308738f31ea92e8242c6c9ad"
+  },
+  {
+    "bank": "A",
+    "slot": 32,
+    "name": "OMNI",
+    "normalized": "omni",
+    "tags": [
+      "STRINGS",
+      "PAD"
+    ],
+    "fingerprint": "c0234e8586352c33db31a0ec6f447725a3bb95cbc5f9acae68aac960a28bc317"
+  },
+  {
+    "bank": "A",
+    "slot": 33,
+    "name": "BEUTYGLASS",
+    "normalized": "beutyglass",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "cf10dae32c562c410f0cfe2305788d0054cba2eeb9486f3f31162d793f9d8a40"
+  },
+  {
+    "bank": "A",
+    "slot": 34,
+    "name": "THINNER",
+    "normalized": "thinner",
+    "tags": [
+      "LEAD",
+      "METALLIC",
+      "ATMOSPHERIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "571440d7aaaed1b7b8eef25e3c938e95cbf29ad5b22c1ccd5447a7a6afc4da37"
+  },
+  {
+    "bank": "A",
+    "slot": 35,
+    "name": "HAZERISE",
+    "normalized": "hazerise",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "VINTAGE"
+    ],
+    "fingerprint": "dd43ae61e519c57e2cd4c5e987c668e6a7f72efa7c461f431e0fcea6c1ae6358"
+  },
+  {
+    "bank": "A",
+    "slot": 36,
+    "name": "LANDVETTER",
+    "normalized": "landvetter",
+    "tags": [
+      "EXPRESSIVE",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "ce57632f1bbc489ac6b35de21baae5e848b17ace839ed45f8c3b6fd251f413da"
+  },
+  {
+    "bank": "A",
+    "slot": 37,
+    "name": "HOLLOW TEAR",
+    "normalized": "hollow tear",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "SOFT"
+    ],
+    "fingerprint": "1c8786c672124494df6ed9b4bc08a8044f161eabe703705495b3edf0e05758c0"
+  },
+  {
+    "bank": "A",
+    "slot": 38,
+    "name": "MARELD MIN7",
+    "normalized": "mareld min7",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ARPEGGIO",
+      "BRIGHT"
+    ],
+    "fingerprint": "40eb4894433d16808ee18e5d1c077cd9db280cdc67ef7c7ab00a0b08152747c5"
+  },
+  {
+    "bank": "A",
+    "slot": 39,
+    "name": "SINGLE FILE",
+    "normalized": "single file",
+    "tags": [
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "0be29c77a2da19f4991ea4c9b9c4e32e58f4e0e47fe80e2744d75c4b0210f58c"
+  },
+  {
+    "bank": "A",
+    "slot": 40,
+    "name": "ZENITHTONE",
+    "normalized": "zenithtone",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "DARK"
+    ],
+    "fingerprint": "e60156860e92a1f7d539352bc6437805b44f313d64bfef04ac89409f06e9ab7d"
+  },
+  {
+    "bank": "A",
+    "slot": 41,
+    "name": "DREAMY KEYS",
+    "normalized": "dreamy keys",
+    "tags": [
+      "CHORD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "BRIGHT",
+      "VINTAGE"
+    ],
+    "fingerprint": "76ea0173a864cc790b7f9341e0f17586a668a245cdb50eeac2b3359358931197"
+  },
+  {
+    "bank": "A",
+    "slot": 42,
+    "name": "EFTERDYNING",
+    "normalized": "efterdyning",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "PAD",
+      "VINTAGE"
+    ],
+    "fingerprint": "d31c55e7387b058ffe9e5737254bb70b392a234fa83d6bf0e4172f16d55d9c04"
+  },
+  {
+    "bank": "A",
+    "slot": 43,
+    "name": "ORIONIC",
+    "normalized": "orionic",
+    "tags": [
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "85ed782da7ec817bc60b4b3f41a5b5b219f470b0669c64482839d6028860b708"
+  },
+  {
+    "bank": "A",
+    "slot": 44,
+    "name": "IRREGULAR",
+    "normalized": "irregular",
+    "tags": [
+      "PAD"
+    ],
+    "fingerprint": "f03046b388af078e061300ae05de7496ff0911fb25c3d05e88427d019afa63ff"
+  },
+  {
+    "bank": "A",
+    "slot": 45,
+    "name": "PINCH",
+    "normalized": "pinch",
+    "tags": [
+      "BASS",
+      "LEAD",
+      "NOISY",
+      "FAIL"
+    ],
+    "fingerprint": "b573ef3be2e144cae1df7efa3e4c1586d65c3c7eccc1785decd90773612bb647"
+  },
+  {
+    "bank": "A",
+    "slot": 46,
+    "name": "BROKEN KEYS",
+    "normalized": "broken keys",
+    "tags": [
+      "EXPRESSIVE",
+      "BASS",
+      "LEAD",
+      "ATMOSPHERIC",
+      "NOISY"
+    ],
+    "fingerprint": "dcd7a0fa9f546b41cdaa9135f2ce30e896d0cbe7f35083afdb23873f4a178562"
+  },
+  {
+    "bank": "A",
+    "slot": 47,
+    "name": "THUMB",
+    "normalized": "thumb",
+    "tags": [
+      "PERCUSSION",
+      "LEAD"
+    ],
+    "fingerprint": "c5eab5eb59bcb3826fd47dad56f80ebc10ba472de4671283778ff03ead5fdea9"
+  },
+  {
+    "bank": "A",
+    "slot": 48,
+    "name": "TONHJUL DYGD",
+    "normalized": "tonhjul dygd",
+    "tags": [
+      "LEAD",
+      "CHORD",
+      "VINTAGE"
+    ],
+    "fingerprint": "649d6d9d88723c5b6b2f4e43a18a4bcb229b3c18d522265de056307ad68e179b"
+  },
+  {
+    "bank": "A",
+    "slot": 49,
+    "name": "OR-GEL",
+    "normalized": "or-gel",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "183888c192cffbd2e2df23fca247e57e98226aa311a1fdf3e44c809cd856b079"
+  },
+  {
+    "bank": "A",
+    "slot": 50,
+    "name": "LOG BRASS",
+    "normalized": "log brass",
+    "tags": [
+      "BRASS",
+      "CHORD"
+    ],
+    "fingerprint": "1009ce528f5b172c1c8bfa26e6010ec842ed5fb35852b622e474b3aa62d3b209"
+  },
+  {
+    "bank": "A",
+    "slot": 51,
+    "name": "EPIC 80-IES",
+    "normalized": "epic 80-ies",
+    "tags": [
+      "BRASS",
+      "PAD",
+      "BRIGHT",
+      "VINTAGE",
+      "EPIC"
+    ],
+    "fingerprint": "9e698249ed5a6b9177c1d8d9c1b3c5e7bb6d92570b391d263d5986daa3809757"
+  },
+  {
+    "bank": "A",
+    "slot": 52,
+    "name": "HAMILTON",
+    "normalized": "hamilton",
+    "tags": [
+      "LEAD",
+      "ARPEGGIO",
+      "VINTAGE"
+    ],
+    "fingerprint": "ced98e5fe375e20840a0241a4080f0eaa35881333e2c9d1b13342cf3bbf34616"
+  },
+  {
+    "bank": "A",
+    "slot": 53,
+    "name": "MORNING CHORDS",
+    "normalized": "morning chords",
+    "tags": [
+      "BRASS",
+      "CHORD"
+    ],
+    "fingerprint": "289cd6e0be2b0b385078971b522b63409bef6ce23b851d120532382792d48d7e"
+  },
+  {
+    "bank": "A",
+    "slot": 54,
+    "name": "HARD 5TH",
+    "normalized": "hard 5th",
+    "tags": [
+      "LEAD",
+      "CHORD"
+    ],
+    "fingerprint": "10f29db784098000c110db5ab7c9d13e803c1ddd165a986412d6de7ed1b26012"
+  },
+  {
+    "bank": "A",
+    "slot": 55,
+    "name": "LILLE ARP",
+    "normalized": "lille arp",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "ARPEGGIO",
+      "METALLIC"
+    ],
+    "fingerprint": "09daa85acd21adf275cd2e13b0188cc9c59a1881c5872bda5e56c7f4e6a3a919"
+  },
+  {
+    "bank": "A",
+    "slot": 56,
+    "name": "AMPSOLO",
+    "normalized": "ampsolo",
+    "tags": [
+      "BASS",
+      "LEAD",
+      "NOISY",
+      "VINTAGE"
+    ],
+    "fingerprint": "0bbc6474ae0491c28797f60b26ac2d8d685c4dc1f465c1231b507b0f78fbb049"
+  },
+  {
+    "bank": "A",
+    "slot": 57,
+    "name": "WAH Q",
+    "normalized": "wah q",
+    "tags": [
+      "LEAD",
+      "SOFT"
+    ],
+    "fingerprint": "038b43d1ecbdad028375078090c2d275e27f43357853961c25b892f35ca735cf"
+  },
+  {
+    "bank": "A",
+    "slot": 58,
+    "name": "GENTLE ARP",
+    "normalized": "gentle arp",
+    "tags": [
+      "ARPEGGIO"
+    ],
+    "fingerprint": "6af1326d4788c88ba4e59f4958a9344898c9e443c33eb185376692997f4b62b9"
+  },
+  {
+    "bank": "A",
+    "slot": 59,
+    "name": "SINPOP",
+    "normalized": "sinpop",
+    "tags": [
+      "LEAD",
+      "METALLIC",
+      "HARD",
+      "BRIGHT"
+    ],
+    "fingerprint": "f3521d5b09ec348756fa629f2ef2bd2c33be3be5d762d80d5512aeb46c8e8ee2"
+  },
+  {
+    "bank": "A",
+    "slot": 60,
+    "name": "METRIAL",
+    "normalized": "metrial",
+    "tags": [
+      "LEAD",
+      "TEXTURE",
+      "METALLIC",
+      "NOISY",
+      "GLITCH",
+      "HARD",
+      "BRIGHT"
+    ],
+    "fingerprint": "ecbe6792dfc19656ebbbd34ecb091a39ca4d56ee9d8d6870d5de742f170bfd13"
+  },
+  {
+    "bank": "A",
+    "slot": 61,
+    "name": "KEYPLAY",
+    "normalized": "keyplay",
+    "tags": [
+      "LEAD",
+      "CHORD"
+    ],
+    "fingerprint": "92e8575a6a53988d29a58fc8f5892394f6b7fdff63dfff00cb4cb4157c469b46"
+  },
+  {
+    "bank": "A",
+    "slot": 62,
+    "name": "TUBE SNAKE",
+    "normalized": "tube snake",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "LEAD",
+      "BRIGHT",
+      "EPIC"
+    ],
+    "fingerprint": "e6efe01540cf2e1bac6c5035f4205c96d5bd5bd38937069591a016b225227888"
+  },
+  {
+    "bank": "A",
+    "slot": 63,
+    "name": "ARPER",
+    "normalized": "arper",
+    "tags": [
+      "ARPEGGIO"
+    ],
+    "fingerprint": "58d1aa38234542038b335fc7c47363bf5cbbd376232d018fcf18e2744dd04fa7"
+  },
+  {
+    "bank": "A",
+    "slot": 64,
+    "name": "FILTARPER",
+    "normalized": "filtarper",
+    "tags": [
+      "ARPEGGIO"
+    ],
+    "fingerprint": "b1f18dc0bf674cb1c8bce56633030944b77e5e6410ce2b6c567612fb1dba6524"
+  },
+  {
+    "bank": "A",
+    "slot": 65,
+    "name": "ARPIODE",
+    "normalized": "arpiode",
+    "tags": [
+      "ARPEGGIO"
+    ],
+    "fingerprint": "f6654a3c3edadc1c4ac6a3f9ca7dea7de3636cd092d6dffd5d3add7823e64ff9"
+  },
+  {
+    "bank": "A",
+    "slot": 66,
+    "name": "EMBERWAVE",
+    "normalized": "emberwave",
+    "tags": [
+      "EXPRESSIVE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "f318a2102d91df3998626b354c8cd728b75f1c6ed89305c2a67585d330d730b3"
+  },
+  {
+    "bank": "A",
+    "slot": 67,
+    "name": "ECHO CHORDS",
+    "normalized": "echo chords",
+    "tags": [
+      "LEAD",
+      "CHORD"
+    ],
+    "fingerprint": "35b47b99dfcc9d8297f9df9ac8297ac61f931380e1d6276a2791c68a4ec5d9b4"
+  },
+  {
+    "bank": "A",
+    "slot": 68,
+    "name": "FLUX WINDOW",
+    "normalized": "flux window",
+    "tags": [
+      "EXPRESSIVE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "2eac1f19730b6f54556065045f49ca407aac95d11368a1b089d98d188debbc49"
+  },
+  {
+    "bank": "A",
+    "slot": 69,
+    "name": "DULCI SPACE",
+    "normalized": "dulci space",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "TEXTURE",
+      "CHORD"
+    ],
+    "fingerprint": "ec7d011852df6b60a8304a133daeb91eaffce71c21e7cbad17fd5348d859bcc4"
+  },
+  {
+    "bank": "A",
+    "slot": 70,
+    "name": "LOW GUST",
+    "normalized": "low gust",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "NOISY",
+      "EPIC"
+    ],
+    "fingerprint": "de20d85661d45ae2f24209b72133306275e1302d30d398678fc5fbe80accf253"
+  },
+  {
+    "bank": "A",
+    "slot": 71,
+    "name": "LO-FI VOX",
+    "normalized": "lo-fi vox",
+    "tags": [
+      "LEAD",
+      "PAD",
+      "ACOUSTIC",
+      "NOISY"
+    ],
+    "fingerprint": "fcc4ada84f943ac485256191f1562d5a3dbc16ec515bc44a5f96a2119f4b6571"
+  },
+  {
+    "bank": "A",
+    "slot": 72,
+    "name": "WAH FUNK",
+    "normalized": "wah funk",
+    "tags": [
+      "LEAD",
+      "BRIGHT"
+    ],
+    "fingerprint": "79fd1d0a0fdd67dedffafd5f5fec9252f67f2d0c9ea91f255f71c2236accec3e"
+  },
+  {
+    "bank": "A",
+    "slot": 73,
+    "name": "KRAFTY MODEL",
+    "normalized": "krafty model",
+    "tags": [
+      "LEAD",
+      "BRIGHT",
+      "VINTAGE"
+    ],
+    "fingerprint": "1073d886eaaad9fa2d42aea361ac01689965de56ec1fe47590275f0340ba6323"
+  },
+  {
+    "bank": "A",
+    "slot": 74,
+    "name": "WARMING BRASS",
+    "normalized": "warming brass",
+    "tags": [
+      "BRASS"
+    ],
+    "fingerprint": "ec8ecde88c3d577fef79dae6876ef43184abbf567e94850ba7810cc672c77ede"
+  },
+  {
+    "bank": "A",
+    "slot": 75,
+    "name": "FONKIE TALKIE",
+    "normalized": "fonkie talkie",
+    "tags": [
+      "LEAD",
+      "CHORD",
+      "BRIGHT"
+    ],
+    "fingerprint": "151ac5fd9860d54a3d30b46a282a58d72897b74b96964c5ae4ac3bb2817399fb"
+  },
+  {
+    "bank": "A",
+    "slot": 76,
+    "name": "CLOUD BUBBLES",
+    "normalized": "cloud bubbles",
+    "tags": [
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "d2811e7d499ee662e41181aec58b04d5e726ac2e00070d92065b3ade29b304a9"
+  },
+  {
+    "bank": "A",
+    "slot": 77,
+    "name": "DANCING LEAVES",
+    "normalized": "dancing leaves",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "3d14658fef2f6b63ce9b6eb603075125e66029d091dffc0f9da6484524124755"
+  },
+  {
+    "bank": "A",
+    "slot": 78,
+    "name": "ELDER TUNE",
+    "normalized": "elder tune",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE",
+      "VINTAGE"
+    ],
+    "fingerprint": "9cc5494ea7e7c1a841e8b02a78462c4732b5c1fec2e176bf54c2a979a82466f3"
+  },
+  {
+    "bank": "A",
+    "slot": 79,
+    "name": "FINE DINING",
+    "normalized": "fine dining",
+    "tags": [
+      "LEAD",
+      "METALLIC",
+      "SOFT"
+    ],
+    "fingerprint": "80a0d9606ee643089ed74efcea583c259fe43beb7f24a4a4b8f5097da7aa9969"
+  },
+  {
+    "bank": "A",
+    "slot": 80,
+    "name": "SPIN BRASS",
+    "normalized": "spin brass",
+    "tags": [
+      "BRASS",
+      "EVOLVING",
+      "EXPRESSIVE"
+    ],
+    "fingerprint": "18f1ae400b1bea0597a9789ef0931be63881ddbdefb87590927a2932878597ad"
+  },
+  {
+    "bank": "A",
+    "slot": 81,
+    "name": "ON THE CASE",
+    "normalized": "on the case",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE",
+      "NOISY",
+      "VINTAGE"
+    ],
+    "fingerprint": "47adc043b4fd4a81eef08df275cc4753e0512b25801f10a0e1466a4d66bde0f8"
+  },
+  {
+    "bank": "A",
+    "slot": 82,
+    "name": "ARE WE HERE",
+    "normalized": "are we here",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "c89ed3a5e6b94d82ac1faa516d95c4895c1785dd60724b41ad1508a95dd07219"
+  },
+  {
+    "bank": "A",
+    "slot": 83,
+    "name": "WEAVING CIRCLE",
+    "normalized": "weaving circle",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "14898b6b22f4e2b38008eac8147553b4f7fc992ea661c76301cc3627fd3839ad"
+  },
+  {
+    "bank": "A",
+    "slot": 84,
+    "name": "BREATH MINT",
+    "normalized": "breath mint",
+    "tags": [
+      "LEAD",
+      "NOISY",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "212aab896c56d2d0660b3ad583480566ce60ca8ed570e14df789bceb468bc917"
+  },
+  {
+    "bank": "A",
+    "slot": 85,
+    "name": "END OF WITS",
+    "normalized": "end of wits",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE",
+      "SOFT"
+    ],
+    "fingerprint": "445e28dcfdac3e6401f3ab777d732c4cc86416009e7c0e36377bf4e514edf9a2"
+  },
+  {
+    "bank": "A",
+    "slot": 86,
+    "name": "LAST BREAKFAST",
+    "normalized": "last breakfast",
+    "tags": [
+      "LEAD",
+      "TEXTURE",
+      "NOISY",
+      "VINTAGE"
+    ],
+    "fingerprint": "a2562ab189a4e6e7647cab98b2e10e749def9d06c2a91aea4ade7a139f91520c"
+  },
+  {
+    "bank": "A",
+    "slot": 87,
+    "name": "OWL DREAMS",
+    "normalized": "owl dreams",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "896cc358057e7dac47a0109a5fd7f429e2de43bba90e02807b7bdc9381542cf4"
+  },
+  {
+    "bank": "A",
+    "slot": 88,
+    "name": "HALF SMILE",
+    "normalized": "half smile",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "da3422125d748ed9c4ebe4332321a5ae068d0f79a681ec4d4ef43028e1745a61"
+  },
+  {
+    "bank": "A",
+    "slot": 89,
+    "name": "INVERTED TREES",
+    "normalized": "inverted trees",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "3f1481315a60c453ca2912bfc88efa473b49d6f934eed471ffbbf37318852e55"
+  },
+  {
+    "bank": "A",
+    "slot": 90,
+    "name": "FRAGILE BEINGS",
+    "normalized": "fragile beings",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "TEXTURE",
+      "NOISY",
+      "SOFT"
+    ],
+    "fingerprint": "51740585e0f35fbf903517a18915d82d741c61c7ea1e8111645c15837a1899a1"
+  },
+  {
+    "bank": "A",
+    "slot": 91,
+    "name": "FOREST UFO",
+    "normalized": "forest ufo",
+    "tags": [
+      "PERCUSSION",
+      "LEAD",
+      "ACOUSTIC",
+      "SOFT"
+    ],
+    "fingerprint": "32d788fc944ef767ad0183e880b34a93a4a379fec3aea527e0704271fba7b76f"
+  },
+  {
+    "bank": "A",
+    "slot": 92,
+    "name": "PLANKAN",
+    "normalized": "plankan",
+    "tags": [
+      "LEAD",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "aed9c777ec8f28b32a46902428327ccb080085bfae3191c42910544b3efef841"
+  },
+  {
+    "bank": "A",
+    "slot": 93,
+    "name": "ROBOBELLY",
+    "normalized": "robobelly",
+    "tags": [
+      "LEAD",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "44c15d842cee02231d017eab97afcf5d1c47db8064a1837cc6dcf40047926c50"
+  },
+  {
+    "bank": "A",
+    "slot": 94,
+    "name": "LÖS",
+    "normalized": "lös",
+    "tags": [
+      "EVOLVING",
+      "LEAD"
+    ],
+    "fingerprint": "4a90d3c026c773c4e2af96ad5f364f58db0482503f988a88459975394df5a764"
+  },
+  {
+    "bank": "A",
+    "slot": 95,
+    "name": "ARPWALD",
+    "normalized": "arpwald",
+    "tags": [
+      "LEAD",
+      "ARPEGGIO"
+    ],
+    "fingerprint": "db7e9c13dd7c870c85404fac8d1abad304ac4086b78ee9796ed346f2bcbda612"
+  },
+  {
+    "bank": "A",
+    "slot": 96,
+    "name": "AURYN",
+    "normalized": "auryn",
+    "tags": [
+      "LEAD",
+      "ARPEGGIO",
+      "NOISY"
+    ],
+    "fingerprint": "c6eb51a448af8174be164a8c8473751014870fd4ce56b88f33d5f6424ada34db"
+  },
+  {
+    "bank": "A",
+    "slot": 97,
+    "name": "CHORDS OF CANAD",
+    "normalized": "chords of canad",
+    "tags": [
+      "CHORD"
+    ],
+    "fingerprint": "6d08bbeff16c86b0a073feeeb894474300740a04b738ca2993aeceb5c422d6c1"
+  },
+  {
+    "bank": "A",
+    "slot": 98,
+    "name": "BERRYSYNC",
+    "normalized": "berrysync",
+    "tags": [
+      "LEAD"
+    ],
+    "fingerprint": "0d449b2f41b3b14a19157572c007189830c396d36422bcbe15cb9966c665483b"
+  },
+  {
+    "bank": "A",
+    "slot": 99,
+    "name": "BOWED",
+    "normalized": "bowed",
+    "tags": [
+      "STRINGS"
+    ],
+    "fingerprint": "733521317f6476feb368816a1b3ea83ba2d33c9f7ebca3591e6153e42e21751f"
+  },
+  {
+    "bank": "A",
+    "slot": 100,
+    "name": "THE CELLO",
+    "normalized": "the cello",
+    "tags": [
+      "STRINGS"
+    ],
+    "fingerprint": "c8daf7881957622cc52f5fee4069d11ceda23dcfb3c14e7679166773d2a0f718"
+  },
+  {
+    "bank": "A",
+    "slot": 101,
+    "name": "CLARITY",
+    "normalized": "clarity",
+    "tags": [
+      "LEAD",
+      "METALLIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "3ef588e8c810f5f13cfa42e24bfd9a4d4b98e892dbd594446647dd010ffc7889"
+  },
+  {
+    "bank": "A",
+    "slot": 102,
+    "name": "DRAINPIPE",
+    "normalized": "drainpipe",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "f3a1d24661da79f1cdc709428387f542c2ac39b926fd32fbcc06b4f7d2de7a48"
+  },
+  {
+    "bank": "A",
+    "slot": 103,
+    "name": "BOUNCE EPIANO",
+    "normalized": "bounce epiano",
+    "tags": [],
+    "fingerprint": "b7e05033c42762f3d68d8ababd032b202632c80e5883090e8860656ea94dff52"
+  },
+  {
+    "bank": "A",
+    "slot": 104,
+    "name": "PWADAMAN",
+    "normalized": "pwadaman",
+    "tags": [
+      "STRINGS",
+      "PAD"
+    ],
+    "fingerprint": "c8795a65338d6db1c4457ce304fd5e4f3234f7b9e925dc2485e295dc971fdd07"
+  },
+  {
+    "bank": "A",
+    "slot": 105,
+    "name": "PIXELATED",
+    "normalized": "pixelated",
+    "tags": [
+      "BASS",
+      "LEAD",
+      "GLITCH",
+      "BRIGHT"
+    ],
+    "fingerprint": "e44ba309cdb275dbcffe78cf3fc51b3e2b18cc97ab4c70deca37d03da7bd521b"
+  },
+  {
+    "bank": "A",
+    "slot": 106,
+    "name": "SPINETT",
+    "normalized": "spinett",
+    "tags": [
+      "STRINGS",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "89e2ad62b17374278838d135ef55f00392a87ce2ae48e846536d6ff4138a082f"
+  },
+  {
+    "bank": "A",
+    "slot": 107,
+    "name": "SY 8SPEED",
+    "normalized": "sy 8speed",
+    "tags": [
+      "LEAD",
+      "ARPEGGIO"
+    ],
+    "fingerprint": "9762e49e4ac03280eb231d4099843e3c8a634382975fa82fb58e0efda7f000f2"
+  },
+  {
+    "bank": "A",
+    "slot": 108,
+    "name": "TRANCEFORME",
+    "normalized": "tranceforme",
+    "tags": [
+      "LEAD",
+      "BRIGHT"
+    ],
+    "fingerprint": "59a610868ea0e882eba8fecc334472abc76a0ad323bf07cffce0b1417f6a1f6d"
+  },
+  {
+    "bank": "A",
+    "slot": 109,
+    "name": "PERKY",
+    "normalized": "perky",
+    "tags": [
+      "EXPRESSIVE",
+      "ARPEGGIO",
+      "HARD",
+      "BRIGHT"
+    ],
+    "fingerprint": "269d5c6eef17a4dcc9d59ca5521d15947d3f6e8ea53672109b5dd9e6e9a26167"
+  },
+  {
+    "bank": "A",
+    "slot": 110,
+    "name": "HIVE BRASS",
+    "normalized": "hive brass",
+    "tags": [
+      "BASS",
+      "LEAD"
+    ],
+    "fingerprint": "60ebab0e8833dbf65ae3470b8dbffce41cd4621fbff23f57a63e55ad5bf446fc"
+  },
+  {
+    "bank": "A",
+    "slot": 111,
+    "name": "SUB TUBE",
+    "normalized": "sub tube",
+    "tags": [
+      "EXPRESSIVE",
+      "BASS",
+      "VINTAGE"
+    ],
+    "fingerprint": "312c59581cb3d932465f669cf9eae9110ac0b5d34ba34c4847e0ae694259aed1"
+  },
+  {
+    "bank": "A",
+    "slot": 112,
+    "name": "MERABODY",
+    "normalized": "merabody",
+    "tags": [
+      "BASS",
+      "ARPEGGIO",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "25479bb631d2c3c3c768ae60406786b833ec0d3e471dbb341e561df95c5b7028"
+  },
+  {
+    "bank": "A",
+    "slot": 113,
+    "name": "DRUM BASS",
+    "normalized": "drum bass",
+    "tags": [
+      "BASS",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "29de1e3ed4c7bc11be90ece3eeb45e07aac0160d4102fc065f1b064c50d01303"
+  },
+  {
+    "bank": "A",
+    "slot": 114,
+    "name": "OCTOBASS",
+    "normalized": "octobass",
+    "tags": [
+      "BASS",
+      "SOFT",
+      "DARK"
+    ],
+    "fingerprint": "e03508f3a4a00a985c8aeced51ca2b0a65ab4c7954b8eebd8ddafc747b3093b2"
+  },
+  {
+    "bank": "A",
+    "slot": 115,
+    "name": "STEADYBAS",
+    "normalized": "steadybas",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "2680dc4d75ed8531f6eae54e1ccf5d9ed316b3ae925f83d5b610d154b023bf4c"
+  },
+  {
+    "bank": "A",
+    "slot": 116,
+    "name": "PHAZEBASS",
+    "normalized": "phazebass",
+    "tags": [
+      "BASS",
+      "DARK"
+    ],
+    "fingerprint": "aca9e83ceaaa670a699ad1171702c012eebef62a9494f1c961472bf14b98d942"
+  },
+  {
+    "bank": "A",
+    "slot": 117,
+    "name": "MEAN BASS",
+    "normalized": "mean bass",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "396b7ffdf07fd389513b3e80f1dd5ab8b861a3155a97d85bed622e7bd0f57ffc"
+  },
+  {
+    "bank": "A",
+    "slot": 118,
+    "name": "WARMT FOR ALL",
+    "normalized": "warmt for all",
+    "tags": [
+      "EXPRESSIVE",
+      "BASS",
+      "LEAD",
+      "BRIGHT",
+      "VINTAGE"
+    ],
+    "fingerprint": "d84526c22bbff0a83b276e70cfabdaf6a3ff5f84caeec7944efb3e94a3726345"
+  },
+  {
+    "bank": "A",
+    "slot": 119,
+    "name": "SUBBER BASS",
+    "normalized": "subber bass",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "dbb137baae2b26a825e5ee4b4dc620b54d1cfde8296571aa7a775b74b02d129f"
+  },
+  {
+    "bank": "A",
+    "slot": 120,
+    "name": "FARAH BASS",
+    "normalized": "farah bass",
+    "tags": [
+      "DEEP",
+      "EXPRESSIVE",
+      "BASS",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "8cd3d49e3ba32c58c775c3967655f8e2f2bf25a46af6229983ccb245e735a41b"
+  },
+  {
+    "bank": "A",
+    "slot": 121,
+    "name": "FUNKY TONE",
+    "normalized": "funky tone",
+    "tags": [
+      "LEAD",
+      "CHORD"
+    ],
+    "fingerprint": "a38456a9fe1a93c03b9873be8454237797ecfc025964562725a5b00ffc3fc94a"
+  },
+  {
+    "bank": "A",
+    "slot": 122,
+    "name": "GLYPH BASS",
+    "normalized": "glyph bass",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "82c935643c9b153e93923a002f9d156ef80777530e94efbbcea362d38066ccba"
+  },
+  {
+    "bank": "A",
+    "slot": 123,
+    "name": "DISTBEJS",
+    "normalized": "distbejs",
+    "tags": [
+      "BASS"
+    ],
+    "fingerprint": "4c2ed5d13f3d3421d2c446f80de537d725f552a9410d41c7c6a36464b3be42a7"
+  },
+  {
+    "bank": "A",
+    "slot": 124,
+    "name": "BRUSBAS",
+    "normalized": "brusbas",
+    "tags": [
+      "BASS",
+      "VINTAGE"
+    ],
+    "fingerprint": "c32a4fb3252bebbf1d513129ba320eb0a55ab9abc4369e5ba148430a6755c7e5"
+  },
+  {
+    "bank": "A",
+    "slot": 125,
+    "name": "ROS ROS",
+    "normalized": "ros ros",
+    "tags": [
+      "EVOLVING",
+      "BASS"
+    ],
+    "fingerprint": "a5c0641199aa7d94c4d1f6a68d5928764a681122e2c57488100f96022e7d43ad"
+  },
+  {
+    "bank": "A",
+    "slot": 126,
+    "name": "BRUSDUS",
+    "normalized": "brusdus",
+    "tags": [
+      "EVOLVING",
+      "BASS"
+    ],
+    "fingerprint": "05aa2ff66b73d50751e6bd7ad1d2078ecd0f28bc067a682ef2a119546e7a77ec"
+  },
+  {
+    "bank": "A",
+    "slot": 127,
+    "name": "DÄMONEN",
+    "normalized": "dämonen",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "NOISY"
+    ],
+    "fingerprint": "8780536c96137cc006927bd3b08947449b9d0ef491fc5512d236b501f0e02980"
+  },
+  {
+    "bank": "A",
+    "slot": 128,
+    "name": "SIMPLEFETT",
+    "normalized": "simplefett",
+    "tags": [
+      "BASS"
+    ],
+    "fingerprint": "7a8f0a29820317ce972a2582aa9507e40be283ca148a16f1661d729e9dac27d8"
+  },
+  {
+    "bank": "A",
+    "slot": 129,
+    "name": "DAWN BREATH",
+    "normalized": "dawn breath",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "5db77c0904ca00a88bbda0ae5219645bab03830e09adf671372767b4a4bb736f"
+  },
+  {
+    "bank": "A",
+    "slot": 130,
+    "name": "ELBAS",
+    "normalized": "elbas",
+    "tags": [
+      "BASS"
+    ],
+    "fingerprint": "241fd8a772f21bcd74128e5dfe0255fa94d647abb74b7467075f1fba2ad22223"
+  },
+  {
+    "bank": "A",
+    "slot": 131,
+    "name": "FLIMSY",
+    "normalized": "flimsy",
+    "tags": [
+      "BASS",
+      "PAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "a3a6c1e664196c903d0721bcb48dbf6ed82ee3ba4600694252cc430cdeb3c342"
+  },
+  {
+    "bank": "A",
+    "slot": 132,
+    "name": "KNARRBAS",
+    "normalized": "knarrbas",
+    "tags": [
+      "BASS"
+    ],
+    "fingerprint": "9feb3047523d53d4a14ce2270fc0d711010687706a7035596db24d8d007eb545"
+  },
+  {
+    "bank": "A",
+    "slot": 133,
+    "name": "KULGLASS",
+    "normalized": "kulglass",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "NOISY",
+      "DARK"
+    ],
+    "fingerprint": "8a5206d022aad775c32f9064451ea9d99084c579faef7d2cee49d0f9e4696efa"
+  },
+  {
+    "bank": "A",
+    "slot": 134,
+    "name": "STUB",
+    "normalized": "stub",
+    "tags": [
+      "CHORD"
+    ],
+    "fingerprint": "7331596e640ae207e2720b3733c6aaabfae16de6040877820d71a0a48bf8b2f4"
+  },
+  {
+    "bank": "A",
+    "slot": 135,
+    "name": "MAJESTIC",
+    "normalized": "majestic",
+    "tags": [
+      "BRASS",
+      "PAD",
+      "EPIC"
+    ],
+    "fingerprint": "8c260896d64ae58aada6279bdea25f462b0d314874b4408dc0c62048b81c8f48"
+  },
+  {
+    "bank": "A",
+    "slot": 136,
+    "name": "PERSISTENCE",
+    "normalized": "persistence",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD"
+    ],
+    "fingerprint": "884a92005803d4466964a8fa81f4ade188fc34a897178dac678e85a74d35d679"
+  },
+  {
+    "bank": "A",
+    "slot": 137,
+    "name": "RMODDER",
+    "normalized": "rmodder",
+    "tags": [
+      "EXPRESSIVE"
+    ],
+    "fingerprint": "648ba19f2b3cbc50ce211796b1d1d50f4b44e085af6e6b785fb71ad5c40d5be0"
+  },
+  {
+    "bank": "A",
+    "slot": 138,
+    "name": "PADSTATI",
+    "normalized": "padstati",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "GLITCH",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "a7c7020bbcc8fa28935a380c25a2fa8aa48b1608d08a32d2f5f072b68fd9f77d"
+  },
+  {
+    "bank": "A",
+    "slot": 139,
+    "name": "OROLIG",
+    "normalized": "orolig",
+    "tags": [
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "03c50c8e30ac5b04ab6bb55a348e2614d3b1f8e793e96a99ae0e5e972ab7a7a7"
+  },
+  {
+    "bank": "A",
+    "slot": 140,
+    "name": "DIMMAN",
+    "normalized": "dimman",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "METALLIC",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "844067432a46f6a09478d6debb94099b1ed2d96965e58a65934b5e286f15fe04"
+  },
+  {
+    "bank": "A",
+    "slot": 141,
+    "name": "PANDOC",
+    "normalized": "pandoc",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "CHORD"
+    ],
+    "fingerprint": "086463f1023d3807f59e16e37afb0e016e8414b6b5b0217821aaebb969fb9c5c"
+  },
+  {
+    "bank": "A",
+    "slot": 142,
+    "name": "STRINGER",
+    "normalized": "stringer",
+    "tags": [
+      "STRINGS",
+      "CHORD"
+    ],
+    "fingerprint": "d12529c40243504471bd5376962a80bcdbb557fd36eb2d9501454537c66249b7"
+  },
+  {
+    "bank": "A",
+    "slot": 143,
+    "name": "SLEEPDEALER",
+    "normalized": "sleepdealer",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "73cec2ccf216f4bbfcfbc23327a476fcfe48a38c266504736dec0b719b04ca4e"
+  },
+  {
+    "bank": "A",
+    "slot": 144,
+    "name": "PADILICIOUS",
+    "normalized": "padilicious",
+    "tags": [
+      "STRINGS",
+      "CHORD"
+    ],
+    "fingerprint": "47cdfb2d7501843239113867efb095857e27ba19616e6865551adf4096005138"
+  },
+  {
+    "bank": "A",
+    "slot": 145,
+    "name": "80BRASS",
+    "normalized": "80brass",
+    "tags": [
+      "BRASS",
+      "CHORD"
+    ],
+    "fingerprint": "3352dacf345f975386e2f847f07fbc940a7d3c9123c92d9708cba0f3eeb16c8e"
+  },
+  {
+    "bank": "A",
+    "slot": 146,
+    "name": "PWIDTH MODDED",
+    "normalized": "pwidth modded",
+    "tags": [
+      "PAD",
+      "CHORD"
+    ],
+    "fingerprint": "eaf901868847e164901b20be1b11411acf3d3a71e70a82276d205deb9ec9efbf"
+  },
+  {
+    "bank": "A",
+    "slot": 147,
+    "name": "MODULATOR!",
+    "normalized": "modulator!",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "50a1472ddf4473e0f680bbfe1074616e140ccc4d80a85e49bbed98be7314ce3c"
+  },
+  {
+    "bank": "A",
+    "slot": 148,
+    "name": "JULI",
+    "normalized": "juli",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "4bec39f19a3d44723622e506ae551292b3f49bc12059e0a550ab1e2e2af10806"
+  },
+  {
+    "bank": "A",
+    "slot": 149,
+    "name": "LA VAGUE",
+    "normalized": "la vague",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "SOFT"
+    ],
+    "fingerprint": "54173d16c9d212d22825c7079a27b40008f3cab9be0f62f011b32e2930c5ca7c"
+  },
+  {
+    "bank": "A",
+    "slot": 150,
+    "name": "UNSTABLE",
+    "normalized": "unstable",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "343631e85771101b7dd5f888547d84d91c795ae698f8a7c3d3a2e96a006c6c10"
+  },
+  {
+    "bank": "A",
+    "slot": 151,
+    "name": "BIG STRINGS",
+    "normalized": "big strings",
+    "tags": [
+      "STRINGS",
+      "PAD",
+      "TEXTURE",
+      "BRIGHT"
+    ],
+    "fingerprint": "a77cbaf18360857edc56bff54ae1bfbee7db29b29686402b7a2147663fe2e3ce"
+  },
+  {
+    "bank": "A",
+    "slot": 152,
+    "name": "ATMOS",
+    "normalized": "atmos",
+    "tags": [],
+    "fingerprint": "3f0b4afc842be22e0c9172cb3fada48ce7ace4df323b1f7fe4c5ff341494483c"
+  },
+  {
+    "bank": "A",
+    "slot": 153,
+    "name": "YESTERYEARS",
+    "normalized": "yesteryears",
+    "tags": [
+      "PAD",
+      "CHORD"
+    ],
+    "fingerprint": "a8f8a132c0132d9aac443352fa4cd2e649eff415b5a3ffc08e86b0a5a359b354"
+  },
+  {
+    "bank": "A",
+    "slot": 154,
+    "name": "AWAKEN",
+    "normalized": "awaken",
+    "tags": [
+      "PAD",
+      "CHORD"
+    ],
+    "fingerprint": "721dd6d98c2f554779495bc4e18b9771d45b354fb087f9f7af8eb885028a41fd"
+  },
+  {
+    "bank": "A",
+    "slot": 155,
+    "name": "BIG DREAMER",
+    "normalized": "big dreamer",
+    "tags": [
+      "PAD",
+      "CHORD"
+    ],
+    "fingerprint": "f01fb84fdbfde68e654b5d337735f7d192e0b8719a1373ac97435b539daca5b1"
+  },
+  {
+    "bank": "A",
+    "slot": 156,
+    "name": "LO-FI POD",
+    "normalized": "lo-fi pod",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "fbd299bccfcaac4e3c3af9fb79945b5bdc67b51f3931b16ef87d5040635c1143"
+  },
+  {
+    "bank": "A",
+    "slot": 157,
+    "name": "OCTV PHZR",
+    "normalized": "octv phzr",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "CHORD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "ce7f4dbffc50945aae6c060507a6f77a724b232d98bec1a0a499ebbec2953101"
+  },
+  {
+    "bank": "A",
+    "slot": 158,
+    "name": "MOTION",
+    "normalized": "motion",
+    "tags": [
+      "PAD",
+      "SOFT"
+    ],
+    "fingerprint": "9e880f18cad7fc43d8a9c1f18fa698f73461de3077a442eecf9a5d2d81423735"
+  },
+  {
+    "bank": "A",
+    "slot": 159,
+    "name": "SLOW STRINGS",
+    "normalized": "slow strings",
+    "tags": [
+      "STRINGS",
+      "PAD",
+      "SOFT"
+    ],
+    "fingerprint": "aa7a873366d6b21445a37549647a14671e83105da3bd10a6031757b46cc034b9"
+  },
+  {
+    "bank": "A",
+    "slot": 160,
+    "name": "MELLOW ME",
+    "normalized": "mellow me",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "3dcc0b7a29d18bb0a08f1c427cdcb1bf7973a908d1d26b9c2cbdffee23f8d685"
+  },
+  {
+    "bank": "A",
+    "slot": 161,
+    "name": "GHOST VOICES",
+    "normalized": "ghost voices",
+    "tags": [
+      "PAD",
+      "SOFT"
+    ],
+    "fingerprint": "6e51c6dd0bc21b0fbfc4f8ae700ff77939f7e759e8ee1da447d568012eee4e65"
+  },
+  {
+    "bank": "A",
+    "slot": 162,
+    "name": "WANDER FM",
+    "normalized": "wander fm",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "VINTAGE"
+    ],
+    "fingerprint": "e4b9446e2243624ebfd1368e2c51aea5dd8bacc389c43c0db959ae198d059f0c"
+  },
+  {
+    "bank": "A",
+    "slot": 163,
+    "name": "SLOW CHORDS",
+    "normalized": "slow chords",
+    "tags": [
+      "PAD"
+    ],
+    "fingerprint": "d8672c0beff5b7826bece612839ebfeb1766983862b96b914871a8387b537a95"
+  },
+  {
+    "bank": "A",
+    "slot": 164,
+    "name": "MYSTIC GARDEN",
+    "normalized": "mystic garden",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "21b3c12f03ac877238dfe2cc394e046e8908b77ea9ab6bc028bae2da3cb8ff60"
+  },
+  {
+    "bank": "A",
+    "slot": 165,
+    "name": "CLEANSING SHORE",
+    "normalized": "cleansing shore",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "e7cf138b3f5f0a3ba7efe0f18beadaae8d622203f7fe7feeb0a0be4479d0c31d"
+  },
+  {
+    "bank": "A",
+    "slot": 166,
+    "name": "ORBIT",
+    "normalized": "orbit",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "VINTAGE"
+    ],
+    "fingerprint": "af66d5ede1ae26c886b673e50846ab4c6f8b5cc15c0571f4bcbdc3a95b97f86d"
+  },
+  {
+    "bank": "A",
+    "slot": 167,
+    "name": "THE ONLY",
+    "normalized": "the only",
+    "tags": [
+      "PAD",
+      "TEXTURE",
+      "NOISY",
+      "VINTAGE"
+    ],
+    "fingerprint": "eac99ea66859e55c67fa16ea2711b3bcdf0a65b08ed3941b3e60413e692d865d"
+  },
+  {
+    "bank": "A",
+    "slot": 168,
+    "name": "DISTANT LIGHTS",
+    "normalized": "distant lights",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "PAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "d063aa077baefb2b1465cde910f8b79d61818d57085ec35039ce846495ee9668"
+  },
+  {
+    "bank": "A",
+    "slot": 169,
+    "name": "MEMORY GAP",
+    "normalized": "memory gap",
+    "tags": [
+      "LEAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "ffe7f5b9a0aad04d5f411dcd498bb1ac92fdf2aaae3604d9ef6a12e565384deb"
+  },
+  {
+    "bank": "A",
+    "slot": 170,
+    "name": "KEEP DRONING",
+    "normalized": "keep droning",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "266a9f2177e42072a843ec3cfa752f8ed085e7b5953f2d0a8e1ed742cf03a45a"
+  },
+  {
+    "bank": "A",
+    "slot": 171,
+    "name": "FANCY DINNER",
+    "normalized": "fancy dinner",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "b30a95102afbfa19d13ca9fdc674ed47822e1cea359f65c1523c13b1692775af"
+  },
+  {
+    "bank": "A",
+    "slot": 172,
+    "name": "OLD HOOKS",
+    "normalized": "old hooks",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "VINTAGE"
+    ],
+    "fingerprint": "2be9b3676ff12cfe2a5337dd6c2bd1cd4b15041de1aa0949444fe85297bd6166"
+  },
+  {
+    "bank": "A",
+    "slot": 173,
+    "name": "METAL RINGS",
+    "normalized": "metal rings",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "SOFT"
+    ],
+    "fingerprint": "b1b142ba755c754d50f965f0af3d11b03120247074e7d1487defc5a9f75aeef9"
+  },
+  {
+    "bank": "A",
+    "slot": 174,
+    "name": "FREE NUMBER",
+    "normalized": "free number",
+    "tags": [
+      "LEAD",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "77b923a2301f61c77fb56d092867fa344d55cfb4ca0d2cbe1554a794c1d3e677"
+  },
+  {
+    "bank": "A",
+    "slot": 175,
+    "name": "MORS MELO",
+    "normalized": "mors melo",
+    "tags": [
+      "LEAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "e40a1b204240e9db2950d3328ef0f6283c02e7e4915c7686525375123c7a5415"
+  },
+  {
+    "bank": "A",
+    "slot": 176,
+    "name": "KVARTERN",
+    "normalized": "kvartern",
+    "tags": [
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "ca9ffb3a7c8ea9e6b4accf7d26aed43cf281ebec377dcd2b401069b8f3932555"
+  },
+  {
+    "bank": "A",
+    "slot": 177,
+    "name": "BELLSEBUB",
+    "normalized": "bellsebub",
+    "tags": [
+      "LEAD",
+      "SOFT"
+    ],
+    "fingerprint": "bfe8c61bd3d2f9fff9bcda60280f65dc11a7b02152aaa7ca7b072cb7d2280c48"
+  },
+  {
+    "bank": "A",
+    "slot": 178,
+    "name": "TRÄ FLÖJT",
+    "normalized": "trä flöjt",
+    "tags": [
+      "PAD",
+      "BRIGHT"
+    ],
+    "fingerprint": "5a6a15854689fdc4b7d9bfb7e9eb75884d20b330da17b817aa2bbac77467b0b3"
+  },
+  {
+    "bank": "A",
+    "slot": 179,
+    "name": "GENTLE BREATH",
+    "normalized": "gentle breath",
+    "tags": [
+      "PAD",
+      "BRIGHT"
+    ],
+    "fingerprint": "be2e17edf4f68ffd8cd29a7c57ec356210b1f416bea3b53bcc81dd54a4f29545"
+  },
+  {
+    "bank": "A",
+    "slot": 180,
+    "name": "AIRY KEYS",
+    "normalized": "airy keys",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "d62286678b4d2cfd8d6c4d5f704f05cb48b5f999157b44d98afd97fe8f86dd79"
+  },
+  {
+    "bank": "A",
+    "slot": 181,
+    "name": "DRAGKEDJA",
+    "normalized": "dragkedja",
+    "tags": [
+      "PAD",
+      "METALLIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "a52ba375e2a1cfcaba228464538df12d2a59b7f7a280edfd6b1628c7aeaa4baa"
+  },
+  {
+    "bank": "A",
+    "slot": 182,
+    "name": "RUINS",
+    "normalized": "ruins",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC",
+      "VINTAGE"
+    ],
+    "fingerprint": "a72232878a2ff54c4cd35439b04d50d3e4757c28902ddc89fcf764e279dffb00"
+  },
+  {
+    "bank": "A",
+    "slot": 183,
+    "name": "SOLINAIRE",
+    "normalized": "solinaire",
+    "tags": [
+      "STRINGS",
+      "PAD",
+      "VINTAGE"
+    ],
+    "fingerprint": "7e6161e3e44eccdd43afe203573e7e9851380ad2a011ac9150eb2d5fa796b16f"
+  },
+  {
+    "bank": "A",
+    "slot": 184,
+    "name": "STRING TRAILS",
+    "normalized": "string trails",
+    "tags": [
+      "STRINGS",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "d1e4821f62521482836d2fe30bb65bb37ad3d8c1f731df7e66395aace87d4bbd"
+  },
+  {
+    "bank": "A",
+    "slot": 185,
+    "name": "PLUCKY STRINGS",
+    "normalized": "plucky strings",
+    "tags": [
+      "PERCUSSION",
+      "EXPRESSIVE",
+      "ACOUSTIC",
+      "HARD"
+    ],
+    "fingerprint": "0bc03b27c28941509fec062faf788e34e4e8cfa7be22cf91f44006dab9c2f1f0"
+  },
+  {
+    "bank": "A",
+    "slot": 186,
+    "name": "EGLOCKEN",
+    "normalized": "eglocken",
+    "tags": [
+      "PERCUSSION",
+      "EXPRESSIVE",
+      "LEAD",
+      "ARPEGGIO"
+    ],
+    "fingerprint": "530316530bbca4774122d377a52081c7215bb62e3c1fbc63e6f86bc2527730b8"
+  },
+  {
+    "bank": "A",
+    "slot": 187,
+    "name": "WOOD TUBE",
+    "normalized": "wood tube",
+    "tags": [
+      "BASS",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "2c0de20e9cebf13dc5ae14adb2773db8205931a25c88711eed4b47ea26dd8662"
+  },
+  {
+    "bank": "A",
+    "slot": 188,
+    "name": "WOODY MOOD",
+    "normalized": "woody mood",
+    "tags": [
+      "PERCUSSION",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "a92bd32fb9189e9fcfb027e245a2d5d3daeba6f45f996d9031ee05b9fa3d9e44"
+  },
+  {
+    "bank": "A",
+    "slot": 189,
+    "name": "METAL BARRELS",
+    "normalized": "metal barrels",
+    "tags": [
+      "PERCUSSION",
+      "DARK"
+    ],
+    "fingerprint": "f6cd7df10bb6cb2ce9cfba06628181594cb29a1bcd6e54bf3ef5d927ee0331c3"
+  },
+  {
+    "bank": "A",
+    "slot": 190,
+    "name": "STRUMMED BELLS",
+    "normalized": "strummed bells",
+    "tags": [
+      "CHORD",
+      "METALLIC",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "b8764d84ad64e4c39dfc865d0d5356db9bdca17443741cc1ee6eb8eeb88e2cf8"
+  },
+  {
+    "bank": "A",
+    "slot": 191,
+    "name": "MTL BELLS",
+    "normalized": "mtl bells",
+    "tags": [
+      "PERCUSSION",
+      "METALLIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "9a7cf28f79abd8b83e63d5d5d4995884af1dd30c775d194944d04aea81f1e2d3"
+  },
+  {
+    "bank": "A",
+    "slot": 192,
+    "name": "SPACE HORN",
+    "normalized": "space horn",
+    "tags": [
+      "BRASS",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "3f9a1a017532ac340ae969ae0b3ca8cd021d966121b7baf829748c19f2ad5d99"
+  },
+  {
+    "bank": "A",
+    "slot": 193,
+    "name": "HYPERKEY",
+    "normalized": "hyperkey",
+    "tags": [
+      "EXPRESSIVE",
+      "ATMOSPHERIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "7584795aa85f981f0df0597d2c46c9d452640f275f3a471b6a060f39585b4cc6"
+  },
+  {
+    "bank": "A",
+    "slot": 194,
+    "name": "IRIST0NE",
+    "normalized": "irist0ne",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "ccb709d8b38fb8dc43e242ebc0292a1bffbf263d542d111bcec3587f5955d855"
+  },
+  {
+    "bank": "A",
+    "slot": 195,
+    "name": "THX INV MOD",
+    "normalized": "thx inv mod",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD",
+      "SOUND FX"
+    ],
+    "fingerprint": "3ad80acffe9b411c3f13b1cb583f0e86482f9b5231d8829c5c1edd779f7cf0fb"
+  },
+  {
+    "bank": "A",
+    "slot": 196,
+    "name": "BENT SYN",
+    "normalized": "bent syn",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "7c1ac94c08b016993c36fbea6097cf353931f9c28bb61469faf0798a3e66b41f"
+  },
+  {
+    "bank": "A",
+    "slot": 197,
+    "name": "OBSIDIANPAD",
+    "normalized": "obsidianpad",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "7ddba2ece35db284f76044924933163e3ca57a3e6408367dea9ab15b982589d3"
+  },
+  {
+    "bank": "A",
+    "slot": 198,
+    "name": "DM UNCANNY",
+    "normalized": "dm uncanny",
+    "tags": [
+      "LEAD",
+      "SOUND FX",
+      "FAIL"
+    ],
+    "fingerprint": "f3d7947e2bd7f8cc5fa8da9d29d3bff337689c10e8c004fc4fec8632265d9c84"
+  },
+  {
+    "bank": "A",
+    "slot": 199,
+    "name": "GREEN DARNER",
+    "normalized": "green darner",
+    "tags": [
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "fa933b10b8926af38ce739bf89c6468541fc6fa8debcb9fb3fed54b3893d99bd"
+  },
+  {
+    "bank": "A",
+    "slot": 200,
+    "name": "ALIEN8",
+    "normalized": "alien8",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "TEXTURE",
+      "DARK"
+    ],
+    "fingerprint": "1cb08b415a573d8f0718d8802f9ae8ef623fcd0990ee125b162dfea406ae376a"
+  },
+  {
+    "bank": "A",
+    "slot": 201,
+    "name": "RADIO PAD",
+    "normalized": "radio pad",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "GLITCH"
+    ],
+    "fingerprint": "4a742c366528876f03497789dcbff66eb05e11f01c0d0c6f3539bb485eba1b26"
+  },
+  {
+    "bank": "A",
+    "slot": 202,
+    "name": "T0NE SÇI-FI",
+    "normalized": "t0ne sçi-fi",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "7dc7d75a90d21db75932993587fb8f59550d45a6b023be7f26931767afdc93f4"
+  },
+  {
+    "bank": "A",
+    "slot": 203,
+    "name": "REPLICALOVE",
+    "normalized": "replicalove",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "92c388e1cc0abe7cbd80a2c180e81b87184ed76c1de79d27e027d001ecf0cac2"
+  },
+  {
+    "bank": "A",
+    "slot": 204,
+    "name": "ATLAS RAINBOW",
+    "normalized": "atlas rainbow",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "ATMOSPHERIC",
+      "VINTAGE"
+    ],
+    "fingerprint": "5c093a40ebce8586050a9b987b7db9a7c8faaf4f69aece87919beed6219d2edf"
+  },
+  {
+    "bank": "A",
+    "slot": 205,
+    "name": "RASPY",
+    "normalized": "raspy",
+    "tags": [
+      "LEAD",
+      "SOUND FX"
+    ],
+    "fingerprint": "93d0c955f8a0c621b402cfa202272bb2853a97f2ef866a1d92ca4ea106284983"
+  },
+  {
+    "bank": "A",
+    "slot": 206,
+    "name": "STORMZYTONE",
+    "normalized": "stormzytone",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "GLITCH"
+    ],
+    "fingerprint": "9d0c152541b06461f6207e868131f747a3ea87cc46d2f58cc7728aadf6c6f2a6"
+  },
+  {
+    "bank": "A",
+    "slot": 207,
+    "name": "TOXINE B",
+    "normalized": "toxine b",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "TEXTURE",
+      "NOISY"
+    ],
+    "fingerprint": "81f19f7931a4231cdec236dcbba826dd3d676e6327125d0d29baa991b1e2bac3"
+  },
+  {
+    "bank": "A",
+    "slot": 208,
+    "name": "CRACKLE&ZEN",
+    "normalized": "crackle&zen",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "b16b18b73e4104400b1bf57be22170181d8f9553a65e7514a611448b24fd406c"
+  },
+  {
+    "bank": "A",
+    "slot": 209,
+    "name": "ETHERBAS",
+    "normalized": "etherbas",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "EXPRESSIVE",
+      "BASS",
+      "GLITCH",
+      "DARK"
+    ],
+    "fingerprint": "3b86f4687078234a205534f6de4e5c5ca927f98708457a2845acba2259ad33a4"
+  },
+  {
+    "bank": "A",
+    "slot": 210,
+    "name": "BLUE SIGNS",
+    "normalized": "blue signs",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "EPIC"
+    ],
+    "fingerprint": "4a77e5a451a470e72e384e86593315aa9e2a8682af0cafa5629cc6909c5e41e6"
+  },
+  {
+    "bank": "A",
+    "slot": 211,
+    "name": "BOMBUS",
+    "normalized": "bombus",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "ATMOSPHERIC",
+      "DARK"
+    ],
+    "fingerprint": "f8423b6b1791a85ba6fa7848efae37c2f01047db9052c5ccc451003599ad89bf"
+  },
+  {
+    "bank": "A",
+    "slot": 212,
+    "name": "GLITCHER KING",
+    "normalized": "glitcher king",
+    "tags": [
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "7e0308bfe14d4b1fec73d967c9bd823401b0e2299c6d897b66e57077c2cc969f"
+  },
+  {
+    "bank": "A",
+    "slot": 213,
+    "name": "DRIFT HEX",
+    "normalized": "drift hex",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC",
+      "GLITCH"
+    ],
+    "fingerprint": "4fed20437c8f75a263403e4b2a8db2a9ebf83185ec08c9cd04c129b09f1da852"
+  },
+  {
+    "bank": "A",
+    "slot": 214,
+    "name": "PINOT GRIT",
+    "normalized": "pinot grit",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD"
+    ],
+    "fingerprint": "b6dcd06a8701d47a61359dd942f938ed16c531ad8652bcc31847f165c38abd36"
+  },
+  {
+    "bank": "A",
+    "slot": 215,
+    "name": "SONICFLOE",
+    "normalized": "sonicfloe",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "ba9b748ce0dd1d45d07fbd7c8c51fa1e51aee69ebfe5697783aecb8aa6e78fd2"
+  },
+  {
+    "bank": "A",
+    "slot": 216,
+    "name": "ECHOSIFT",
+    "normalized": "echosift",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "d4d0812ce69e29e07acbfe65dc66f9a89c10d71ac89420dcbc872f1c77a1c3f8"
+  },
+  {
+    "bank": "A",
+    "slot": 217,
+    "name": "PULSEFLARE",
+    "normalized": "pulseflare",
+    "tags": [
+      "EVOLVING",
+      "ATMOSPHERIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "ee9a69acf0dacf3abc8ec8226fd75b6791c865c077aa7f060c8f6d9b1492d06d"
+  },
+  {
+    "bank": "A",
+    "slot": 218,
+    "name": "GLITCH CHIM",
+    "normalized": "glitch chim",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "METALLIC",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT",
+      "BRIGHT"
+    ],
+    "fingerprint": "fa331908bc2696306cc7cb09fa0e4094423fc62a5f4063d6258056bb2430a1b8"
+  },
+  {
+    "bank": "A",
+    "slot": 219,
+    "name": "GLITCH ORGA",
+    "normalized": "glitch orga",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "CHORD",
+      "ATMOSPHERIC",
+      "GLITCH",
+      "SOFT",
+      "DARK"
+    ],
+    "fingerprint": "dd23cbd7525ac3cf7e360d7f9a3df37c70e2267c75fc0b85bb9f0c8edeb5679f"
+  },
+  {
+    "bank": "A",
+    "slot": 220,
+    "name": "UNTUNED",
+    "normalized": "untuned",
+    "tags": [
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "CHORD",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH",
+      "SOFT",
+      "DARK",
+      "LOOP"
+    ],
+    "fingerprint": "d4bb33dba3d767f46fc5141a4266c457d6d4a6e821b822222659dd6855f7f625"
+  },
+  {
+    "bank": "A",
+    "slot": 221,
+    "name": "GHOSTWIRE",
+    "normalized": "ghostwire",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "36e51bfa7787ccfed88a303ccb7b9a37750692ea7835625ed0092a372e5ea83f"
+  },
+  {
+    "bank": "A",
+    "slot": 222,
+    "name": "CALM CHIME",
+    "normalized": "calm chime",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "CHORD",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "2fac1aebdf3acb1408a8031e07f7ada9f2b0ba51a44f4f9d6449c0d9d382acb8"
+  },
+  {
+    "bank": "A",
+    "slot": 223,
+    "name": "VEXTONE",
+    "normalized": "vextone",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "TEXTURE",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "882ed020a8030e5db26fe12970c7d32cbc0e3794ece6d77b4a8d4e24e6c89a31"
+  },
+  {
+    "bank": "A",
+    "slot": 224,
+    "name": "LIGHTWORKS",
+    "normalized": "lightworks",
+    "tags": [
+      "METALLIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "bd1e6363b4910f70be75935e4595e6fdcf803c9e835b0a492ec985f523f81343"
+  },
+  {
+    "bank": "A",
+    "slot": 225,
+    "name": "DECEMBER PAD",
+    "normalized": "december pad",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC",
+      "LOOP"
+    ],
+    "fingerprint": "3ae0a718dbeecee5c7046247af350f0db37986a317f9839bd8e2c7c2f802cd57"
+  },
+  {
+    "bank": "A",
+    "slot": 226,
+    "name": "NOISEET",
+    "normalized": "noiseet",
+    "tags": [
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "METALLIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "ca3d3dd78858af604c6175e3748cbd8ae360feb22b7687ebabb551a8e396fd7c"
+  },
+  {
+    "bank": "A",
+    "slot": 227,
+    "name": "LE TREMBLEMENT",
+    "normalized": "le tremblement",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "EPIC"
+    ],
+    "fingerprint": "cae42b00f6219b904eb61ee50d223b8b3dc82954d7d077af44ce2fc365e507a9"
+  },
+  {
+    "bank": "A",
+    "slot": 228,
+    "name": "XYZLO",
+    "normalized": "xyzlo",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT",
+      "EXPRESSIVE",
+      "TEXTURE",
+      "ARPEGGIO",
+      "METALLIC",
+      "GLITCH",
+      "BRIGHT",
+      "VINTAGE"
+    ],
+    "fingerprint": "7ee5ccb860496e69c57ae09257f1736707aa7f2ad6ba8bf83d44e503e8390447"
+  },
+  {
+    "bank": "A",
+    "slot": 229,
+    "name": "WAITING ROOM",
+    "normalized": "waiting room",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "f61b7bcab0045ace4f7de085b8c5782c62b9422a011aeee2cfa74761faebf5de"
+  },
+  {
+    "bank": "A",
+    "slot": 230,
+    "name": "EON PAD",
+    "normalized": "eon pad",
+    "tags": [
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "GLITCH",
+      "LOOP"
+    ],
+    "fingerprint": "30a14ecb3704099302a9f30799d31a92f5c02df8613b0a021513956ff570889e"
+  },
+  {
+    "bank": "A",
+    "slot": 231,
+    "name": "TREMBELLZ",
+    "normalized": "trembellz",
+    "tags": [
+      "LEAD",
+      "CHORD",
+      "ACOUSTIC",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "3223d621f509cf97e4f4b9573715b3dcf203c8498562bcab2ed098840f7fde57"
+  },
+  {
+    "bank": "A",
+    "slot": 232,
+    "name": "ODITY",
+    "normalized": "odity",
+    "tags": [
+      "EXPRESSIVE",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "CHORD",
+      "ATMOSPHERIC",
+      "GLITCH",
+      "SOFT",
+      "DARK"
+    ],
+    "fingerprint": "ce11ffccf3e65cc3c06ab09eefff60895bcd0cc81c2fb3000b3fa50f9fc5c729"
+  },
+  {
+    "bank": "A",
+    "slot": 233,
+    "name": "NEBULATONE",
+    "normalized": "nebulatone",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "NOISY"
+    ],
+    "fingerprint": "961c59f55927bfd6ce399ffb3dd1519ea3004e3ff7df1d0e38487b0ccc78e524"
+  },
+  {
+    "bank": "A",
+    "slot": 234,
+    "name": "SONICVEIL",
+    "normalized": "sonicveil",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "8202e06874863a50fee1abfa23a982361172c9394fc532c1d045ddc3bf90560d"
+  },
+  {
+    "bank": "A",
+    "slot": 235,
+    "name": "CODEXTOR",
+    "normalized": "codextor",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "VINTAGE"
+    ],
+    "fingerprint": "9aa97d16712711ecc740f760daa3e15735d3ee5731af6ae8fb5b9f391cff7421"
+  },
+  {
+    "bank": "A",
+    "slot": 236,
+    "name": "THORN BASS",
+    "normalized": "thorn bass",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "BASS"
+    ],
+    "fingerprint": "2838d10de5949b428314ac6cfb65a5d750a056bca49e2f20c5f2d551be2d0726"
+  },
+  {
+    "bank": "A",
+    "slot": 237,
+    "name": "ASHENTONE",
+    "normalized": "ashentone",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "f4d8e25a4b49942db35a68c570ec07d3e3d27d4905a302e23e68c8cf8b59dbc1"
+  },
+  {
+    "bank": "A",
+    "slot": 238,
+    "name": "TRNDL",
+    "normalized": "trndl",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH",
+      "DARK",
+      "BRIGHT"
+    ],
+    "fingerprint": "dd24a81efce121b455025a8d20cf8811e9adb028939dcc56529043c1e14e1b42"
+  },
+  {
+    "bank": "A",
+    "slot": 239,
+    "name": "PHANTOM RISE",
+    "normalized": "phantom rise",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "TEXTURE"
+    ],
+    "fingerprint": "120295edaa7913294481fce1e7be56aad22954367dba719d6bc563c8b6a98717"
+  },
+  {
+    "bank": "A",
+    "slot": 240,
+    "name": "GOSSAMER",
+    "normalized": "gossamer",
+    "tags": [
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "69aa5c3f1374ff2a06749b6a938b97edcdff59a11424622520ef4b306be4d3b4"
+  },
+  {
+    "bank": "A",
+    "slot": 241,
+    "name": "SECOND BREATH",
+    "normalized": "second breath",
+    "tags": [
+      "EVOLVING",
+      "LEAD",
+      "SOFT"
+    ],
+    "fingerprint": "7699fbad76b6030899aa75bb75403944fa9defc317b4cd53b2033da803b1e4e9"
+  },
+  {
+    "bank": "A",
+    "slot": 242,
+    "name": "RIFTBASS",
+    "normalized": "riftbass",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS"
+    ],
+    "fingerprint": "0d85e35f2354e98fdbcab7846b41e3bcc4ab816dd6c72e55cc0fb0cf4467bbfb"
+  },
+  {
+    "bank": "A",
+    "slot": 243,
+    "name": "FLICKERDUST",
+    "normalized": "flickerdust",
+    "tags": [
+      "EVOLVING",
+      "PAD"
+    ],
+    "fingerprint": "8759e165ea0e11c463e59b8b332338b6209a1bfc5a3e84ccb4d6c42046e6c218"
+  },
+  {
+    "bank": "A",
+    "slot": 244,
+    "name": "SPIRALDUSK",
+    "normalized": "spiraldusk",
+    "tags": [
+      "EVOLVING",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "c4600101a434a089bd779e09791c58cc41a073b2134865c8ddfe90bf0cb06e0a"
+  },
+  {
+    "bank": "A",
+    "slot": 245,
+    "name": "RAZOR BASS",
+    "normalized": "razor bass",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "HARD"
+    ],
+    "fingerprint": "dd75f386bfab1e0084c314e9121cc67c9f82c20cd0fac3a3f308bc60976d251e"
+  },
+  {
+    "bank": "A",
+    "slot": 246,
+    "name": "SONIC CAGE",
+    "normalized": "sonic cage",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC",
+      "BRIGHT"
+    ],
+    "fingerprint": "82b9055287aada76f35d98adc889f091270046c121dc8ef35816e5d23257f79e"
+  },
+  {
+    "bank": "A",
+    "slot": 247,
+    "name": "FRAYTONE",
+    "normalized": "fraytone",
+    "tags": [
+      "EVOLVING",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "0c308a6737d15185dbeeb51f345c3ab0ca647e883dcec7b237507ec0356d7bf5"
+  },
+  {
+    "bank": "A",
+    "slot": 248,
+    "name": "NEONDRIFT",
+    "normalized": "neondrift",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "VINTAGE"
+    ],
+    "fingerprint": "0e45419df9cb9e6c1511d366e741d06912ea85d004ece784241cc41c1a101aec"
+  },
+  {
+    "bank": "A",
+    "slot": 249,
+    "name": "SHADETONE",
+    "normalized": "shadetone",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ATMOSPHERIC",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "ff567c4f52fe5b7ea2a85aba58f6c1b40f1d67baced946c04075f7f155f884c6"
+  },
+  {
+    "bank": "A",
+    "slot": 250,
+    "name": "PHONEDRONE",
+    "normalized": "phonedrone",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "DARK"
+    ],
+    "fingerprint": "13c3f3861f52c4dc66e0914ac6215bc275841dc8517288fb2b582abdda9f2a40"
+  },
+  {
+    "bank": "A",
+    "slot": 251,
+    "name": "BRKNBAS",
+    "normalized": "brknbas",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "75e231ccfab7ad4723493c2209757db51d9d88e7c0664315d73d602a5ee64828"
+  },
+  {
+    "bank": "A",
+    "slot": 252,
+    "name": "BRKNBASSER",
+    "normalized": "brknbasser",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "79182498115f57a6f445231aa0b422011275113281f39e99a96e2c65e9232a74"
+  },
+  {
+    "bank": "A",
+    "slot": 253,
+    "name": "BRKN WHISTL",
+    "normalized": "brkn whistl",
+    "tags": [
+      "DEEP",
+      "BASS"
+    ],
+    "fingerprint": "aec0ca2c9bc10f2fd6b60b1ec001f2d241791d7d2cec08614e0a07a642816be6"
+  },
+  {
+    "bank": "A",
+    "slot": 254,
+    "name": "BUSSFUZZ",
+    "normalized": "bussfuzz",
+    "tags": [
+      "DEEP",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY"
+    ],
+    "fingerprint": "317f898bf7335045283df3fa3d09499ad1664dc097083837ced4436bf6bf169b"
+  },
+  {
+    "bank": "A",
+    "slot": 255,
+    "name": "BLÖPZ",
+    "normalized": "blöpz",
+    "tags": [
+      "LEAD",
+      "SOUND FX",
+      "GLITCH",
+      "VINTAGE"
+    ],
+    "fingerprint": "3772935686b7ecbae25bc62b48e3ca2d2f55599b78e0ce391ae79f16d4d4e9af"
+  },
+  {
+    "bank": "A",
+    "slot": 256,
+    "name": "SPOOKY",
+    "normalized": "spooky",
+    "tags": [
+      "EVOLVING",
+      "PAD",
+      "ACOUSTIC"
+    ],
+    "fingerprint": "acd1e1d27b027dad94c7da22d653819f1130b54cf657452232e63114e3f9219f"
+  },
+  {
+    "bank": "B",
+    "slot": 1,
+    "name": "BD NOISPUMP",
+    "normalized": "bd noispump",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "ebebcd0daec9e5c78c626470a548469a118590b8ed98897dfb771f096fe7933a"
+  },
+  {
+    "bank": "B",
+    "slot": 2,
+    "name": "BD ACO",
+    "normalized": "bd aco",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "ec95982f67fa64fda3617959b40495cd6a7381c33b4c3775b8c1c64646c602d0"
+  },
+  {
+    "bank": "B",
+    "slot": 3,
+    "name": "BD AYE",
+    "normalized": "bd aye",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "b6af0a98e8d5dbbdb9fe4e9666f4fb80f74ddbe18a0ece6442d5e102e2c5c5ed"
+  },
+  {
+    "bank": "B",
+    "slot": 4,
+    "name": "BD BASSLAP",
+    "normalized": "bd basslap",
+    "tags": [
+      "KICK",
+      "HARD"
+    ],
+    "fingerprint": "23b9f965e6b9080f2329721d26006ab373a248da1223611ff42a1c9885e7c331"
+  },
+  {
+    "bank": "B",
+    "slot": 5,
+    "name": "BD BOOMDOWN",
+    "normalized": "bd boomdown",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "PERCUSSION"
+    ],
+    "fingerprint": "e0a7b09e8f7db27a5c80a24622d49cb10773be50f5775e19a396a709a280d526"
+  },
+  {
+    "bank": "B",
+    "slot": 6,
+    "name": "BD BUSTED",
+    "normalized": "bd busted",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "843d85983a9040a2f33f53ff7c4a99c0bf1d4c46c100bf18b16eaa1060490050"
+  },
+  {
+    "bank": "B",
+    "slot": 7,
+    "name": "BD CHALKY",
+    "normalized": "bd chalky",
+    "tags": [
+      "KICK",
+      "HARD",
+      "DARK"
+    ],
+    "fingerprint": "7bb2c0f16f153aa2d9618209baee4c72cb07c4d5b69187833d15da6a05f25df8"
+  },
+  {
+    "bank": "B",
+    "slot": 8,
+    "name": "BD DEADSPEC",
+    "normalized": "bd deadspec",
+    "tags": [
+      "KICK",
+      "PERCUSSION",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY",
+      "HARD"
+    ],
+    "fingerprint": "499de73c67b5c4778b2e89a80d44b84f49fc79dea956531222e50f2e2989fa47"
+  },
+  {
+    "bank": "B",
+    "slot": 9,
+    "name": "BD DJUP",
+    "normalized": "bd djup",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "433d8d446c6dd813f7c32a0230d8d98440269f31261479c772c0345c26cb05bd"
+  },
+  {
+    "bank": "B",
+    "slot": 10,
+    "name": "BD DOWNUP",
+    "normalized": "bd downup",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "e9abf885c0a16125750b692f9cbe532d66b3d4ea454e711991d7fd9c34eabe49"
+  },
+  {
+    "bank": "B",
+    "slot": 11,
+    "name": "BD GYMBOLL",
+    "normalized": "bd gymboll",
+    "tags": [
+      "KICK",
+      "PERCUSSION",
+      "HARD"
+    ],
+    "fingerprint": "6960b8f971d95376d557a236791a191d736b42af0df2b11e1e1a536e7331d97e"
+  },
+  {
+    "bank": "B",
+    "slot": 12,
+    "name": "BD HARD TUNED",
+    "normalized": "bd hard tuned",
+    "tags": [
+      "KICK",
+      "BASS",
+      "HARD",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "316430f2f75fd4716be42d96da856497021e5f314a23f72c2b56864141ab2fb2"
+  },
+  {
+    "bank": "B",
+    "slot": 13,
+    "name": "BD ICE 1",
+    "normalized": "bd ice 1",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "88f273e3a8d048e21eaef4b601311e1cd50812589027afc8369915c2a986a329"
+  },
+  {
+    "bank": "B",
+    "slot": 14,
+    "name": "BD ICE 2",
+    "normalized": "bd ice 2",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "903bc5e375366d9b691cf00702d1c6ee5c8da189fe101f541504224c1b5bee18"
+  },
+  {
+    "bank": "B",
+    "slot": 15,
+    "name": "BD JORDFRAES",
+    "normalized": "bd jordfraes",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "HARD",
+      "EPIC"
+    ],
+    "fingerprint": "3e164637724a5d6422897d5842fc44263c1fb07dd248ade375b652ea5b29ba99"
+  },
+  {
+    "bank": "B",
+    "slot": 16,
+    "name": "BD KICKBACK",
+    "normalized": "bd kickback",
+    "tags": [
+      "KICK",
+      "EXPRESSIVE",
+      "EPIC"
+    ],
+    "fingerprint": "929528e3a5f853256e083ecb82ec77756287e9f31a462e351d9c79efc9366531"
+  },
+  {
+    "bank": "B",
+    "slot": 17,
+    "name": "BD LOGRAIN",
+    "normalized": "bd lograin",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "485dad65a1592902a5b95bf8120eb2b80b33b50ca7a73f4f24144d439aa7f684"
+  },
+  {
+    "bank": "B",
+    "slot": 18,
+    "name": "BD MEAN ROUND",
+    "normalized": "bd mean round",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "d3779e5ac218e823cc1924b415a9b18744c1b71a9475d9a64308711ddb48f8ff"
+  },
+  {
+    "bank": "B",
+    "slot": 19,
+    "name": "BD MUFFLED",
+    "normalized": "bd muffled",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "81e772537433e54cc96c1d353cd34c6197e7f086ab2176dc52669c214f0fd841"
+  },
+  {
+    "bank": "B",
+    "slot": 20,
+    "name": "BD PANEER",
+    "normalized": "bd paneer",
+    "tags": [
+      "KICK",
+      "HARD",
+      "EPIC"
+    ],
+    "fingerprint": "e21f8115ad6bfa88ba65d237f56bd57da46fa1cecab9e4ae2069c5c3690b3f62"
+  },
+  {
+    "bank": "B",
+    "slot": 21,
+    "name": "BD PLEXUS",
+    "normalized": "bd plexus",
+    "tags": [
+      "KICK",
+      "HARD",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "7f5c49a13238af2ff9613b7619c56af22d2cedaee1d98910e6e00e953dad84e1"
+  },
+  {
+    "bank": "B",
+    "slot": 22,
+    "name": "BD PUSH",
+    "normalized": "bd push",
+    "tags": [
+      "KICK",
+      "HARD"
+    ],
+    "fingerprint": "923956365d30b701220e42468e2b3fc3f049dd4c6363c23b45cc4432c11e39e4"
+  },
+  {
+    "bank": "B",
+    "slot": 23,
+    "name": "BD SINE 1",
+    "normalized": "bd sine 1",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "b67782eafe688643a28716d154dff853a30b2380c4bb05b9427028a7d9eba549"
+  },
+  {
+    "bank": "B",
+    "slot": 24,
+    "name": "BD SINE 2",
+    "normalized": "bd sine 2",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "aae6406ccc8f675242bb57a2bcfd6aea2b784fe278eb8e44f6d261ad2f17df7b"
+  },
+  {
+    "bank": "B",
+    "slot": 25,
+    "name": "BD SINE 3",
+    "normalized": "bd sine 3",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "e1ddd95e9fc2fd47b569b1b0108972646497c528e9d8290c4438486b7dbd5fed"
+  },
+  {
+    "bank": "B",
+    "slot": 26,
+    "name": "BD SLÖ",
+    "normalized": "bd slö",
+    "tags": [
+      "KICK",
+      "NOISY"
+    ],
+    "fingerprint": "0cdb54a0a747ba29abba5acb734fd7c0e1d758f115b963f70b64b7907714dcab"
+  },
+  {
+    "bank": "B",
+    "slot": 27,
+    "name": "BD SOFTAIR",
+    "normalized": "bd softair",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "PERCUSSION"
+    ],
+    "fingerprint": "fcecaf96978c0f67bb6eb20a20cb7cef19605fa32a477f09d83c75612db66a80"
+  },
+  {
+    "bank": "B",
+    "slot": 28,
+    "name": "BD SPACECRAFT",
+    "normalized": "bd spacecraft",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "f46f4bbd1b6b1f44cff5c54a7a5538d7495c894ce8e9c20aa41f6653fd25cbaf"
+  },
+  {
+    "bank": "B",
+    "slot": 29,
+    "name": "BD SQUELCH",
+    "normalized": "bd squelch",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "a372baf8b90a38ef4e3b9d3a53782cbb013d1ac8a77554c9a46cc225a7355a2b"
+  },
+  {
+    "bank": "B",
+    "slot": 30,
+    "name": "BD THÜMPØR",
+    "normalized": "bd thümpør",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "PERCUSSION",
+      "EXPRESSIVE",
+      "LOOP"
+    ],
+    "fingerprint": "6af504261efee93769afa01f1690c5f595138998958068c6e713158b1a6ffb58"
+  },
+  {
+    "bank": "B",
+    "slot": 31,
+    "name": "BD THUMP",
+    "normalized": "bd thump",
+    "tags": [],
+    "fingerprint": "824a5333809b46cd836c8c1b68a0447bed7904ae5117703b123e965968e4e3d5"
+  },
+  {
+    "bank": "B",
+    "slot": 32,
+    "name": "BD THUMPER",
+    "normalized": "bd thumper",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "aab59a758d52af798a93bf8aee9a11156c366e3870a990847824901e8b87f295"
+  },
+  {
+    "bank": "B",
+    "slot": 33,
+    "name": "BD TRØP",
+    "normalized": "bd trøp",
+    "tags": [
+      "KICK",
+      "BASS"
+    ],
+    "fingerprint": "4995f72f21209203f326bd695f2d13d51c9a487e8b4b2a723c9e5aa5d6585d7d"
+  },
+  {
+    "bank": "B",
+    "slot": 34,
+    "name": "BD TUBEY",
+    "normalized": "bd tubey",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "a1dfd6baeb115951e641ee4cccbc0117136107c91d5a5276ebf6b90eba3eed79"
+  },
+  {
+    "bank": "B",
+    "slot": 35,
+    "name": "BD VERB",
+    "normalized": "bd verb",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "c891ec49194a5a66c06954fdcfc842a7bb6ecad4cda8615c7b891e153a22afb3"
+  },
+  {
+    "bank": "B",
+    "slot": 36,
+    "name": "BD WIGBOUNCE",
+    "normalized": "bd wigbounce",
+    "tags": [
+      "KICK"
+    ],
+    "fingerprint": "60af28e4ac66cd49f0f08bfc022d0a527f983976fde3240793a4e80415a3444d"
+  },
+  {
+    "bank": "B",
+    "slot": 37,
+    "name": "SD ACO",
+    "normalized": "sd aco",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "bcbb9d213575ea44c675cc7cbd900df127d2e941c1e39fca8fa6992f25dc1493"
+  },
+  {
+    "bank": "B",
+    "slot": 38,
+    "name": "SD AYE 1",
+    "normalized": "sd aye 1",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "c7decbf80c96e8550274bf1ae4a6e2b313d3a8db7f2eb53936ed1832e6693c32"
+  },
+  {
+    "bank": "B",
+    "slot": 39,
+    "name": "SD AYE 2",
+    "normalized": "sd aye 2",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "cb640a5ce98a806b1a10f33d18aea50cefbc1c4e692e7d9729b5fb489b88e574"
+  },
+  {
+    "bank": "B",
+    "slot": 40,
+    "name": "SD BARREL",
+    "normalized": "sd barrel",
+    "tags": [],
+    "fingerprint": "896fa3906700b9fc276c73d04415fe48ab2ff5c62dc939b3c3b4397c9da8b15b"
+  },
+  {
+    "bank": "B",
+    "slot": 41,
+    "name": "SD BOTTLE",
+    "normalized": "sd bottle",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "METALLIC",
+      "GLITCH",
+      "BRIGHT"
+    ],
+    "fingerprint": "8f6d1092de4b37ff7acd4359caa0c85da9673ce1eb865accaaf326c34d6bacf1"
+  },
+  {
+    "bank": "B",
+    "slot": 42,
+    "name": "SD BULLET",
+    "normalized": "sd bullet",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "5dfe0e635c8b5fb6a8499244f08cafcb94244c468435b246a3c925129f36d609"
+  },
+  {
+    "bank": "B",
+    "slot": 43,
+    "name": "SD CARDBOARD",
+    "normalized": "sd cardboard",
+    "tags": [
+      "SNARE",
+      "SOFT",
+      "VINTAGE"
+    ],
+    "fingerprint": "359155e83ae17c54367661b6f5a79fe29d8c5c0a227b61b789e121e22d3ac1ac"
+  },
+  {
+    "bank": "B",
+    "slot": 44,
+    "name": "SD FILTMOD",
+    "normalized": "sd filtmod",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "c5f189dae8bcec5afeff515147149976e7ccc19e8843f90d2991927361c920ff"
+  },
+  {
+    "bank": "B",
+    "slot": 45,
+    "name": "SD GUTHIT",
+    "normalized": "sd guthit",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "cd215d788225c03cfe1189643f209068c77189308858fc65bcdd494d77e9340d"
+  },
+  {
+    "bank": "B",
+    "slot": 46,
+    "name": "SD HITBOX",
+    "normalized": "sd hitbox",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "efa7be9ff1ee24fb67cb322620d09336d249692c642920ed4c5eecd7379c6089"
+  },
+  {
+    "bank": "B",
+    "slot": 47,
+    "name": "SD HORROR HIT",
+    "normalized": "sd horror hit",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "c3f0a10a235541a05111d104f1e32b48a7e617f6b050b9d1292773b67da19e60"
+  },
+  {
+    "bank": "B",
+    "slot": 48,
+    "name": "SD HUMLA",
+    "normalized": "sd humla",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "b007cbb7616efc3d2cd37daeed128352aa543bae7f175ff3c204c710a043ea1e"
+  },
+  {
+    "bank": "B",
+    "slot": 49,
+    "name": "SD ICE 1",
+    "normalized": "sd ice 1",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "6aacf1e72b7a6dddf4061048b9f5daecbdc43f2be18e4af1394a5b1fb4cb1203"
+  },
+  {
+    "bank": "B",
+    "slot": 50,
+    "name": "SD ICE 2",
+    "normalized": "sd ice 2",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "892338f50b4ebec958c578ff00680d07b18dbef1f36ea6d1314e760593fc5f88"
+  },
+  {
+    "bank": "B",
+    "slot": 51,
+    "name": "SD LAVETT",
+    "normalized": "sd lavett",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "HARD"
+    ],
+    "fingerprint": "6ad62879e9e589c585c786f4e3ccb5598f01d00945eaf0bee768fe0a5f75902e"
+  },
+  {
+    "bank": "B",
+    "slot": 52,
+    "name": "SD LOOSE",
+    "normalized": "sd loose",
+    "tags": [
+      "SNARE",
+      "NOISY",
+      "HARD",
+      "BRIGHT"
+    ],
+    "fingerprint": "c820751450a2653403f5e3541e1f4c1e90bfe72a5370c55d0a37e5e86cb2f01c"
+  },
+  {
+    "bank": "B",
+    "slot": 53,
+    "name": "SD MUFFLED",
+    "normalized": "sd muffled",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "7cafd982d9319fdfba65bf9eb9d17567523b94e3b1eebae846fa0b42befcecbc"
+  },
+  {
+    "bank": "B",
+    "slot": 54,
+    "name": "SD SINE 1",
+    "normalized": "sd sine 1",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "6b11f94f28757a10a15369e19a7fa934b9eb3cbc5277b4709aa3dce0399f93c5"
+  },
+  {
+    "bank": "B",
+    "slot": 55,
+    "name": "SD SINE 2",
+    "normalized": "sd sine 2",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "a2fb36ad8bf542b6474f6ceb6f37c37aa4033cd925bd1429a4333b725f1162b4"
+  },
+  {
+    "bank": "B",
+    "slot": 56,
+    "name": "SD SINE 3",
+    "normalized": "sd sine 3",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "b12cfc1fb86ee4954d02c47e1206d77b9251e35065c2337fcc61f1ac4307a56b"
+  },
+  {
+    "bank": "B",
+    "slot": 57,
+    "name": "SD SLÖ",
+    "normalized": "sd slö",
+    "tags": [
+      "SNARE",
+      "NOISY"
+    ],
+    "fingerprint": "1f22cba799287eae56e81e789c72a3b24db197a42935db903aac03bc10a5cc5f"
+  },
+  {
+    "bank": "B",
+    "slot": 58,
+    "name": "SD SNAPPED",
+    "normalized": "sd snapped",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "c639c8df622c342277fb2f85255f6bd1ccffbc43d280197baa0053fd94cb3b65"
+  },
+  {
+    "bank": "B",
+    "slot": 59,
+    "name": "SD SOFTNOISE",
+    "normalized": "sd softnoise",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "NOISY",
+      "BRIGHT"
+    ],
+    "fingerprint": "6bf32f5e787eb8bb3b7b99c7377aa034b63b791e332e16bd0c845dc6822be1e5"
+  },
+  {
+    "bank": "B",
+    "slot": 60,
+    "name": "SD SPRINGY",
+    "normalized": "sd springy",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "7c54db61e0726ee25d3843f06b9f6bff2074238653c619b5f0ba67c415a7808a"
+  },
+  {
+    "bank": "B",
+    "slot": 61,
+    "name": "SD SWEEPY",
+    "normalized": "sd sweepy",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "c843c782dfda6c006262a5b41ea94cca42d8e0fc6db02f6b42878ab084f2dac7"
+  },
+  {
+    "bank": "B",
+    "slot": 62,
+    "name": "SD TRØP",
+    "normalized": "sd trøp",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "999852770ee83d968f51ea33883048685d5f6cb70a27f54034f86a61e37fee3c"
+  },
+  {
+    "bank": "B",
+    "slot": 63,
+    "name": "SD UKGRIM",
+    "normalized": "sd ukgrim",
+    "tags": [
+      "SNARE",
+      "FAIL"
+    ],
+    "fingerprint": "23af12df0203c6ec9ef41355761710c7d4970ecae18bb32e884cdc28cefddac2"
+  },
+  {
+    "bank": "B",
+    "slot": 64,
+    "name": "SD VERB",
+    "normalized": "sd verb",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "81de9d73c9b0de8fcfb3fa20bef431c741960651dfe7b33c062d9728585ece69"
+  },
+  {
+    "bank": "B",
+    "slot": 65,
+    "name": "SD YUQ",
+    "normalized": "sd yuq",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "SOUND FX"
+    ],
+    "fingerprint": "4457364a86a37cd01fe5d80f7798eedb3a6f86a5447881e916808ef4ea4485d2"
+  },
+  {
+    "bank": "B",
+    "slot": 66,
+    "name": "SD ZAPIT",
+    "normalized": "sd zapit",
+    "tags": [
+      "SNARE"
+    ],
+    "fingerprint": "6fe9ee7bdc9d01302f6c840c64b56ade9b885e03617765ed45d59cee34f6a452"
+  },
+  {
+    "bank": "B",
+    "slot": 67,
+    "name": "RS ACO",
+    "normalized": "rs aco",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "432878ce8362a9fa0035815f4da35c2ac99c877594c426aa32098e19d45efce7"
+  },
+  {
+    "bank": "B",
+    "slot": 68,
+    "name": "RS FINGERS",
+    "normalized": "rs fingers",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "222970614f0fca00b7b6c2a1da9f9f3f1f3a2b16a06d938b9b001da9e26c0e78"
+  },
+  {
+    "bank": "B",
+    "slot": 69,
+    "name": "RS ICE",
+    "normalized": "rs ice",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "fd86ce865be21487a5f18c1caae79b2b015ef481bd33632cd42455f36ff08226"
+  },
+  {
+    "bank": "B",
+    "slot": 70,
+    "name": "RS SINE",
+    "normalized": "rs sine",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "326b7df9ec880f253fd9f1bc177de96d9b3f14c724c66c619c589126f3877c0b"
+  },
+  {
+    "bank": "B",
+    "slot": 71,
+    "name": "RS SLÖ",
+    "normalized": "rs slö",
+    "tags": [
+      "PERCUSSION",
+      "NOISY"
+    ],
+    "fingerprint": "ee846b56a28983670e14310d1716234fec558924ca4a111c11099baf3992d409"
+  },
+  {
+    "bank": "B",
+    "slot": 72,
+    "name": "RS TOOP",
+    "normalized": "rs toop",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "5d24cc80bf682e13c3c31c58124c4eab463d951d6ef44f89961da1d35ab08807"
+  },
+  {
+    "bank": "B",
+    "slot": 73,
+    "name": "RS TRØP",
+    "normalized": "rs trøp",
+    "tags": [
+      "SNARE",
+      "PERCUSSION"
+    ],
+    "fingerprint": "d33caf187c47bf9d650c0412fb01f9cb262f9e5c2abd851c8fd85e93c4763ed8"
+  },
+  {
+    "bank": "B",
+    "slot": 74,
+    "name": "RS WOODPECKER",
+    "normalized": "rs woodpecker",
+    "tags": [
+      "PERCUSSION",
+      "ACOUSTIC",
+      "HARD"
+    ],
+    "fingerprint": "d0b3555dd8233053721ed59a233ae24e77293659bcd3867805d20e890202861b"
+  },
+  {
+    "bank": "B",
+    "slot": 75,
+    "name": "CL SINE",
+    "normalized": "cl sine",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "3a45cae5b8963d3c933ba44c36c805b0910df348d284f4ebdccf75703ee914ba"
+  },
+  {
+    "bank": "B",
+    "slot": 76,
+    "name": "CL TEASPOON",
+    "normalized": "cl teaspoon",
+    "tags": [
+      "PERCUSSION",
+      "METALLIC",
+      "GLITCH",
+      "HARD"
+    ],
+    "fingerprint": "a806fa06c461830f35d0334db5ee694c77b528957acfb80c2338c63a4a0d4d25"
+  },
+  {
+    "bank": "B",
+    "slot": 77,
+    "name": "CL VERB",
+    "normalized": "cl verb",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "44208137ebe4d0030e15039f201c79397996d651fefb885aef0a59ab5367b87f"
+  },
+  {
+    "bank": "B",
+    "slot": 78,
+    "name": "CB ACO",
+    "normalized": "cb aco",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "98c83d19c3e82085975ff81d03356428f5b365ee0410921d381f3fd9a3d42c41"
+  },
+  {
+    "bank": "B",
+    "slot": 79,
+    "name": "CB ICE",
+    "normalized": "cb ice",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "ad6bc79e5e71ba62d6fab25e68ab3e52ce3ddd6e8a5c57ef4638b124e960ec68"
+  },
+  {
+    "bank": "B",
+    "slot": 80,
+    "name": "HT ACO",
+    "normalized": "ht aco",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "c67ebd0eb73a0d09020e5c8dd0c239fd659b90762119b3e271cb8e42373df770"
+  },
+  {
+    "bank": "B",
+    "slot": 81,
+    "name": "MT ACO",
+    "normalized": "mt aco",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "574fec4bdb612206817c65cde101f4093c5e0cb5f6c5907731efef06265359ed"
+  },
+  {
+    "bank": "B",
+    "slot": 82,
+    "name": "HT SINE",
+    "normalized": "ht sine",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "7e4f1f74a77031bc5bc1607bfbffb85f156c99a30090ec7a919612a5095fa4d7"
+  },
+  {
+    "bank": "B",
+    "slot": 83,
+    "name": "MT SINE",
+    "normalized": "mt sine",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "e23e78572ad4cd2fc4846aa05844b316fc02411e77f1b85b647a62278ac1737d"
+  },
+  {
+    "bank": "B",
+    "slot": 84,
+    "name": "LT SINE",
+    "normalized": "lt sine",
+    "tags": [
+      "KICK",
+      "PERCUSSION",
+      "BASS"
+    ],
+    "fingerprint": "965015146613e830bfb9e8d793df3151290d54cdba192950b3036485993a21a9"
+  },
+  {
+    "bank": "B",
+    "slot": 85,
+    "name": "MT SLÖ",
+    "normalized": "mt slö",
+    "tags": [
+      "PERCUSSION",
+      "NOISY"
+    ],
+    "fingerprint": "d621eb803129de99f5e1a1ccd1451bccb83d4d0edb3c3048c659eea44c46b336"
+  },
+  {
+    "bank": "B",
+    "slot": 86,
+    "name": "LT DISCO TOMS",
+    "normalized": "lt disco toms",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "d936c804abf4a1a1c69f82ac81d45e9711ca0b5e3e0c8165453346aacdd18f6d"
+  },
+  {
+    "bank": "B",
+    "slot": 87,
+    "name": "LT ELECTRIC TOM",
+    "normalized": "lt electric tom",
+    "tags": [
+      "KICK",
+      "DEEP",
+      "PERCUSSION",
+      "VINTAGE"
+    ],
+    "fingerprint": "79ea57a70bcf3ba7db37ddfd5746d4d37672dc6b4a23f718dbce234b40c64237"
+  },
+  {
+    "bank": "B",
+    "slot": 88,
+    "name": "LT RITUAL TOMS",
+    "normalized": "lt ritual toms",
+    "tags": [
+      "PERCUSSION",
+      "DARK"
+    ],
+    "fingerprint": "552f680470c6a412345bb9635cf65bd362d901691abca40615ea963aa3ae185f"
+  },
+  {
+    "bank": "B",
+    "slot": 89,
+    "name": "CH ACO",
+    "normalized": "ch aco",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "6366c913e915993eb1ea62a65190b647d05f822e59f782da049d13bbd38522db"
+  },
+  {
+    "bank": "B",
+    "slot": 90,
+    "name": "OH ACO",
+    "normalized": "oh aco",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "7670273970b8cae01c38fcb9211795a136f906315f92f66672ee468b8cdc39df"
+  },
+  {
+    "bank": "B",
+    "slot": 91,
+    "name": "CH CYBER",
+    "normalized": "ch cyber",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "4ee92c5ed9922ce7c71b08120df8b04965e4912bc64e7d4a1133b759e4154a2e"
+  },
+  {
+    "bank": "B",
+    "slot": 92,
+    "name": "OH CYBER",
+    "normalized": "oh cyber",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "1ab36cb6c65403d6661ff940f004c5e9e1f059dd3dcd2d3fcf36b0998a2a42e6"
+  },
+  {
+    "bank": "B",
+    "slot": 93,
+    "name": "CH ICE",
+    "normalized": "ch ice",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "7ac39af59e4850b5027c26f130eef4b0ff3a3c9ff0829d7e5412a6cb55539da1"
+  },
+  {
+    "bank": "B",
+    "slot": 94,
+    "name": "OH ICE",
+    "normalized": "oh ice",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "a15c455faa545d8e4c92e70b7d709782cd6f8a1ad5e461de4650f9c769da8859"
+  },
+  {
+    "bank": "B",
+    "slot": 95,
+    "name": "CH MUFFLED",
+    "normalized": "ch muffled",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT"
+    ],
+    "fingerprint": "d99ffc6d31008dab1339d1047361f28aa11e3fc6647cf93039d3ada223f85597"
+  },
+  {
+    "bank": "B",
+    "slot": 96,
+    "name": "OH MUFFLED",
+    "normalized": "oh muffled",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "9505ed2892bad0b6dcf6109eb4b93e7c5c3d0fbef475a5d20395db81ba2ddbd8"
+  },
+  {
+    "bank": "B",
+    "slot": 97,
+    "name": "CH SHUTBELL",
+    "normalized": "ch shutbell",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "ef5f10e044dbaba4bb09c3ba7d56d23fd031c88488e4d3cd6f46d8d20ebd1dbb"
+  },
+  {
+    "bank": "B",
+    "slot": 98,
+    "name": "CH SINE",
+    "normalized": "ch sine",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "a5c61075eb63417c2e3fdf0c62fbc14fdc7b47ea142650623a9f8cab681be0eb"
+  },
+  {
+    "bank": "B",
+    "slot": 99,
+    "name": "OH SINE",
+    "normalized": "oh sine",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "97588033ef8e595626d213395515a067d33a7d3c8bafe8a49eeb10167e0d03ba"
+  },
+  {
+    "bank": "B",
+    "slot": 100,
+    "name": "CH SOFT METAL",
+    "normalized": "ch soft metal",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "bf8b73a40d9c60dea8e82a16dd56737740d857cc74b76958a6145908d358a991"
+  },
+  {
+    "bank": "B",
+    "slot": 101,
+    "name": "CH SPRINGY",
+    "normalized": "ch springy",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "3b374e85c614d25fda70fecedc44544e9fdcaa906987fd9af9cf12845423301d"
+  },
+  {
+    "bank": "B",
+    "slot": 102,
+    "name": "OH SPRINGY",
+    "normalized": "oh springy",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "5bc10ac2e8f3cb137bdbb5ca8172871d0724402435bd429622dd002d25b1a2f7"
+  },
+  {
+    "bank": "B",
+    "slot": 103,
+    "name": "CH VERB",
+    "normalized": "ch verb",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "b46ed162c9df8a2a4c5269e12a27f4e9c70461780f04fcfe29b4fe06f2d7208f"
+  },
+  {
+    "bank": "B",
+    "slot": 104,
+    "name": "OH VERB",
+    "normalized": "oh verb",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "7d2bb395ed185ee0009125c9eb4ef03e98742c76bd71f94e061af01b47e682d0"
+  },
+  {
+    "bank": "B",
+    "slot": 105,
+    "name": "HH ALUMINIUM",
+    "normalized": "hh aluminium",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT",
+      "NOISY",
+      "BRIGHT"
+    ],
+    "fingerprint": "df5c5991aca64873752195c3aec8dd2bdcffbe9728f684b2824dbd692693285f"
+  },
+  {
+    "bank": "B",
+    "slot": 106,
+    "name": "HH AYE",
+    "normalized": "hh aye",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT"
+    ],
+    "fingerprint": "e520581984b042a60b356397571ea4807809530b1a8b796e34fb878f885c680e"
+  },
+  {
+    "bank": "B",
+    "slot": 107,
+    "name": "HH FREEQ",
+    "normalized": "hh freeq",
+    "tags": [
+      "PERCUSSION",
+      "SOUND FX"
+    ],
+    "fingerprint": "1515664c65de0331506277b0268ab27d70f97188827468eb98a3e55fed52b897"
+  },
+  {
+    "bank": "B",
+    "slot": 108,
+    "name": "HH LOOSE FEET",
+    "normalized": "hh loose feet",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT",
+      "METALLIC"
+    ],
+    "fingerprint": "d81d9e43ea93cc68b65a68b5610bca9c1279dcb6ebcc3a32f8a6ac4a35f9711c"
+  },
+  {
+    "bank": "B",
+    "slot": 109,
+    "name": "HH SAUCEPAN",
+    "normalized": "hh saucepan",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT",
+      "CYMBAL",
+      "NOISY"
+    ],
+    "fingerprint": "09f48b0fae17663ba825569481810034215b3f0e38777de23eb554964afb3468"
+  },
+  {
+    "bank": "B",
+    "slot": 110,
+    "name": "HH SLÖ 1",
+    "normalized": "hh slö 1",
+    "tags": [
+      "HI-HAT",
+      "NOISY"
+    ],
+    "fingerprint": "bc42676e53356511bb9654a3c135268154c83a9fa80127350061e352ba3fb5dd"
+  },
+  {
+    "bank": "B",
+    "slot": 111,
+    "name": "HH SLÖ 2",
+    "normalized": "hh slö 2",
+    "tags": [
+      "HI-HAT",
+      "NOISY"
+    ],
+    "fingerprint": "281445ff8f85b8ab27d9227cb707b40ac0aee5cc80175c6c5970f64147ed4aa5"
+  },
+  {
+    "bank": "B",
+    "slot": 112,
+    "name": "HH STACKED",
+    "normalized": "hh stacked",
+    "tags": [
+      "PERCUSSION",
+      "HI-HAT",
+      "HARD",
+      "SOFT"
+    ],
+    "fingerprint": "441c9c6ce94cd8bdd96f9ea48e55c2c525c4eef835414d8206d2c6c92c5fedba"
+  },
+  {
+    "bank": "B",
+    "slot": 113,
+    "name": "HH TRØP",
+    "normalized": "hh trøp",
+    "tags": [
+      "HI-HAT"
+    ],
+    "fingerprint": "0b4e8838e39bc93be5992e4554927d0af9b33294000486c32ca84959aaf4a068"
+  },
+  {
+    "bank": "B",
+    "slot": 114,
+    "name": "SH LIVING SHAKE",
+    "normalized": "sh living shake",
+    "tags": [
+      "PERCUSSION",
+      "CYMBAL"
+    ],
+    "fingerprint": "a7d9d00c40e00963e516847a372af8876bd7d89883419fdddebd777608d76270"
+  },
+  {
+    "bank": "B",
+    "slot": 115,
+    "name": "CY ACO",
+    "normalized": "cy aco",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "d593299d2c5c038407a4135b98b39724c9e0da837eabde0dae03059abe7d6565"
+  },
+  {
+    "bank": "B",
+    "slot": 116,
+    "name": "CY ACOUSTIK 1",
+    "normalized": "cy acoustik 1",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "ab11445f2cf0da36853f420bf9569aab7278894f614291abe6ca9e87a273e160"
+  },
+  {
+    "bank": "B",
+    "slot": 117,
+    "name": "CY ACOUSTIK 2",
+    "normalized": "cy acoustik 2",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "76d90043c5c5849bef16bd628b9f004cf9c6e2660f9da2f234b8e6e347167dc9"
+  },
+  {
+    "bank": "B",
+    "slot": 118,
+    "name": "CY METAL NOISE",
+    "normalized": "cy metal noise",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "bd18503eaeae38c31338011ecf3af6a30614fd40881a6b3352cda2896d856cb2"
+  },
+  {
+    "bank": "B",
+    "slot": 119,
+    "name": "CY RIDER",
+    "normalized": "cy rider",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "a90c2a900c396801d037afaa083550092fc3972ee60870cec93bf4e723624d85"
+  },
+  {
+    "bank": "B",
+    "slot": 120,
+    "name": "CY SINE",
+    "normalized": "cy sine",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "e0700bdde3393cd459954b716e997ee98dea1bc7ef38d7a56cf4725cb269da9b"
+  },
+  {
+    "bank": "B",
+    "slot": 121,
+    "name": "CY SLÖ",
+    "normalized": "cy slö",
+    "tags": [
+      "PERCUSSION",
+      "NOISY"
+    ],
+    "fingerprint": "6cb2e46de94da9ebea482c275c76258b440b4b9d50a2d5f3a1faf0ecd285ddf8"
+  },
+  {
+    "bank": "B",
+    "slot": 122,
+    "name": "CY SYNTETIK 1",
+    "normalized": "cy syntetik 1",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "e5a1517ef65f5da0eb972402b2b2aca9a074b6f124d8230807a2e307a824fa80"
+  },
+  {
+    "bank": "B",
+    "slot": 123,
+    "name": "CY SYNTETIK 2",
+    "normalized": "cy syntetik 2",
+    "tags": [
+      "CYMBAL"
+    ],
+    "fingerprint": "b9067f58055ab95f7cac2ba2424ca333f2135c33f110d4fb06652c591c1e9dfb"
+  },
+  {
+    "bank": "B",
+    "slot": 124,
+    "name": "CY VERB",
+    "normalized": "cy verb",
+    "tags": [
+      "CYMBAL",
+      "TEXTURE",
+      "SOUND FX"
+    ],
+    "fingerprint": "fce73d6bed669b23ef429a99a4b2bf6075a987d960fbad91e5791720a3a27dab"
+  },
+  {
+    "bank": "B",
+    "slot": 125,
+    "name": "CP ROBOT CLAP",
+    "normalized": "cp robot clap",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "81d4ffa155e3c574fa5c7891a397346e7f78232ec5b39baf5adde3fe792b6abb"
+  },
+  {
+    "bank": "B",
+    "slot": 126,
+    "name": "PC AYE",
+    "normalized": "pc aye",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "0c7f2073d15a844fd8aa04a56d2731b65c70886485823fb53ddc35cd61003f84"
+  },
+  {
+    "bank": "B",
+    "slot": 127,
+    "name": "PC BROKEBEAT",
+    "normalized": "pc brokebeat",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "0174cc74d155bb885b6799864aebe20070790e64f72f968db41c5513bf8fd15a"
+  },
+  {
+    "bank": "B",
+    "slot": 128,
+    "name": "PC CELLZ",
+    "normalized": "pc cellz",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "METALLIC",
+      "NOISY"
+    ],
+    "fingerprint": "962a93dcf33aea1703666946633ad57791cd97e4e510804dbae311cf5fb461e2"
+  },
+  {
+    "bank": "B",
+    "slot": 129,
+    "name": "PC CYBER",
+    "normalized": "pc cyber",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "1c0c049667adb7ccbc93b49b2b62ebed60eeff07a917d2e307f9da38b46aa5c0"
+  },
+  {
+    "bank": "B",
+    "slot": 130,
+    "name": "PC GAMELAN MOD",
+    "normalized": "pc gamelan mod",
+    "tags": [
+      "SOUND FX",
+      "METALLIC",
+      "SOFT"
+    ],
+    "fingerprint": "d2468ddf3d9a7955a1f95610cf4673b43f42f4e4d8b5a81b7f63347be454dab1"
+  },
+  {
+    "bank": "B",
+    "slot": 131,
+    "name": "PC ICE",
+    "normalized": "pc ice",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "5ab41d881d8236f26e240f30eeba70d73abb831796f81d4bd1b3a5b7300c2a24"
+  },
+  {
+    "bank": "B",
+    "slot": 132,
+    "name": "PC LOG CANS",
+    "normalized": "pc log cans",
+    "tags": [
+      "PERCUSSION",
+      "LEAD",
+      "CHORD",
+      "ARPEGGIO"
+    ],
+    "fingerprint": "2d44bb75e9cd70d79d4d06b52733b42d3716d6b59bee5ae119d3d28649d438f4"
+  },
+  {
+    "bank": "B",
+    "slot": 133,
+    "name": "PC MUFFLED",
+    "normalized": "pc muffled",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "834cef8333e171110f56bb828802f403900f5811203d653688fd94617a09cbae"
+  },
+  {
+    "bank": "B",
+    "slot": 134,
+    "name": "PC SLÖ",
+    "normalized": "pc slö",
+    "tags": [
+      "PERCUSSION",
+      "NOISY"
+    ],
+    "fingerprint": "732c65468bcbf742e6e4cc4302d4c87c5b1fa4c7477472612aa3099429e589b2"
+  },
+  {
+    "bank": "B",
+    "slot": 135,
+    "name": "PC TOMMYBOI",
+    "normalized": "pc tommyboi",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "1d2805408dca11a5b2f1308948e71cc8e9fe1cc58a2ad0f6a255ae87eb730376"
+  },
+  {
+    "bank": "B",
+    "slot": 136,
+    "name": "PC VERB 1",
+    "normalized": "pc verb 1",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "a922b614f6b0dcd55836e7387497ad84170ea4e52d6ab298342338a5f1c2561a"
+  },
+  {
+    "bank": "B",
+    "slot": 137,
+    "name": "PC VERB 2",
+    "normalized": "pc verb 2",
+    "tags": [
+      "PERCUSSION"
+    ],
+    "fingerprint": "eb678dd0c55a1a04b7fd1b17beb86a6220ce635f1c72407123e052cf9b611f48"
+  },
+  {
+    "bank": "B",
+    "slot": 138,
+    "name": "FX AYE 1",
+    "normalized": "fx aye 1",
+    "tags": [
+      "PERCUSSION",
+      "SOUND FX"
+    ],
+    "fingerprint": "83c8d51e26a559038aa5b6642bfef6d89713f59d5e6bf7c6a44d353a08424e76"
+  },
+  {
+    "bank": "B",
+    "slot": 139,
+    "name": "FX AYE 2",
+    "normalized": "fx aye 2",
+    "tags": [
+      "SOUND FX"
+    ],
+    "fingerprint": "9c53c15dc0254e2fb22cc092b17ae350f245a5a3db14c6e655a9222591c34250"
+  },
+  {
+    "bank": "B",
+    "slot": 140,
+    "name": "FX BAS3",
+    "normalized": "fx bas3",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "PAD",
+      "SOUND FX",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "57f7c8725947515a10323db744527286a04f0063fed3b88b2aec2f99e6fd63f1"
+  },
+  {
+    "bank": "B",
+    "slot": 141,
+    "name": "FX BLAUMANET",
+    "normalized": "fx blaumanet",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "TEXTURE",
+      "EPIC"
+    ],
+    "fingerprint": "e9c48f54c0cc80ac3784693ad0bb2d035c92e486d8f54060947f9c802f318469"
+  },
+  {
+    "bank": "B",
+    "slot": 142,
+    "name": "FX BLIBS",
+    "normalized": "fx blibs",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "LEAD",
+      "TEXTURE",
+      "HARD",
+      "SOFT",
+      "DARK",
+      "BRIGHT"
+    ],
+    "fingerprint": "2045dcab6e760a9a48a36ed33fc1e77d55df254f8315a1e0c50749e12862463b"
+  },
+  {
+    "bank": "B",
+    "slot": 143,
+    "name": "FX CHATTER",
+    "normalized": "fx chatter",
+    "tags": [
+      "SNARE",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "5b5b01362875bc1394c9fbfe20ca0dadc3b2b68d8ee2c37dc04f11cb6f23a261"
+  },
+  {
+    "bank": "B",
+    "slot": 144,
+    "name": "FX DEBOUNCE",
+    "normalized": "fx debounce",
+    "tags": [
+      "PERCUSSION",
+      "EVOLVING",
+      "SOUND FX",
+      "GLITCH"
+    ],
+    "fingerprint": "6e91b2983ef4371ec55908b61c8760e7b86b1783751093042437d17fdb89cfe1"
+  },
+  {
+    "bank": "B",
+    "slot": 145,
+    "name": "FX DRONER",
+    "normalized": "fx droner",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "DARK"
+    ],
+    "fingerprint": "d260b3038bd65f8d1b9f7c76362ba5ffb4769eca4b49adf23edcdf0ece3e2cc1"
+  },
+  {
+    "bank": "B",
+    "slot": 146,
+    "name": "FX DRUMGROWL",
+    "normalized": "fx drumgrowl",
+    "tags": [
+      "KICK",
+      "SNARE",
+      "SOUND FX",
+      "DARK"
+    ],
+    "fingerprint": "1e0ac05040225953b3979eaf1901676516ca341e1143cbccfccb093b8b7d58d2"
+  },
+  {
+    "bank": "B",
+    "slot": 147,
+    "name": "FX FILTER PAN",
+    "normalized": "fx filter pan",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "7951e14a69e7baeab38f38237f9bcf8c90d1cd8c9e42aa3ccaac8d682ee37a5e"
+  },
+  {
+    "bank": "B",
+    "slot": 148,
+    "name": "FX GENTLE HISS",
+    "normalized": "fx gentle hiss",
+    "tags": [
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY"
+    ],
+    "fingerprint": "1f87bda63cdffbd0882c5bc62358c344be37df43cf38741d50e96ef59718fe28"
+  },
+  {
+    "bank": "B",
+    "slot": 149,
+    "name": "FX GLAREVOX",
+    "normalized": "fx glarevox",
+    "tags": [
+      "STRINGS",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD"
+    ],
+    "fingerprint": "8ab127a4552efc93eb7b796fbec3e7b37ac67fff79e5ea3ff78e09fcbb2c1df6"
+  },
+  {
+    "bank": "B",
+    "slot": 150,
+    "name": "FX GLIDER",
+    "normalized": "fx glider",
+    "tags": [
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "ee61001d224cf9f929f9b81754e1c77d7a20befd86aac03e39f3ac9d4136f7cd"
+  },
+  {
+    "bank": "B",
+    "slot": 151,
+    "name": "FX GLITCHSTON",
+    "normalized": "fx glitchston",
+    "tags": [
+      "BRASS",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "GLITCH",
+      "SOFT",
+      "DARK"
+    ],
+    "fingerprint": "a87cf4ce75498379131c4fa243d6fdcf43d21b1bb6f7b60addb83ad8d9cedaad"
+  },
+  {
+    "bank": "B",
+    "slot": 152,
+    "name": "FX GLTCH LOVE",
+    "normalized": "fx gltch love",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "28c1826fd786849276d3c61c55f3cbe1f9a29d6b80ba37204f10fc943a8348fd"
+  },
+  {
+    "bank": "B",
+    "slot": 153,
+    "name": "FX INDUSTRIBI",
+    "normalized": "fx industribi",
+    "tags": [
+      "BASS",
+      "GLITCH"
+    ],
+    "fingerprint": "9f34dd9caa47e2d71324aa6aa4c694f4b359fe2fef909c9260270461a100f3b8"
+  },
+  {
+    "bank": "B",
+    "slot": 154,
+    "name": "FX MODEM TONE",
+    "normalized": "fx modem tone",
+    "tags": [
+      "PERCUSSION",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "LEAD",
+      "TEXTURE",
+      "SOUND FX",
+      "METALLIC",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "69a0d9c63748a5258f0abb6ae408357cfe4222b306427d7b1d8d6facc0def422"
+  },
+  {
+    "bank": "B",
+    "slot": 155,
+    "name": "FX PRETTY BASS",
+    "normalized": "fx pretty bass",
+    "tags": [
+      "DEEP",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "GLITCH",
+      "SOFT",
+      "DARK",
+      "VINTAGE"
+    ],
+    "fingerprint": "0ae9f464cce923172517c5fd166e5735eca34fdc962551e921139aa1c8c2e6c8"
+  },
+  {
+    "bank": "B",
+    "slot": 156,
+    "name": "FX RADIO DIAL",
+    "normalized": "fx radio dial",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH",
+      "LOOP"
+    ],
+    "fingerprint": "eba279897978af4c6865c2e5550b0960f02d910cb664c43022c18620bc0c75f5"
+  },
+  {
+    "bank": "B",
+    "slot": 157,
+    "name": "FX RADIOHED",
+    "normalized": "fx radiohed",
+    "tags": [
+      "SOUND FX"
+    ],
+    "fingerprint": "508402b59eedfda901a6b0fddc076fe66d1bcd027350c1a50414870421d301bd"
+  },
+  {
+    "bank": "B",
+    "slot": 158,
+    "name": "FX REZÑRAIN",
+    "normalized": "fx rezñrain",
+    "tags": [
+      "HI-HAT",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "METALLIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "a1ba4a9a6d7970ae5aee13dd2d0374dd4070e9939d5ca24ffb797b8fe73ef750"
+  },
+  {
+    "bank": "B",
+    "slot": 159,
+    "name": "FX RHIZOME",
+    "normalized": "fx rhizome",
+    "tags": [
+      "EVOLVING",
+      "SOUND FX",
+      "EPIC",
+      "LOOP"
+    ],
+    "fingerprint": "3cee4a0f5f9251884e6e7a3cbc6b5c0b57b0bceafbcf02ce2fd76a59f6ae5b2a"
+  },
+  {
+    "bank": "B",
+    "slot": 160,
+    "name": "FX ROTOR",
+    "normalized": "fx rotor",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "TEXTURE",
+      "SOUND FX",
+      "ATMOSPHERIC",
+      "NOISY",
+      "GLITCH",
+      "SOFT"
+    ],
+    "fingerprint": "d4d2c14c696a8e34ae55a8a8e178a0156fba0ee4a8cebc42df9791f00121bb4a"
+  },
+  {
+    "bank": "B",
+    "slot": 161,
+    "name": "FX RULERS",
+    "normalized": "fx rulers",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "HI-HAT",
+      "EXPRESSIVE",
+      "BASS",
+      "LEAD",
+      "CHORD",
+      "METALLIC",
+      "NOISY",
+      "BRIGHT"
+    ],
+    "fingerprint": "d1dbe8b46b12bd5829da8058c075e87cf2971bb5724516f4bb07bc24b92989d8"
+  },
+  {
+    "bank": "B",
+    "slot": 162,
+    "name": "FX S-RGAN",
+    "normalized": "fx s-rgan",
+    "tags": [
+      "EVOLVING",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "ATMOSPHERIC",
+      "SOFT"
+    ],
+    "fingerprint": "604513d396ecafad78ef68bf566576ff7974ae79a9b446702778e612c138e406"
+  },
+  {
+    "bank": "B",
+    "slot": 163,
+    "name": "FX SNAPHAT",
+    "normalized": "fx snaphat",
+    "tags": [
+      "SNARE",
+      "PERCUSSION",
+      "HI-HAT",
+      "METALLIC",
+      "NOISY",
+      "GLITCH",
+      "BRIGHT"
+    ],
+    "fingerprint": "4d1094cc8e68671b2d60b652b919b93ddc8fa5827cc63fe67a28e968c4258118"
+  },
+  {
+    "bank": "B",
+    "slot": 164,
+    "name": "FX SUBSTRATA",
+    "normalized": "fx substrata",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH",
+      "DARK",
+      "BRIGHT"
+    ],
+    "fingerprint": "d4e2189d758bec0d3ca10e8b0459f4f24250b5d06a39977ae7ce23ef60843b44"
+  },
+  {
+    "bank": "B",
+    "slot": 165,
+    "name": "FX SYNSTR",
+    "normalized": "fx synstr",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "PAD",
+      "ATMOSPHERIC"
+    ],
+    "fingerprint": "02809bfd7abd96b4765512196c365237b17f6f459edfe6aaa8ae54110be5e96f"
+  },
+  {
+    "bank": "B",
+    "slot": 166,
+    "name": "FX TIME+LORD",
+    "normalized": "fx time+lord",
+    "tags": [
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "LEAD",
+      "PAD",
+      "TEXTURE",
+      "NOISY",
+      "GLITCH",
+      "DARK",
+      "BRIGHT"
+    ],
+    "fingerprint": "b1d996147f4ad8ba435cc27ba4d1a9bcde75fb022d620133f6a626b95c5ad5cb"
+  },
+  {
+    "bank": "B",
+    "slot": 167,
+    "name": "FX TIPPING",
+    "normalized": "fx tipping",
+    "tags": [
+      "LEAD",
+      "PAD",
+      "SOFT"
+    ],
+    "fingerprint": "6a702ae1ce8465f0cf2ffa3eb6a22931997bc6ef7998922c3c349d2c0ad5c434"
+  },
+  {
+    "bank": "B",
+    "slot": 168,
+    "name": "FX TRØP",
+    "normalized": "fx trøp",
+    "tags": [
+      "SOUND FX"
+    ],
+    "fingerprint": "33add39ce756d79357c25cca8f4ff6b3d1c5b79737a98baeb0a10f1be9e974c4"
+  },
+  {
+    "bank": "B",
+    "slot": 169,
+    "name": "FX WASP HORROR",
+    "normalized": "fx wasp horror",
+    "tags": [
+      "SOUND FX"
+    ],
+    "fingerprint": "06b1b055b99eea45b9e9d1adf60c04eee41d36d03e59bb2df42f5ea877b15965"
+  },
+  {
+    "bank": "B",
+    "slot": 170,
+    "name": "FX WHEREAREYOU!",
+    "normalized": "fx whereareyou!",
+    "tags": [
+      "EVOLVING",
+      "TEXTURE",
+      "SOUND FX",
+      "NOISY",
+      "GLITCH"
+    ],
+    "fingerprint": "4a7494f71bf60cbfe9be158c98142d35107d1e3547671ef362b2304ce3aff169"
+  },
+  {
+    "bank": "B",
+    "slot": 171,
+    "name": "FX WOBS DRONE",
+    "normalized": "fx wobs drone",
+    "tags": [
+      "DEEP",
+      "EVOLVING",
+      "EXPRESSIVE",
+      "BASS",
+      "PAD",
+      "TEXTURE",
+      "GLITCH",
+      "BRIGHT"
+    ],
+    "fingerprint": "0bfc4dfc13b3c18344edc674bbd3ec809779bd33f5a776b6017ea2e5a3d3bacd"
+  }
+]

@@ -1,3 +1,4 @@
+use base64::{engine::general_purpose::STANDARD as BASE64, Engine as _};
 use midir::{Ignore, MidiInput, MidiInputConnection, MidiOutput};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -14,6 +15,7 @@ use tauri::{Emitter, Manager, State};
 use walkdir::WalkDir;
 
 const BANKS: &[char] = &['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const FACTORY_INDEX: &str = include_str!("../resources/factory-index.json");
 
 #[derive(Default)]
 struct MidiState {
@@ -95,10 +97,45 @@ struct Settings {
 struct Parsed {
     slot: usize,
     name: String,
+    file_type: String,
     normalized: String,
     fingerprint: Option<String>,
     tags: Vec<String>,
     error: Option<String>,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct FactoryPresetIndex {
+    slot: usize,
+    name: String,
+    normalized: String,
+    tags: Vec<String>,
+    fingerprint: String,
+}
+
+fn factory_presets() -> Vec<Parsed> {
+    serde_json::from_str::<Vec<FactoryPresetIndex>>(FACTORY_INDEX)
+        .unwrap_or_default()
+        .into_iter()
+        .map(|preset| Parsed {
+            slot: preset.slot,
+            name: preset.name,
+            file_type: "DN2PST".into(),
+            normalized: preset.normalized,
+            fingerprint: Some(preset.fingerprint),
+            tags: preset.tags,
+            error: None,
+        })
+        .collect()
+}
+
+fn is_unique_name_match(
+    normalized: &str,
+    pack_counts: &HashMap<String, usize>,
+    library_counts: &HashMap<String, usize>,
+) -> bool {
+    pack_counts.get(normalized) == Some(&1) && library_counts.get(normalized) == Some(&1)
 }
 
 #[derive(Clone, Serialize)]
@@ -122,14 +159,73 @@ struct Match {
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
+struct PackPreset {
+    name: String,
+    file_type: String,
+    tags: Vec<String>,
+    used: bool,
+    exact: bool,
+    locations: Vec<String>,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 struct Pack {
     name: String,
+    cover_data_url: Option<String>,
     total: usize,
     found: usize,
     exact: usize,
     name_only: usize,
     tags: BTreeMap<String, usize>,
     matches: Vec<Match>,
+    presets: Vec<PackPreset>,
+}
+
+fn pack_cover_data_url(pack_root: &Path) -> Option<String> {
+    let mut candidates = WalkDir::new(pack_root)
+        .max_depth(3)
+        .into_iter()
+        .filter_map(Result::ok)
+        .filter(|entry| entry.file_type().is_file())
+        .filter_map(|entry| {
+            let path = entry.into_path();
+            let extension = path.extension()?.to_str()?.to_ascii_lowercase();
+            let mime = match extension.as_str() {
+                "jpg" | "jpeg" => "image/jpeg",
+                "png" => "image/png",
+                "webp" => "image/webp",
+                _ => return None,
+            };
+            let size = fs::metadata(&path).ok()?.len();
+            if size == 0 || size > 5 * 1024 * 1024 {
+                return None;
+            }
+            let name = path
+                .file_stem()
+                .and_then(|value| value.to_str())
+                .unwrap_or_default()
+                .to_ascii_lowercase();
+            let in_pack_root = path
+                .strip_prefix(pack_root)
+                .ok()
+                .is_some_and(|relative| relative.components().count() == 1);
+            let priority = if name.contains("cover") || name.contains("artwork") {
+                3
+            } else if name == "folder" || name.contains("album") {
+                2
+            } else if in_pack_root {
+                1
+            } else {
+                return None;
+            };
+            Some((priority, size, path, mime))
+        })
+        .collect::<Vec<_>>();
+    candidates.sort_by(|a, b| b.0.cmp(&a.0).then_with(|| b.1.cmp(&a.1)));
+    let (_, _, path, mime) = candidates.into_iter().next()?;
+    let bytes = fs::read(path).ok()?;
+    Some(format!("data:{mime};base64,{}", BASE64.encode(bytes)))
 }
 
 #[derive(Serialize)]
@@ -719,15 +815,14 @@ fn sync_device_presets_blocking(
         .map(|bank| bank.presets.len())
         .sum::<usize>();
     let root = PathBuf::from(&library_path);
-    let staging = root.join(".digitone2link-sync");
+    let staging = root.join(".digitone2link").join("sync");
     if staging.exists() {
         fs::remove_dir_all(&staging).map_err(|e| e.to_string())?;
     }
     fs::create_dir_all(&staging).map_err(|e| e.to_string())?;
 
     let result = (|| -> Result<usize, String> {
-        let mut input =
-            MidiInput::new("Digitone2Link synchronizer").map_err(|e| e.to_string())?;
+        let mut input = MidiInput::new("Digitone2Link synchronizer").map_err(|e| e.to_string())?;
         input.ignore(Ignore::None);
         let input_ports = input.ports();
         let input_port = input_ports
@@ -990,6 +1085,11 @@ fn parse_preset(path: &Path) -> Parsed {
         .and_then(|value| value.parse().ok())
         .unwrap_or_default();
     let normalized = normalized_stem(path);
+    let file_type = path
+        .extension()
+        .and_then(|value| value.to_str())
+        .unwrap_or_default()
+        .to_ascii_uppercase();
     let name = normalized_stem(path)
         .split_whitespace()
         .map(|w| {
@@ -1043,6 +1143,7 @@ fn parse_preset(path: &Path) -> Parsed {
         Ok((fingerprint, tags)) => Parsed {
             slot,
             name,
+            file_type,
             normalized,
             fingerprint: Some(fingerprint),
             tags,
@@ -1051,6 +1152,7 @@ fn parse_preset(path: &Path) -> Parsed {
         Err(error) => Parsed {
             slot,
             name,
+            file_type,
             normalized,
             fingerprint: None,
             tags: vec![],
@@ -1095,11 +1197,30 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
     let mut pack_presets: HashMap<String, Vec<Parsed>> = HashMap::new();
     let mut by_hash: HashMap<String, HashSet<String>> = HashMap::new();
     let mut by_name: HashMap<String, HashSet<String>> = HashMap::new();
+    let built_in_factory = factory_presets();
+    for preset in &built_in_factory {
+        if let Some(hash) = &preset.fingerprint {
+            by_hash
+                .entry(hash.clone())
+                .or_default()
+                .insert("Factory".into());
+        }
+        by_name
+            .entry(preset.normalized.clone())
+            .or_default()
+            .insert("Factory".into());
+    }
+    pack_presets.insert("Factory".into(), built_in_factory);
     for entry in fs::read_dir(packs_root)
         .map_err(|e| e.to_string())?
         .flatten()
     {
-        if entry.path().is_dir() {
+        if entry.path().is_dir()
+            && !entry
+                .file_name()
+                .to_string_lossy()
+                .eq_ignore_ascii_case("Factory")
+        {
             pack_presets
                 .entry(entry.file_name().to_string_lossy().into_owned())
                 .or_default();
@@ -1112,6 +1233,9 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
             .and_then(|p| p.components().next())
             .map(|c| c.as_os_str().to_string_lossy().into_owned())
             .unwrap_or_default();
+        if pack.eq_ignore_ascii_case("Factory") {
+            continue;
+        }
         let parsed = parse_preset(&path);
         if let Some(hash) = &parsed.fingerprint {
             by_hash
@@ -1142,6 +1266,20 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
             .collect();
         parsed_banks.insert(key, rows);
     }
+    let pack_name_counts = pack_presets.values().flatten().fold(
+        HashMap::<String, usize>::new(),
+        |mut counts, preset| {
+            *counts.entry(preset.normalized.clone()).or_default() += 1;
+            counts
+        },
+    );
+    let library_name_counts = parsed_banks.values().flatten().fold(
+        HashMap::<String, usize>::new(),
+        |mut counts, preset| {
+            *counts.entry(preset.normalized.clone()).or_default() += 1;
+            counts
+        },
+    );
     let mut duplicate_map: HashMap<String, Vec<String>> = HashMap::new();
     for (bank, rows) in &parsed_banks {
         for p in rows {
@@ -1166,13 +1304,19 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
                     .unwrap_or_default();
                 let mut exact_packs = exact.iter().cloned().collect::<Vec<_>>();
                 exact_packs.sort();
-                let mut name_only_packs = by_name
-                    .get(&p.normalized)
-                    .cloned()
-                    .unwrap_or_default()
-                    .difference(&exact)
-                    .cloned()
-                    .collect::<Vec<_>>();
+                let unique_name =
+                    is_unique_name_match(&p.normalized, &pack_name_counts, &library_name_counts);
+                let mut name_only_packs = if unique_name {
+                    by_name
+                        .get(&p.normalized)
+                        .cloned()
+                        .unwrap_or_default()
+                        .difference(&exact)
+                        .cloned()
+                        .collect::<Vec<_>>()
+                } else {
+                    vec![]
+                };
                 name_only_packs.sort();
                 let location = format!("{bank}{:03}", p.slot);
                 let duplicate_locations = p
@@ -1206,10 +1350,6 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
         .iter()
         .filter_map(|(_, _, p)| p.fingerprint.clone())
         .collect::<HashSet<_>>();
-    let backup_names = all_bank
-        .iter()
-        .map(|(_, _, p)| p.normalized.clone())
-        .collect::<HashSet<_>>();
     let mut packs = pack_presets
         .into_iter()
         .map(|(name, presets)| {
@@ -1227,7 +1367,11 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
                     !p.fingerprint
                         .as_ref()
                         .is_some_and(|h| backup_hashes.contains(h))
-                        && backup_names.contains(&p.normalized)
+                        && is_unique_name_match(
+                            &p.normalized,
+                            &pack_name_counts,
+                            &library_name_counts,
+                        )
                 })
                 .count();
             let hashes = presets
@@ -1246,21 +1390,73 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
                 .iter()
                 .filter(|(_, _, p)| {
                     p.fingerprint.as_ref().is_some_and(|h| hashes.contains(h))
-                        || names.contains(&p.normalized)
+                        || (names.contains(&p.normalized)
+                            && is_unique_name_match(
+                                &p.normalized,
+                                &pack_name_counts,
+                                &library_name_counts,
+                            ))
                 })
-                .map(|(b, i, p)| Match {
-                    location: format!("{b}{:03}", i + 1),
+                .map(|(b, _, p)| Match {
+                    location: format!("{b}{:03}", p.slot),
                     name: p.name.clone(),
                 })
                 .collect();
+            let preset_rows = presets
+                .iter()
+                .map(|preset| {
+                    let exact_locations = all_bank
+                        .iter()
+                        .filter(|(_, _, library_preset)| {
+                            preset.fingerprint.as_ref().is_some_and(|hash| {
+                                library_preset.fingerprint.as_ref() == Some(hash)
+                            })
+                        })
+                        .map(|(bank, _, library_preset)| {
+                            format!("{bank}{:03}", library_preset.slot)
+                        })
+                        .collect::<Vec<_>>();
+                    let exact_match = !exact_locations.is_empty();
+                    let locations = if exact_match {
+                        exact_locations
+                    } else if is_unique_name_match(
+                        &preset.normalized,
+                        &pack_name_counts,
+                        &library_name_counts,
+                    ) {
+                        all_bank
+                            .iter()
+                            .filter(|(_, _, library_preset)| {
+                                library_preset.normalized == preset.normalized
+                            })
+                            .map(|(bank, _, library_preset)| {
+                                format!("{bank}{:03}", library_preset.slot)
+                            })
+                            .collect()
+                    } else {
+                        vec![]
+                    };
+                    PackPreset {
+                        name: preset.name.clone(),
+                        file_type: preset.file_type.clone(),
+                        tags: preset.tags.clone(),
+                        used: !locations.is_empty(),
+                        exact: exact_match,
+                        locations,
+                    }
+                })
+                .collect();
+            let cover_data_url = pack_cover_data_url(&packs_root.join(&name));
             Pack {
                 name,
+                cover_data_url,
                 total: presets.len(),
                 found: exact + name_only,
                 exact,
                 name_only,
                 tags,
                 matches,
+                presets: preset_rows,
             }
         })
         .collect::<Vec<_>>();
@@ -1275,6 +1471,30 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
 #[cfg(test)]
 mod rpc_tests {
     use super::*;
+
+    #[test]
+    fn built_in_factory_index_is_available() {
+        let presets = factory_presets();
+        assert_eq!(presets.len(), 427);
+        assert!(presets.iter().all(|preset| !preset.name.is_empty()));
+        assert!(presets.iter().all(|preset| preset.fingerprint.is_some()));
+    }
+
+    #[test]
+    fn repeated_names_are_not_treated_as_matches() {
+        let pack_counts = HashMap::from([("va bass".to_string(), 19), ("unique".to_string(), 1)]);
+        let library_counts = HashMap::from([("va bass".to_string(), 8), ("unique".to_string(), 1)]);
+        assert!(!is_unique_name_match(
+            "va bass",
+            &pack_counts,
+            &library_counts
+        ));
+        assert!(is_unique_name_match(
+            "unique",
+            &pack_counts,
+            &library_counts
+        ));
+    }
 
     #[test]
     fn data_list_request_matches_transfer_capture() {
