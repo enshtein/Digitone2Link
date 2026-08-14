@@ -21,8 +21,19 @@
   .surface { @apply rounded-xl border border-white/[.07] bg-[#10141a]/90 shadow-2xl shadow-black/10; }
   .primary-button { @apply inline-flex items-center gap-2 rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-[#07110d] transition hover:bg-emerald-300; }
   .secondary-button { @apply inline-flex items-center gap-2 rounded-lg border border-white/[.08] bg-white/[.03] px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/[.07] hover:text-white; }
-  .bank-tab { @apply h-9 min-w-10 rounded-lg border border-transparent px-3 text-sm font-semibold text-slate-600 transition hover:bg-white/[.04] hover:text-slate-300; }
-  .bank-tab-active { @apply border-emerald-400/30 bg-emerald-400/10 text-emerald-300; }
+  .bank-tab { @apply relative h-8 min-w-10 overflow-hidden rounded-md border border-white/[.07] bg-white/[.025] px-3 text-xs font-semibold text-slate-500 transition hover:border-white/[.13] hover:text-slate-300; }
+  .bank-tab-active { @apply border-emerald-400/40 text-emerald-200 shadow-sm shadow-emerald-950/40; }
+  .bank-tab-label { @apply relative z-[1]; }
+  .bank-tab-fill { @apply absolute inset-y-0 left-0 bg-emerald-400/[.11] transition-[width] duration-300; }
+  .bank-tab-fill-full { @apply bg-emerald-400/[.18]; }
+  .duplicates-tab { @apply inline-flex h-8 items-center gap-1.5 rounded-md border border-white/[.07] bg-white/[.025] px-2.5 text-[11px] font-semibold text-slate-500 transition hover:border-amber-400/25 hover:text-slate-300 disabled:cursor-default disabled:opacity-30; }
+  .duplicates-tab strong { @apply rounded bg-black/25 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300/70; }
+  .duplicates-tab-active { @apply border-amber-400/35 bg-amber-400/[.09] text-amber-200; }
+  .bank-sync-button { @apply inline-flex items-center gap-1.5 rounded-md border border-emerald-400/20 bg-emerald-400/[.07] px-2.5 py-1.5 font-medium text-emerald-300 transition hover:border-emerald-400/35 hover:bg-emerald-400/[.12] hover:text-emerald-200; }
+  .sync-pause-button { @apply inline-flex h-5 items-center gap-1 rounded border border-amber-400/25 bg-amber-400/[.08] px-1.5 text-[9px] font-semibold leading-none tracking-wide text-amber-300 transition hover:border-amber-400/40 hover:bg-amber-400/[.14] hover:text-amber-200; }
+  .sync-resume-button { @apply border-emerald-400/25 bg-emerald-400/[.08] text-emerald-300 hover:border-emerald-400/40 hover:bg-emerald-400/[.14] hover:text-emerald-200; }
+  .status-message { @apply flex items-center overflow-x-auto whitespace-nowrap px-6 text-xs text-slate-500; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.12) transparent; }
+  .status-message span { @apply block min-w-max; }
   .header-search-button { @apply inline-flex rounded p-0.5 text-slate-600 transition hover:bg-white/[.06] hover:text-slate-300; }
   .header-search-popover { @apply mt-2 flex w-72 items-center gap-2 rounded-lg border border-white/[.1] bg-[#171c23] px-3 py-2.5 normal-case tracking-normal shadow-lg shadow-black/30; }
   .header-search-popover input { @apply min-w-0 flex-1 bg-transparent text-sm font-normal text-slate-200 outline-none placeholder:text-slate-600; }
@@ -57,14 +68,14 @@
   .pack-list-table th:nth-child(2) { width: 14%; }
   .pack-list-table th:nth-child(3) { width: 18%; }
   .pack-list-table td { @apply py-3; }
-  .pack-presets-table th:nth-child(1) { width: 32%; }
-  .pack-presets-table th:nth-child(2) { width: 14%; }
-  .pack-presets-table th:nth-child(3) { width: 18%; }
-  .pack-presets-table th:nth-child(4) { width: 36%; }
+  .pack-presets-table th:nth-child(1) { width: 50%; }
+  .pack-presets-table th:nth-child(2) { width: 16%; }
+  .pack-presets-table th:nth-child(3) { width: 34%; }
   .pack-presets-table td { @apply py-2.5; }
   .pack-presets-table .preset-tags { @apply gap-0.5; }
   .pack-presets-table .preset-tag { @apply px-1.5 py-0.5 text-[9px] tracking-[.02em]; }
-  .preset-type { @apply text-xs text-slate-600; }
+  .pack-preset-name { @apply flex min-w-0 items-baseline gap-1.5 text-[12px] font-medium text-slate-100; }
+  .preset-type { @apply inline align-baseline text-[9px] font-normal lowercase text-slate-700; }
   .tag-cloud { @apply relative mx-auto flex min-h-[650px] max-w-5xl flex-col items-center justify-center gap-1 border border-emerald-400/10 px-16 py-14 shadow-2xl shadow-black/20; border-radius: 50%; background: radial-gradient(circle at 45% 42%, rgba(52, 211, 153, .08), rgba(16, 20, 26, .94) 52%, rgba(10, 13, 17, .98) 76%); }
   .tag-cloud::before { content: ""; @apply pointer-events-none absolute inset-[8%] rounded-full border border-white/[.035]; }
   .tag-cloud-row { @apply relative z-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-1; }

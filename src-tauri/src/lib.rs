@@ -7,7 +7,10 @@ use std::{
     fs,
     io::{Read, Write},
     path::{Path, PathBuf},
-    sync::{mpsc, Mutex},
+    sync::{
+        atomic::{AtomicBool, Ordering},
+        mpsc, Arc, Mutex,
+    },
     time::Duration,
     time::{SystemTime, UNIX_EPOCH},
 };
@@ -20,6 +23,13 @@ const FACTORY_INDEX: &str = include_str!("../resources/factory-index.json");
 #[derive(Default)]
 struct MidiState {
     connection: Mutex<Option<MidiInputConnection<()>>>,
+    sync_paused: Arc<AtomicBool>,
+}
+
+fn wait_while_sync_paused(paused: &AtomicBool) {
+    while paused.load(Ordering::Relaxed) {
+        std::thread::sleep(Duration::from_millis(50));
+    }
 }
 
 #[derive(Serialize)]
@@ -78,6 +88,14 @@ struct SyncResult {
     saved: usize,
 }
 
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SendPresetResult {
+    preset_name: String,
+    parameters_sent: usize,
+    midi_channel: u8,
+}
+
 #[derive(Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct SysExReceipt {
@@ -100,8 +118,10 @@ struct Parsed {
     file_type: String,
     normalized: String,
     fingerprint: Option<String>,
+    duplicate_fingerprint: Option<String>,
     tags: Vec<String>,
     error: Option<String>,
+    source_path: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -124,8 +144,10 @@ fn factory_presets() -> Vec<Parsed> {
             file_type: "DN2PST".into(),
             normalized: preset.normalized,
             fingerprint: Some(preset.fingerprint),
+            duplicate_fingerprint: None,
             tags: preset.tags,
             error: None,
+            source_path: None,
         })
         .collect()
 }
@@ -136,6 +158,36 @@ fn is_unique_name_match(
     library_counts: &HashMap<String, usize>,
 ) -> bool {
     pack_counts.get(normalized) == Some(&1) && library_counts.get(normalized) == Some(&1)
+}
+
+fn duplicate_fingerprint(payload: &[u8], file_type: &str, preset_name: &str) -> String {
+    let schema = payload
+        .get(9..13)
+        .and_then(|value| std::str::from_utf8(value).ok())
+        .unwrap_or("unknown");
+    let mut normalized = if file_type == "DNSND" {
+        decode_dnsnd_parameter_payload(payload, schema).unwrap_or_else(|_| payload.to_vec())
+    } else if matches!(schema, "0028" | "0048" | "0049") {
+        decode_lz4_preset_payload(payload, schema).unwrap_or_else(|_| payload.to_vec())
+    } else {
+        payload.to_vec()
+    };
+
+    // Preset names are metadata, not sound parameters. Remove every embedded
+    // copy before hashing so renamed, otherwise identical presets still group.
+    let name = preset_name.as_bytes();
+    if !name.is_empty() {
+        let mut offset = 0;
+        while let Some(position) = normalized[offset..]
+            .windows(name.len())
+            .position(|window| window == name)
+        {
+            let start = offset + position;
+            normalized[start..start + name.len()].fill(0);
+            offset = start + name.len();
+        }
+    }
+    format!("{:x}", Sha256::digest(normalized))
 }
 
 #[derive(Clone, Serialize)]
@@ -166,6 +218,7 @@ struct PackPreset {
     used: bool,
     exact: bool,
     locations: Vec<String>,
+    source_path: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -507,6 +560,472 @@ fn write_local_preset(
     Ok(path)
 }
 
+fn read_preset_payload(path: &Path) -> Result<Vec<u8>, String> {
+    let file = fs::File::open(path).map_err(|error| error.to_string())?;
+    let mut archive = zip::ZipArchive::new(file).map_err(|error| error.to_string())?;
+    let payload_name = {
+        let mut manifest_entry = archive
+            .by_name("manifest.json")
+            .map_err(|error| format!("Could not read manifest.json: {error}"))?;
+        let mut manifest_body = String::new();
+        manifest_entry
+            .read_to_string(&mut manifest_body)
+            .map_err(|error| format!("Could not read manifest.json: {error}"))?;
+        let manifest: serde_json::Value = serde_json::from_str(&manifest_body)
+            .map_err(|error| format!("Invalid manifest.json: {error}"))?;
+        manifest
+            .get("Payload")
+            .and_then(|value| value.as_str())
+            .ok_or_else(|| "manifest.json has no Payload".to_string())?
+            .to_string()
+    };
+    let mut payload = Vec::new();
+    archive
+        .by_name(&payload_name)
+        .map_err(|error| format!("Could not read {payload_name}: {error}"))?
+        .read_to_end(&mut payload)
+        .map_err(|error| error.to_string())?;
+    Ok(payload)
+}
+
+fn decode_lz4_preset_payload(payload: &[u8], schema: &str) -> Result<Vec<u8>, String> {
+    let marker = payload
+        .windows(4)
+        .position(|window| window == [0xbe, 0xef, 0xba, 0xce])
+        .ok_or_else(|| format!("Schema {schema} payload has no data marker"))?;
+    let mut input = marker + 6;
+    if input >= payload.len() {
+        return Err(format!("Schema {schema} payload has no compressed data"));
+    }
+
+    // The LZ4 block expands into the schema-0050 byte layout starting at offset 45.
+    // Header bytes are not MIDI parameters; zeroes provide the initial LZ4 dictionary.
+    let mut output = vec![0; 45];
+    loop {
+        let Some(&token) = payload.get(input) else {
+            break;
+        };
+        input += 1;
+        let mut literal_length = (token >> 4) as usize;
+        if literal_length == 15 {
+            loop {
+                let extension = *payload
+                    .get(input)
+                    .ok_or_else(|| "Truncated LZ4 literal length".to_string())?
+                    as usize;
+                input += 1;
+                literal_length += extension;
+                if extension != 255 {
+                    break;
+                }
+            }
+        }
+        let literals = payload
+            .get(input..input + literal_length)
+            .ok_or_else(|| "Truncated LZ4 literals".to_string())?;
+        output.extend_from_slice(literals);
+        input += literal_length;
+        let Some(offset_bytes) = payload.get(input..input + 2) else {
+            break;
+        };
+        let offset = u16::from_le_bytes([offset_bytes[0], offset_bytes[1]]) as usize;
+        if offset == 0 {
+            break;
+        }
+        if offset > output.len() {
+            return Err(format!(
+                "Invalid LZ4 match offset in schema {schema} preset"
+            ));
+        }
+        input += 2;
+        let mut match_length = (token & 0x0f) as usize + 4;
+        if token & 0x0f == 15 {
+            loop {
+                let extension = *payload
+                    .get(input)
+                    .ok_or_else(|| "Truncated LZ4 match length".to_string())?
+                    as usize;
+                input += 1;
+                match_length += extension;
+                if extension != 255 {
+                    break;
+                }
+            }
+        }
+        for _ in 0..match_length {
+            output.push(output[output.len() - offset]);
+        }
+    }
+    if output.len() < 256 {
+        return Err(format!(
+            "Decoded schema {schema} payload is too short ({} bytes)",
+            output.len()
+        ));
+    }
+    Ok(output)
+}
+
+fn decode_dnsnd_parameter_payload(payload: &[u8], schema: &str) -> Result<Vec<u8>, String> {
+    let marker = payload
+        .windows(4)
+        .position(|window| window == [0xbe, 0xef, 0xba, 0xce])
+        .ok_or_else(|| format!("Schema {schema} payload has no data marker"))?;
+    const DICTIONARY_LENGTH: usize = 45;
+    let decode_from = |start: usize| -> Result<Vec<u8>, String> {
+        let mut input = start;
+        let mut output = vec![0; DICTIONARY_LENGTH];
+        // Elektron's raw LZ4 stream refers back to a fixed prefix dictionary.
+        // Byte 26 is FM Tone's default RATIO A (5.00). This is not equivalent
+        // to an explicitly stored zero: both forms occur in real MK1 sounds.
+        output[26] = 5;
+        while input < payload.len() {
+            let token = payload[input];
+            input += 1;
+            let mut literal_length = (token >> 4) as usize;
+            if literal_length == 15 {
+                loop {
+                    let extension = *payload
+                        .get(input)
+                        .ok_or_else(|| "Truncated .dnsnd LZ4 literal length".to_string())?
+                        as usize;
+                    input += 1;
+                    literal_length += extension;
+                    if extension != 255 {
+                        break;
+                    }
+                }
+            }
+            let literals = payload
+                .get(input..input + literal_length)
+                .ok_or_else(|| "Truncated .dnsnd LZ4 literals".to_string())?;
+            output.extend_from_slice(literals);
+            input += literal_length;
+            let Some(offset_bytes) = payload.get(input..input + 2) else {
+                break;
+            };
+            let offset = u16::from_le_bytes([offset_bytes[0], offset_bytes[1]]) as usize;
+            if offset == 0 {
+                break;
+            }
+            if offset > output.len() {
+                return Err(format!("Invalid LZ4 match offset in schema {schema} sound"));
+            }
+            input += 2;
+            let mut match_length = (token & 0x0f) as usize + 4;
+            if token & 0x0f == 15 {
+                loop {
+                    let extension = *payload
+                        .get(input)
+                        .ok_or_else(|| "Truncated .dnsnd LZ4 match length".to_string())?
+                        as usize;
+                    input += 1;
+                    match_length += extension;
+                    if extension != 255 {
+                        break;
+                    }
+                }
+            }
+            for _ in 0..match_length {
+                output.push(output[output.len() - offset]);
+            }
+        }
+        output.drain(..DICTIONARY_LENGTH);
+        Ok(output)
+    };
+
+    // The encoder may keep an arbitrary portion of the object header literal
+    // before starting its raw LZ4 block. Locate the block from the binary
+    // structure itself; names, folders and sound-pack conventions are irrelevant.
+    for start in marker + 4..payload.len() {
+        if let Ok(output) = decode_from(start) {
+            if output.len() == 276 {
+                return Ok(output);
+            }
+        }
+    }
+    Err(format!(
+        "Schema {schema} sound parameter block could not be decoded"
+    ))
+}
+
+// Frozen SEND preview feature stub. Keep the verified layout decoder here so
+// Machine analysis can be restored together with live preset preview later.
+#[allow(dead_code)]
+fn preset_machine(payload: &[u8]) -> Option<String> {
+    let schema = payload
+        .get(9..13)
+        .and_then(|value| std::str::from_utf8(value).ok())?;
+    let decoded;
+    let payload = if matches!(schema, "0028" | "0048" | "0049") {
+        decoded = decode_lz4_preset_payload(payload, schema).ok()?;
+        decoded.as_slice()
+    } else if schema == "0050" {
+        payload
+    } else {
+        return None;
+    };
+    // Machine is stored as an enum in the normalized Digitone II preset layout.
+    // Values were cross-checked against independent presets for every machine.
+    let machine = match *payload.get(280)? {
+        0 => "FM TONE",
+        1 => "WAVETONE",
+        2 => "FM DRUM",
+        3 => "SWARMER",
+        _ => return None,
+    };
+    Some(machine.into())
+}
+
+fn send_nrpn(
+    connection: &mut midir::MidiOutputConnection,
+    channel: u8,
+    parameter_msb: u8,
+    parameter_lsb: u8,
+    value_msb: u8,
+    value_lsb: u8,
+) -> Result<(), String> {
+    let status = 0xb0 | (channel - 1);
+    for message in [
+        [status, 99, parameter_msb],
+        [status, 98, parameter_lsb],
+        [status, 6, value_msb & 0x7f],
+        // Preset/SysEx layouts keep an 8-bit fractional byte, while MIDI Data
+        // Entry LSB carries seven bits. Digitone expands it back by one bit.
+        [status, 38, value_lsb >> 1],
+    ] {
+        connection
+            .send(&message)
+            .map_err(|error| error.to_string())?;
+        // USB MIDI can batch adjacent packets. Give Digitone II time to process
+        // each CC that forms the NRPN address and 14-bit value.
+        std::thread::sleep(Duration::from_millis(2));
+    }
+    Ok(())
+}
+
+// Frozen SEND preview feature stub. It is intentionally not exposed through
+// Tauri while Digitone II cannot select synth/filter machines over MIDI.
+#[allow(dead_code)]
+fn send_preset_parameters(
+    output_index: usize,
+    preset_path: String,
+    midi_channel: u8,
+) -> Result<SendPresetResult, String> {
+    if !(1..=16).contains(&midi_channel) {
+        return Err("MIDI channel must be between 1 and 16".into());
+    }
+    let path = PathBuf::from(preset_path);
+    if !path.is_file()
+        || !path
+            .extension()
+            .and_then(|value| value.to_str())
+            .is_some_and(|value| {
+                value.eq_ignore_ascii_case("dn2pst") || value.eq_ignore_ascii_case("dnsnd")
+            })
+    {
+        return Err("Sound-pack preset file is no longer available".into());
+    }
+    let payload = read_preset_payload(&path)?;
+    if payload.len() < 13 {
+        return Err(format!(
+            "Unsupported preset payload ({} bytes)",
+            payload.len()
+        ));
+    }
+    let schema = payload
+        .get(9..13)
+        .and_then(|value| std::str::from_utf8(value).ok())
+        .unwrap_or("unknown");
+    let is_dnsnd = path
+        .extension()
+        .and_then(|value| value.to_str())
+        .is_some_and(|value| value.eq_ignore_ascii_case("dnsnd"));
+    let mut decoded_payload;
+    let payload = if is_dnsnd {
+        decoded_payload = decode_dnsnd_parameter_payload(&payload, schema)?;
+        // MK1 fade values use a different zero point from Digitone II.
+        decoded_payload[16] = decoded_payload[16].saturating_add(8);
+        decoded_payload[18] = decoded_payload[18].saturating_add(8);
+        decoded_payload[94] = decoded_payload[94].saturating_sub(64);
+        decoded_payload[96] = decoded_payload[96].saturating_sub(64);
+        decoded_payload[98] = decoded_payload[98].saturating_sub(64);
+        // Digitone II normalizes the legacy FM ratio table when importing an
+        // MK1 sound. In that table the old 3.00 step becomes 3.50.
+        if decoded_payload[40] == 3 && decoded_payload[41] == 0 {
+            decoded_payload[41] = 0x80;
+        }
+        // MK1: 127=OFF, 0..3=ALL/C/A+B/A+B2. Digitone II's enum is
+        // one-based: 1=OFF followed by those four reset modes.
+        decoded_payload[84] = if decoded_payload[84] == 127 {
+            1
+        } else {
+            decoded_payload[84].saturating_add(2)
+        };
+        &decoded_payload
+    } else if matches!(schema, "0028" | "0048" | "0049") {
+        decoded_payload = decode_lz4_preset_payload(&payload, schema)?;
+        &decoded_payload
+    } else {
+        &payload
+    };
+    if !is_dnsnd && (!matches!(schema, "0028" | "0048" | "0049" | "0050") || payload.len() < 256) {
+        return Err(format!(
+            "Preset schema {schema} is not decoded yet ({} bytes); SEND currently supports schemas 0028, 0048, 0049 and 0050",
+            payload.len()
+        ));
+    }
+
+    let mut parameters = Vec::<(u8, u8, usize)>::new();
+    if is_dnsnd {
+        // Legacy Digitone has two LFOs. Keep Digitone II's LFO 3 untouched.
+        // The legacy block is interleaved by LFO for the same C.8 MIDI order:
+        // speed, multiplier, fade, destination, waveform, start, trig, depth.
+        let legacy_lfo_offsets = [
+            [4, 8, 12, 16, 20, 24, 28, 32],
+            [6, 10, 14, 18, 22, 26, 30, 34],
+        ];
+        let legacy_lfo_nrpn = [
+            [42, 43, 44, 45, 46, 47, 48, 49],
+            [50, 51, 52, 53, 54, 55, 56, 57],
+        ];
+        for lfo in 0..2 {
+            parameters.extend(
+                legacy_lfo_nrpn[lfo]
+                    .into_iter()
+                    .zip(legacy_lfo_offsets[lfo])
+                    .map(|(parameter_lsb, offset)| (1, parameter_lsb, offset)),
+            );
+        }
+        // FM Tone page 1 is sequential. Values inherited from the .dnsnd LZ4
+        // prefix dictionary have already been restored by the decoder.
+        parameters.extend(
+            (0..8)
+                .into_iter()
+                .map(|index| (1, 73 + index, 36 + index as usize * 2)),
+        );
+        // Page 2: A ATK/DEC/END/LEV, then B ATK/DEC/END/LEV.
+        parameters.extend((0..8).map(|index| (1, 81 + index, 56 + index as usize * 2)));
+        // Page 3: A delay/trig/reset, phase reset, B delay/trig/reset. PHRT
+        // follows the legacy A/B flags in storage rather than MIDI page order.
+        parameters.extend(
+            [72, 74, 76, 84, 78, 80, 82]
+                .into_iter()
+                .enumerate()
+                .map(|(index, offset)| (1, 89 + index as u8, offset)),
+        );
+        // Page 4: four ratio offsets followed by three key tracking values.
+        parameters.extend((0..7).map(|index| (1, 97 + index, 86 + index as usize * 2)));
+        parameters.extend([
+            (1, 20, 104), // Filter frequency
+            (1, 21, 106), // Filter resonance
+            (1, 26, 108), // Filter envelope depth
+            (1, 16, 110), // Filter attack
+            (1, 17, 112), // Filter decay
+            (1, 18, 114), // Filter sustain
+            (1, 19, 116), // Filter release
+            (1, 23, 118), // Filter envelope delay
+            (1, 69, 251), // Filter key tracking (late sound-settings block)
+            (1, 25, 120), // Filter width
+            (1, 30, 122), // Amp attack
+            (1, 32, 124), // Amp decay
+            (1, 33, 126), // Amp sustain
+            (1, 34, 128), // Amp release
+            (1, 8, 130),  // Track overdrive
+            (1, 38, 132), // Amp pan
+            (1, 39, 134), // Amp volume
+        ]);
+    } else {
+        // Digitone II layouts store MIDI-page values as adjacent NRPN MSB/LSB pairs.
+        // LFO values are grouped by parameter across LFO 1/2/3 in the preset payload.
+        let lfo_nrpn = [
+            [42, 43, 44, 45, 46, 47, 48, 49],
+            [50, 51, 52, 53, 54, 55, 56, 57],
+            [58, 59, 60, 61, 62, 70, 71, 72],
+        ];
+        let lfo_offsets = [
+            [66, 74, 82, 90, 98, 106, 114, 122],
+            [68, 76, 84, 92, 100, 108, 116, 124],
+            [70, 78, 86, 94, 102, 110, 118, 126],
+        ];
+        for lfo in 0..3 {
+            parameters.extend(
+                lfo_nrpn[lfo]
+                    .into_iter()
+                    .zip(lfo_offsets[lfo])
+                    .map(|(parameter_lsb, offset)| (1, parameter_lsb, offset)),
+            );
+        }
+        parameters.extend((0..8).map(|index| (1, 73 + index, 130 + index as usize * 2)));
+        parameters.extend((0..8).map(|index| (1, 81 + index, 146 + index as usize * 2)));
+        parameters.extend((0..7).map(|index| (1, 89 + index, 162 + index as usize * 2)));
+        parameters.extend((0..7).map(|index| (1, 97 + index, 196 + index as usize * 2)));
+        parameters.extend([
+            (1, 20, 212), // Filter frequency
+            (1, 21, 214), // Machine-dependent filter knob F
+            (1, 22, 216), // Machine-dependent filter knob G
+            (1, 26, 218), // Filter envelope depth
+            (1, 16, 220), // Filter attack
+            (1, 17, 222), // Filter decay
+            (1, 18, 224), // Filter sustain
+            (1, 19, 226), // Filter release
+            (1, 23, 228), // Filter envelope delay
+            (1, 69, 230), // Filter key tracking
+            (1, 24, 232), // Filter base
+            (1, 25, 234), // Filter width
+            (1, 68, 236), // Filter envelope reset
+            (1, 30, 238), // Amp attack
+            (1, 31, 240), // Amp hold
+            (1, 32, 242), // Amp decay
+            (1, 33, 244), // Amp sustain
+            (1, 34, 246), // Amp release
+            (1, 35, 248), // Chorus send
+            (1, 36, 250), // Delay send
+            (1, 37, 252), // Reverb send
+            (1, 38, 254), // Amp pan
+            (1, 39, 256), // Amp volume
+            (1, 8, 272),  // Track overdrive
+        ]);
+    }
+    let output =
+        MidiOutput::new("Digitone2Link preset sender").map_err(|error| error.to_string())?;
+    let port = output
+        .ports()
+        .get(output_index)
+        .cloned()
+        .ok_or_else(|| "MIDI output is no longer available".to_string())?;
+    let mut connection = output
+        .connect(&port, "Digitone2Link preset sender")
+        .map_err(|error| error.to_string())?;
+    for &(parameter_msb, parameter_lsb, offset) in &parameters {
+        send_nrpn(
+            &mut connection,
+            midi_channel,
+            parameter_msb,
+            parameter_lsb,
+            payload[offset],
+            payload[offset + 1],
+        )?;
+        std::thread::sleep(Duration::from_millis(6));
+    }
+    connection
+        .send(&[0xb0 | (midi_channel - 1), 99, 127])
+        .map_err(|error| error.to_string())?;
+    connection
+        .send(&[0xb0 | (midi_channel - 1), 98, 127])
+        .map_err(|error| error.to_string())?;
+
+    let preset_name = path
+        .file_stem()
+        .and_then(|value| value.to_str())
+        .unwrap_or("Preset")
+        .to_string();
+    Ok(SendPresetResult {
+        preset_name,
+        parameters_sent: parameters.len(),
+        midi_channel,
+    })
+}
+
 fn unpack_rpc_response(message: &[u8]) -> Option<Vec<u8>> {
     if message.len() < 10
         || !(matches!(message[6], 0x24) || matches!(message[6] & 0x0f, 0x0c | 0x0d))
@@ -583,7 +1102,7 @@ fn read_device_catalog_blocking(
     input_index: usize,
     output_index: usize,
 ) -> Result<DeviceCatalog, String> {
-    read_device_catalog_with_progress(input_index, output_index, |_completed, _bank| {})
+    read_device_catalog_with_progress(input_index, output_index, |_completed, _bank| Ok(()))
 }
 
 fn read_device_catalog_with_progress<F>(
@@ -592,7 +1111,7 @@ fn read_device_catalog_with_progress<F>(
     mut progress: F,
 ) -> Result<DeviceCatalog, String>
 where
-    F: FnMut(usize, char),
+    F: FnMut(usize, char) -> Result<(), String>,
 {
     let mut input = MidiInput::new("Digitone2Link catalog reader").map_err(|e| e.to_string())?;
     input.ignore(Ignore::None);
@@ -632,7 +1151,7 @@ where
 
     let mut banks = Vec::new();
     for (index, bank) in BANKS.iter().enumerate() {
-        progress(index, *bank);
+        progress(index, *bank)?;
         let transaction = 0x20 + index as u8;
         let path = format!("/soundbanks/{bank}");
         connection
@@ -668,7 +1187,7 @@ where
             bank: bank.to_string(),
             presets,
         });
-        progress(index + 1, *bank);
+        progress(index + 1, *bank)?;
     }
     Ok(DeviceCatalog { device_name, banks })
 }
@@ -793,10 +1312,14 @@ fn sync_device_presets_blocking(
     input_index: usize,
     output_index: usize,
     library_path: String,
+    selected_bank: Option<char>,
+    paused: Arc<AtomicBool>,
 ) -> Result<SyncResult, String> {
     let progress_app = app.clone();
-    let catalog =
+    let catalog_paused = paused.clone();
+    let mut catalog =
         read_device_catalog_with_progress(input_index, output_index, move |completed, bank| {
+            wait_while_sync_paused(&catalog_paused);
             let _ = progress_app.emit(
                 "sync-progress",
                 SyncProgress {
@@ -808,7 +1331,13 @@ fn sync_device_presets_blocking(
                     stage: "Reading device catalog".into(),
                 },
             );
+            Ok(())
         })?;
+    if let Some(bank) = selected_bank {
+        catalog
+            .banks
+            .retain(|device_bank| device_bank.bank == bank.to_string());
+    }
     let total = catalog
         .banks
         .iter()
@@ -867,6 +1396,7 @@ fn sync_device_presets_blocking(
         }
         let mut completed = 0;
         for device_bank in &catalog.banks {
+            wait_while_sync_paused(&paused);
             let bank = device_bank.bank.chars().next().ok_or("Invalid bank name")?;
             let bank_path = format!("/soundbanks/{bank}");
             rpc_exchange(
@@ -879,6 +1409,7 @@ fn sync_device_presets_blocking(
             .map_err(|error| format!("Could not prepare bank {bank}: {error}"))?;
             transaction = transaction.wrapping_add(1) & 0x7f;
             for preset in &device_bank.presets {
+                wait_while_sync_paused(&paused);
                 let base = format!("/soundbanks/{bank}/{}", preset.slot);
                 let _ = app.emit(
                     "sync-progress",
@@ -903,6 +1434,7 @@ fn sync_device_presets_blocking(
                 )?;
                 let payload =
                     read_device_file(&mut output_connection, &receiver, &mut transaction, &base)?;
+                wait_while_sync_paused(&paused);
                 write_local_preset(
                     &staging,
                     bank,
@@ -926,7 +1458,11 @@ fn sync_device_presets_blocking(
                 stage: "Replacing local library".into(),
             },
         );
-        for bank in BANKS {
+        wait_while_sync_paused(&paused);
+        let banks_to_replace = selected_bank
+            .map(|bank| vec![bank])
+            .unwrap_or_else(|| BANKS.to_vec());
+        for bank in banks_to_replace {
             let target = root.join(bank.to_string());
             fs::create_dir_all(&target).map_err(|e| e.to_string())?;
             for entry in fs::read_dir(&target).map_err(|e| e.to_string())?.flatten() {
@@ -963,6 +1499,7 @@ async fn sync_device_presets(
     input_index: usize,
     output_index: usize,
     library_path: String,
+    bank: Option<String>,
 ) -> Result<SyncResult, String> {
     if state
         .connection
@@ -972,11 +1509,32 @@ async fn sync_device_presets(
     {
         return Err("Stop SysEx capture before synchronizing presets".into());
     }
+    let selected_bank = bank
+        .filter(|value| !value.eq_ignore_ascii_case("ALL"))
+        .and_then(|value| value.chars().next())
+        .map(|value| value.to_ascii_uppercase());
+    if selected_bank.is_some_and(|bank| !BANKS.contains(&bank)) {
+        return Err("Invalid bank".into());
+    }
+    state.sync_paused.store(false, Ordering::Relaxed);
+    let paused = state.sync_paused.clone();
     tauri::async_runtime::spawn_blocking(move || {
-        sync_device_presets_blocking(app, input_index, output_index, library_path)
+        sync_device_presets_blocking(
+            app,
+            input_index,
+            output_index,
+            library_path,
+            selected_bank,
+            paused,
+        )
     })
     .await
     .map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+fn set_preset_sync_paused(state: State<'_, MidiState>, paused: bool) {
+    state.sync_paused.store(paused, Ordering::Relaxed);
 }
 
 #[tauri::command]
@@ -1101,7 +1659,7 @@ fn parse_preset(path: &Path) -> Parsed {
         })
         .collect::<Vec<_>>()
         .join(" ");
-    let result = (|| -> Result<(String, Vec<String>), String> {
+    let result = (|| -> Result<(String, String, Vec<String>), String> {
         let file = fs::File::open(path).map_err(|e| e.to_string())?;
         let mut zip = zip::ZipArchive::new(file).map_err(|e| e.to_string())?;
         let manifest: serde_json::Value = {
@@ -1137,17 +1695,26 @@ fn parse_preset(path: &Path) -> Parsed {
                     .collect()
             })
             .unwrap_or_default();
-        Ok((format!("{:x}", Sha256::digest(bytes)), tags))
+        // Machine analysis is frozen with the SEND preview feature. Avoid
+        // decoding it during ordinary sound-pack scans.
+        let content_fingerprint = duplicate_fingerprint(&bytes, &file_type, payload);
+        Ok((
+            format!("{:x}", Sha256::digest(bytes)),
+            content_fingerprint,
+            tags,
+        ))
     })();
     match result {
-        Ok((fingerprint, tags)) => Parsed {
+        Ok((fingerprint, duplicate_fingerprint, tags)) => Parsed {
             slot,
             name,
             file_type,
             normalized,
             fingerprint: Some(fingerprint),
+            duplicate_fingerprint: Some(duplicate_fingerprint),
             tags,
             error: None,
+            source_path: Some(path.to_string_lossy().into_owned()),
         },
         Err(error) => Parsed {
             slot,
@@ -1155,8 +1722,10 @@ fn parse_preset(path: &Path) -> Parsed {
             file_type,
             normalized,
             fingerprint: None,
+            duplicate_fingerprint: None,
             tags: vec![],
             error: Some(error),
+            source_path: Some(path.to_string_lossy().into_owned()),
         },
     }
 }
@@ -1283,7 +1852,7 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
     let mut duplicate_map: HashMap<String, Vec<String>> = HashMap::new();
     for (bank, rows) in &parsed_banks {
         for p in rows {
-            if let Some(h) = &p.fingerprint {
+            if let Some(h) = &p.duplicate_fingerprint {
                 duplicate_map
                     .entry(h.clone())
                     .or_default()
@@ -1320,7 +1889,7 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
                 name_only_packs.sort();
                 let location = format!("{bank}{:03}", p.slot);
                 let duplicate_locations = p
-                    .fingerprint
+                    .duplicate_fingerprint
                     .as_ref()
                     .and_then(|h| duplicate_map.get(h))
                     .cloned()
@@ -1443,6 +2012,7 @@ fn scan_library(banks_path: String, packs_path: String) -> Result<ScanResult, St
                         used: !locations.is_empty(),
                         exact: exact_match,
                         locations,
+                        source_path: preset.source_path.clone(),
                     }
                 })
                 .collect();
@@ -1552,6 +2122,9 @@ pub fn run() {
             read_device_catalog,
             download_device_preset,
             sync_device_presets,
+            set_preset_sync_paused,
+            // SEND preview is frozen until synth/filter Machine selection can
+            // be reproduced safely on Digitone II.
             scan_library
         ])
         .run(tauri::generate_context!())

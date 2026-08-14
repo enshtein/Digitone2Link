@@ -13,22 +13,22 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/enshtein/Digitone2Link/releases/tag/v0.1.3"><strong>Release v0.1.3</strong></a>
+  <a href="https://github.com/enshtein/Digitone2Link/releases/tag/v0.1.4"><strong>Release v0.1.4</strong></a>
   ·
   <a href="https://github.com/enshtein/Digitone2Link/issues">Report an issue</a>
 </p>
 
-## Download Digitone2Link v0.1.3
+## Download Digitone2Link v0.1.4
 
 | Operating system | Direct download |
 | --- | --- |
-| **macOS** — Apple Silicon & Intel | [Download Universal DMG](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.3/Digitone2Link_0.1.3_universal.dmg) |
-| **Windows** — 64-bit | [Download MSI Installer](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.3/Digitone2Link_0.1.3_x64_en-US.msi) |
-| **Linux** — universal | [Download AppImage](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.3/Digitone2Link_0.1.3_amd64.AppImage) |
-| **Linux** — Debian / Ubuntu | [Download DEB Package](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.3/Digitone2Link_0.1.3_amd64.deb) |
-| **Linux** — Fedora / RHEL | [Download RPM Package](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.3/Digitone2Link-0.1.3-1.x86_64.rpm) |
+| **macOS** — Apple Silicon & Intel | [Download Universal DMG](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.4/Digitone2Link_0.1.4_universal.dmg) |
+| **Windows** — 64-bit | [Download MSI Installer](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.4/Digitone2Link_0.1.4_x64_en-US.msi) |
+| **Linux** — universal | [Download AppImage](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.4/Digitone2Link_0.1.4_amd64.AppImage) |
+| **Linux** — Debian / Ubuntu | [Download DEB Package](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.4/Digitone2Link_0.1.4_amd64.deb) |
+| **Linux** — Fedora / RHEL | [Download RPM Package](https://github.com/enshtein/Digitone2Link/releases/download/v0.1.4/Digitone2Link-0.1.4-1.x86_64.rpm) |
 
-Other files and release notes are available on the [v0.1.3 release page](https://github.com/enshtein/Digitone2Link/releases/tag/v0.1.3).
+Other files and release notes are available on the [v0.1.4 release page](https://github.com/enshtein/Digitone2Link/releases/tag/v0.1.4).
 
 ![Sound Pack explorer](docs/screenshots/sound-packs.png)
 
